@@ -17,6 +17,17 @@ OctoMation 的特点包括:
 
 OctoMationApps 提供了一系列为 OctoMation 建立的自动化应用程序和脚本。这些应用程序可以直接导入 OctoMation 中,实现各种自动化任务。
 
+## 如何使用
+### 源码包
+1. git clone https://github.com/flagify-com/OctoMationApp.git
+2. zip压缩应用
+3. 把zip包上传到OctoMation
+
+### Releases
+1. 下载应用包
+2. 如果批量下载则需要进行解压
+3. 把zip包上传到OctoMation
+
 ## 贡献
 
 欢迎为 OctoMation 贡献新的应用!请开 Pull Request 将你的应用加入到对应的文件夹中。
