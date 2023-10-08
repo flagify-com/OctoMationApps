@@ -1,0 +1,826 @@
+{
+    "name": "wzTools",
+    "description": "工具箱",
+    "app_version": "1.0.0",
+    "jar": "py_tools.py",
+    "readme": "resources/readme.md",
+    "logo": "resources/fif.PNG",
+    "category": "工具",
+    "product_name": "工具",
+    "app_supplier": "wuzhi",
+    "logic_language": "PYTHON",
+    "min_shakespeare_version": "1.0",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {
+    },
+    "actions": [
+        {
+            "action": "ip_in_range",
+            "class_name": "ip_in_range",
+            "description": "判断IP地址是否在某个段内",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/ip_in_range.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "ip": {
+                    "data_type": "string",
+                    "description": "要判断的IP地址，Demo: 192.168.1.123",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "start": {
+                    "data_type": "string",
+                    "description": "起始IP地址， Demo: 192.168.1.1",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                },
+                "end": {
+                    "data_type": "string",
+                    "description": "结束IP地址， Demo: 192.168.1.254",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 2
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.is_range",
+                    "data_type": "boolean",
+                    "description": "如果在段内则返回真，否则返回假"
+                }
+            ]
+        },
+        {
+            "action": "str_similar",
+            "class_name": "str_similar",
+            "description": "计算两个字符串的相似度",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/str_similar.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "one": {
+                    "data_type": "string",
+                    "description": "字符串1",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "two": {
+                    "data_type": "string",
+                    "description": "字符串2",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.ratio",
+                    "data_type": "double",
+                    "description": "相似度"
+                }
+            ]
+        },
+        {
+            "action": "date_comp",
+            "class_name": "date_comp",
+            "description": "两个时间戳返回比较，如果时间1比时间2大，则返回1，小则返回-1，相等返回0",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/date_comp.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "one": {
+                    "data_type": "long",
+                    "description": "时间1",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "two": {
+                    "data_type": "long",
+                    "description": "时间2",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.result",
+                    "data_type": "integer",
+                    "description": "如果时间1比时间2大，则返回1，小则返回-1，相等返回0"
+                }
+            ]
+        },
+        {
+            "action": "add",
+            "class_name": "add",
+            "description": "两个数相加",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/add.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "one": {
+                    "data_type": "integer",
+                    "description": "数字1",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "two": {
+                    "data_type": "integer",
+                    "description": "数字2",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.result",
+                    "data_type": "integer",
+                    "description": "相加后的结果"
+                }
+            ]
+        },
+        {
+            "action": "subtract",
+            "class_name": "subtract",
+            "description": "两个数相减",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/subtract.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "one": {
+                    "data_type": "integer",
+                    "description": "数字1",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "two": {
+                    "data_type": "integer",
+                    "description": "数字2",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.result",
+                    "data_type": "integer",
+                    "description": "相减后的结果"
+                }
+            ]
+        },
+        {
+            "action": "multiply",
+            "class_name": "multiply",
+            "description": "两个数相乘",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/multiply.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "one": {
+                    "data_type": "integer",
+                    "description": "数字1",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "two": {
+                    "data_type": "integer",
+                    "description": "数字2",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.result",
+                    "data_type": "long",
+                    "description": "相乘后的结果"
+                }
+            ]
+        },
+        {
+            "action": "divide",
+            "class_name": "divide",
+            "description": "两个数相除",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/divide.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "one": {
+                    "data_type": "integer",
+                    "description": "数字1",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "two": {
+                    "data_type": "integer",
+                    "description": "数字2",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.result",
+                    "data_type": "double",
+                    "description": "相除后的结果"
+                }
+            ]
+        },
+        {
+            "action": "input_output",
+            "class_name": "input_output",
+            "description": "格式化各种输出",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/input_output.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "srt_data": {
+                    "data_type": "string",
+                    "description": "需要格式化输出的字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "out_type": {
+                    "data_type": "string",
+                    "description": "格式化类型",
+                    "default_value": "",
+                    "options": [
+                        {
+                            "str":"str"
+                        },
+                        {
+                            "int": "int"
+                        },
+                        {
+                            "float": "float"
+                        }
+                    ],
+                    "required": true,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.str",
+                    "data_type": "string",
+                    "description": "返回的字符串"
+                },
+                {
+                    "data_path": "action_result.data.int",
+                    "data_type": "integer",
+                    "description": "返回的整型"
+                },
+                {
+                    "data_path": "action_result.data.float",
+                    "data_type": "double",
+                    "description": "返回的浮点型"
+                }
+            ]
+        },
+        {
+            "action": "int_to_str",
+            "class_name": "int_to_str",
+            "description": "整型转字符串",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/int_to_str.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "int_data": {
+                    "data_type": "integer",
+                    "description": "整型数据",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.str",
+                    "data_type": "string",
+                    "description": "转换后的字符串"
+                }
+            ]
+        },
+        {
+            "action": "float_to_str",
+            "class_name": "float_to_str",
+            "description": "浮点型转字符串",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/float_to_str.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "float_data": {
+                    "data_type": "double",
+                    "description": "浮点型数据",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.str",
+                    "data_type": "string",
+                    "description": "转换后的字符串"
+                }
+            ]
+        },
+        {
+            "action": "search",
+            "class_name": "search",
+            "description": "字符串搜索",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/search.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str_data": {
+                    "data_type": "string",
+                    "description": "完整字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "sub": {
+                    "data_type": "string",
+                    "description": "要搜索的字符",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.is_find",
+                    "data_type": "boolean",
+                    "description": "是否搜索到"
+                }
+            ]
+        },
+        {
+            "action": "regex_match",
+            "class_name": "regex_match",
+            "description": "字符串正则匹配",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str_data": {
+                    "data_type": "string",
+                    "description": "完整字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "pattern": {
+                    "data_type": "string",
+                    "description": "正则表达式",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.findall.*",
+                    "data_type": "string",
+                    "description": "匹配到的字符串列表"
+                }
+            ]
+        },
+        {
+            "action": "md5",
+            "class_name": "md5",
+            "description": "计算字符串的MD5",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/md5.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str_data": {
+                    "data_type": "string",
+                    "description": "完整字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.md5",
+                    "data_type": "string",
+                    "description": "md5值"
+                }
+            ]
+        },
+        {
+            "action": "base64_encode",
+            "class_name": "base64_encode",
+            "description": "b64编码",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/base64_encode.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str_data": {
+                    "data_type": "string",
+                    "description": "完整字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.b64",
+                    "data_type": "string",
+                    "description": "编码后的字符串"
+                }
+            ]
+        },
+        {
+            "action": "base64_decode",
+            "class_name": "base64_decode",
+            "description": "b64解码",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/base64_decode.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "b64_data": {
+                    "data_type": "string",
+                    "description": "b64字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.str",
+                    "data_type": "string",
+                    "description": "解码后的字符串"
+                }
+            ]
+        },
+        {
+            "action": "split",
+            "class_name": "split",
+            "description": "根据切割符对字符串进行切割",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str_data": {
+                    "data_type": "string",
+                    "description": "完整的字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "sep": {
+                    "data_type": "string",
+                    "description": "切割符",
+                    "default_value": ",",
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.str_list.*",
+                    "data_type": "string",
+                    "description": "切割后的字符串列表"
+                }
+            ]
+        },
+        {
+            "action": "join",
+            "class_name": "join",
+            "description": "把字符串1和字符串2进行拼接",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/join.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "one": {
+                    "data_type": "string",
+                    "description": "字符串1",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "two": {
+                    "data_type": "string",
+                    "description": "字符串2",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.str_data",
+                    "data_type": "string",
+                    "description": "拼接后的字符串数据"
+                }
+            ]
+        },
+        {
+            "action": "read_file",
+            "class_name": "read_file",
+            "description": "读取上传后的文件",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/read_file.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "filename": {
+                    "data_type": "outside_file",
+                    "description": "上传文件",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.str_data",
+                    "data_type": "string",
+                    "description": "文件内容"
+                }
+            ]
+        },
+        {
+            "action": "replace",
+            "class_name": "replace",
+            "description": "字符串替换",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/replace.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str_data": {
+                    "data_type": "string",
+                    "description": "完整的字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "old_str": {
+                    "data_type": "string",
+                    "description": "要替换的字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                },
+                "new_str": {
+                    "data_type": "string",
+                    "description": "替换的字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 2
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.str_data",
+                    "data_type": "string",
+                    "description": "替换后的完整字符串"
+                }
+            ]
+        },
+        {
+            "action": "date_to_timestamp",
+            "class_name": "date_to_timestamp",
+            "description": "时间字符串转换时间戳",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/date_to_timestamp.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "date": {
+                    "data_type": "string",
+                    "description": "时间字符串 Demo: 2023-10-01",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.timestamp",
+                    "data_type": "long",
+                    "description": "转换后的时间戳"
+                }
+            ]
+        },
+        {
+            "action": "timestamp_to_date",
+            "class_name": "timestamp_to_date",
+            "description": "时间戳转时间字符串",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/timestamp_to_date.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "timestamp": {
+                    "data_type": "long",
+                    "description": "时间字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.date",
+                    "data_type": "string",
+                    "description": "转换后的时间字符串"
+                }
+            ]
+        },
+        {
+            "action": "str_len",
+            "class_name": "str_len",
+            "description": "计算字符串长度",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/str_len.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "srt_data": {
+                    "data_type": "string",
+                    "description": "完整的字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.str_len",
+                    "data_type": "integer",
+                    "description": "长度"
+                }
+            ]
+        },
+        {
+            "action": "cache_mgmt",
+            "class_name": "cache_mgmt",
+            "description": "缓存管理",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/cache_mgmt.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "key": {
+                    "data_type": "string",
+                    "description": "缓存的key",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "value": {
+                    "data_type": "string",
+                    "description": "缓存的值",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 1
+                },
+                "ttl": {
+                    "data_type": "integer",
+                    "description": "缓存的时效, 不填则不存在失效时间，计量单位为秒",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 2
+                },
+                "operate": {
+                    "data_type": "string",
+                    "description": "缓存操作",
+                    "default_value": "",
+                    "options": [
+                        {
+                            "获取": "get"
+                        },
+                        {
+                            "写入": "set"
+                        },
+                        {
+                            "删除": "del"
+                        }
+                    ],
+                    "required": true,
+                    "order": 3
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.key",
+                    "data_type": "string",
+                    "description": "Key"
+                },
+                {
+                    "data_path": "action_result.data.value",
+                    "data_type": "string",
+                    "description": "值"
+                },
+                {
+                    "data_path": "action_result.data.status",
+                    "data_type": "boolean",
+                    "description": "操作是否成功"
+                }
+            ]
+        }
+    ]
+}

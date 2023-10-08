@@ -1,0 +1,105 @@
+{
+    "name": "http_req",
+    "description": "HTTP应用",
+    "app_version": "1.0.0",
+    "jar": "http_req.py",
+    "readme": "resources/readme.md",
+    "logo": "resources/fif.PNG",
+    "category": "http",
+    "product_name": "http",
+    "app_supplier": "wuzhi",
+    "logic_language": "PYTHON",
+    "min_shakespeare_version": "1.0",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {},
+    "actions": [
+        {
+            "action": "requests",
+            "class_name": "http_requests",
+            "description": "HTTP请求",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/requests.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "url": {
+                    "data_type": "string",
+                    "description": "HTTP请求的url",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "headers": {
+                    "data_type": "string",
+                    "description": "HTTP请求的请求头, 参数Demo: {'Content-Type': 'application/json', 'User-Agent': 'HG-APP'}",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 1
+                },
+                "ssl_verify": {
+                    "data_type": "boolean",
+                    "description": "HTTP请求的SSL验证",
+                    "default_value": "False",
+                    "options": "",
+                    "required": true,
+                    "order": 2
+                },
+                "data": {
+                    "data_type": "string",
+                    "description": "HTTP请求的请求体",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 3
+                },
+                "proxy": {
+                    "data_type": "string",
+                    "description": "HTTP请求代理, 参数Demo: {'http://':'http://localhost:8080','https://':'http://localhost:8081'}",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 4
+                },
+                "method": {
+                    "data_type": "string",
+                    "description": "HTTP请求的请求方式",
+                    "default_value": "",
+                    "options": [
+                        {
+                            "GET": "GET"
+                        }, {
+                            "POST": "POST"
+                        }, {
+                            "PUT": "PUT"
+                        }
+                    ],
+                    "required": true,
+                    "order": 5
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.status_code",
+                    "data_type": "integer",
+                    "description": "HTTP返回Code"
+                },
+                {
+                    "data_path": "action_result.data.data",
+                    "data_type": "string",
+                    "description": "HTTP返回的Json结果"
+                },
+                {
+                    "data_path": "action_result.data.text",
+                    "data_type": "string",
+                    "description": "HTTP返回的文本结果"
+                }
+            ]
+        }
+    ]
+}

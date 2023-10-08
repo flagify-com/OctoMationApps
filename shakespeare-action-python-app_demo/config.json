@@ -1,0 +1,83 @@
+{
+    "name": "app_demo",
+    "description": "app样例",
+    "app_version": "1.0.0",
+    "jar": "app_demo.py",
+    "readme": "resources/readme.md",
+    "logo": "resources/fif.PNG",
+    "category": "示例",
+    "product_name": "demo",
+    "app_supplier": "雾帜智能",
+    "logic_language": "PYTHON",
+    "min_shakespeare_version": "1.0",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {
+        "timeout": {
+            "data_type": "integer",
+            "description": "http超时参数，默认5s",
+            "default_value": "5",
+            "required": false,
+            "order": 0
+        }
+    },
+    "actions": [
+        {
+            "action": "rand_qinghua",
+            "class_name": "rand_qinghua",
+            "description": "随机输出土味情话",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/rand_qinghua.art",
+            "safe_mode": false,
+            "is_test": true,
+            "classify": "query",
+            "parameters": {},
+            "output": [
+                {
+                    "data_path": "action_result.data.content",
+                    "data_type": "string",
+                    "description": "返回文本信息"
+                },
+                {
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "提示信息"
+                }
+            ]
+        },
+        {
+            "action": "read_file",
+            "class_name": "read_file",
+            "description": "读取文件内容（<0.5M）",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/read_file.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "file": {
+                    "data_type": "outside_file",
+                    "description": "文件",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.content",
+                    "data_type": "string",
+                    "description": "文件内容"
+                },
+                {
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "信息"
+                }
+            ]
+        }
+    ]
+}

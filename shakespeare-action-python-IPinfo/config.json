@@ -1,0 +1,89 @@
+{
+    "name": "IPinfo",
+    "description": "IP数据库IPinfo.io",
+    "app_version": "1.0.0",
+    "jar": "ipinfo.py",
+    "readme": "resources/readme.md",
+    "logo": "resources/logo-ipinfo-v2.png",
+    "category": "网络工具",
+    "product_name": "IPinfo.io",
+    "app_supplier": "IPinfo.io",
+    "logic_language": "PYTHON",
+    "min_shakespeare_version": "1.0",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {
+        "token": {
+            "data_type": "password",
+            "description": "API Token",
+            "required": true,
+            "order": 0
+        }
+    },
+    "actions": [
+        {
+            "action": "ip_geolocation",
+            "class_name": "get_ip_geolocation",
+            "description": "查询IP地址的地理位置",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/ip_geolocation.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "ip": {
+                    "data_type": "string",
+                    "description": "IP地址（支持IPv4、IPv6）",
+                    "default_value": "8.8.8.8",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.ip",
+                    "data_type": "string",
+                    "description": "IP"
+                },
+                {
+                    "data_path": "action_result.data.city",
+                    "data_type": "string",
+                    "description": "城市"
+                },
+                {
+                    "data_path": "action_result.data.region",
+                    "data_type": "string",
+                    "description": "区域"
+                },
+                {
+                    "data_path": "action_result.data.country",
+                    "data_type": "string",
+                    "description": "国家"
+                },
+                {
+                    "data_path": "action_result.data.loc",
+                    "data_type": "string",
+                    "description": "坐标（经度，纬度）"
+                },
+                {
+                    "data_path": "action_result.data.org",
+                    "data_type": "string",
+                    "description": "组织"
+                },
+                {
+                    "data_path": "action_result.data.timezone",
+                    "data_type": "string",
+                    "description": "时区"
+                },
+                {
+                    "data_path": "action_result.data.postal",
+                    "data_type": "string",
+                    "description": "邮编（可能为空）"
+                }
+            ]
+        }
+    ]
+}

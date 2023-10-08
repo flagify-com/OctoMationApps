@@ -1,0 +1,80 @@
+{
+    "name": "ssh_req",
+    "description": "SSH应用",
+    "app_version": "1.0.0",
+    "jar": "ssh_req.py",
+    "readme": "resources/readme.md",
+    "logo": "resources/fif.PNG",
+    "category": "ssh",
+    "product_name": "ssh",
+    "app_supplier": "wuzhi",
+    "logic_language": "PYTHON",
+    "min_shakespeare_version": "1.0",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {
+        "host": {
+            "data_type": "string",
+            "description": "SSH服务器地址，Demo: 127.0.0.1",
+            "required": true,
+            "order": 0
+        },
+        "port": {
+            "data_type": "integer",
+            "description": "SSH端口号，Demo: 22",
+            "required": true,
+            "order": 1
+        },
+        "username": {
+            "data_type": "string",
+            "description": "SSH用户名",
+            "required": true,
+            "order": 2
+        },
+        "password": {
+            "data_type": "password",
+            "description": "SSH密码",
+            "required": true,
+            "order": 3
+        }
+    },
+    "actions": [
+        {
+            "action": "execute",
+            "class_name": "ssh_execute",
+            "description": "ssh请求",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/execute.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "cmd": {
+                    "data_type": "string",
+                    "description": "SSH命令，多个用逗号分隔，Demo: ls,pwd",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "ret_flag": {
+                    "data_type": "string",
+                    "description": "命令返回后的判断是否执行成功的标志，Demo: #",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string",
+                    "description": "SSH返回结果"
+                }
+            ]
+        }
+    ]
+}

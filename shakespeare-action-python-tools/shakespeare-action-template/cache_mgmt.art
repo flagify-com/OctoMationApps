@@ -1,0 +1,46 @@
+<div class="ant-table ant-table-default ant-table-bordered">
+    <div class="ant-table-content">
+        <div class="ant-table-body">
+            <table>
+                <thead class="ant-table-thead">
+                    <tr>
+                        <th>
+                            <span class="ant-table-header-column">
+                                <div>
+                                    <span class="ant-table-column-title">key</span>
+                                    <span class="ant-table-column-sorter"></span>
+                                </div>
+                            </span>
+                        </th>
+                        <th>
+                            <span class="ant-table-header-column">
+                                <div>
+                                    <span class="ant-table-column-title">值</span>
+                                    <span class="ant-table-column-sorter"></span>
+                                </div>
+                            </span>
+                        </th>
+                        <th>
+                            <span class="ant-table-header-column">
+                                <div>
+                                    <span class="ant-table-column-title">状态</span>
+                                    <span class="ant-table-column-sorter"></span>
+                                </div>
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="ant-table-tbody">
+                    {{each action_results as action_result}}
+
+                    <tr class="ant-table-row">
+                        <td>{{action_result.data.key}}</td>
+                        <td>{{action_result.data.value}}</td>
+                        <td>{{action_result.data.status}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

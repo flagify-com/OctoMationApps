@@ -1,0 +1,28 @@
+<div class="ant-table ant-table-default ant-table-bordered">
+    <div class="ant-table-content">
+        <div class="ant-table-body">
+            <table>
+                <thead class="ant-table-thead">
+                    <tr>
+                        <th>
+                            <span class="ant-table-header-column">
+                                <div>
+                                    <span class="ant-table-column-title">相似度</span>
+                                    <span class="ant-table-column-sorter"></span>
+                                </div>
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="ant-table-tbody">
+                    {{each action_results as action_result}}
+
+                    <tr class="ant-table-row">
+                        <td>{{action_result.data.ratio}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

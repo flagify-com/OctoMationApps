@@ -1,0 +1,36 @@
+<div class="ant-table ant-table-default ant-table-bordered">
+    <div class="ant-table-content">
+        <div class="ant-table-body">
+            <table>
+                <thead class="ant-table-thead">
+                    <tr>
+                        <th>
+                            <span class="ant-table-header-column">
+                                <div>
+                                    <span class="ant-table-column-title">key</span>
+                                    <span class="ant-table-column-sorter"></span>
+                                </div>
+                            </span>
+                        </th>
+                        <th>
+                            <span class="ant-table-header-column">
+                                <div>
+                                    <span class="ant-table-column-title">value</span>
+                                    <span class="ant-table-column-sorter"></span>
+                                </div>
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="ant-table-tbody">
+                    {{each action_results as action_result}}
+                    <tr class="ant-table-row">
+                        <td>返回值</td>
+                        <td>{{action_result.data}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
