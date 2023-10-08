@@ -19,7 +19,7 @@ OctoMationApps 提供了一系列为 OctoMation 建立的自动化应用程序�
 
 ## 如何使用
 ### 源码包
-1. git clone https://github.com/flagify-com/OctoMationApp.git
+1. git clone [https://github.com/flagify-com/OctoMationApp.git](https://github.com/flagify-com/OctoMationApps.git)
 2. zip压缩应用
 3. 把zip包上传到OctoMation
 
