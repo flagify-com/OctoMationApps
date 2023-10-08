@@ -1,10 +1,10 @@
 # OctoMationApps
 
-OctoMationApps 是 [OctoMation](https://github.com/flagify-com/OctoMation) （雾帜智能自动化产品）的社区化产品的应用集合。
+OctoMationApps 是 [OctoMation](https://github.com/flagify-com/OctoMation) （雾帜智能编排自动化）的社区化产品的应用集合。
 
 ## OctoMation 介绍
 
-OctoMation 是一个 SOAR(Security Orchestration Automation Response)系统。它提供了一个集成化的工作台,可以建立自动化的工作流程以响应安全事件。
+OctoMation编排自动化（Octopus Orchestration & Automation）是上海雾帜智能科技有限公司HoneyGuide SOAR产品的社区免费版，是中国企业市场领先的编排和自动化（Orchestration & Automation， O&A）产品。
 
 OctoMation 的特点包括:
 
