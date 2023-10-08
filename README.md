@@ -9,7 +9,7 @@ OctoMation编排自动化（Octopus Orchestration & Automation）是上海雾帜
 OctoMation 的特点包括:
 
 - 简单且直观的图形化界面以建立自动化流程
-- 支持各种安全产品和服务的连接集成
+- 支持各种产品和服务的连接集成
 - 强大的自定义功能,支持 Python 脚本进行扩展
 - 社区驱动,用户可以共享工作流程和app
 
