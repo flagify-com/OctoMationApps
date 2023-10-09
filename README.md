@@ -11,25 +11,40 @@ OctoMation 的特点包括:
 - 简单且直观的图形化界面以建立自动化流程
 - 支持各种产品和服务的连接集成
 - 强大的自定义功能,支持 Python 脚本进行扩展
-- 社区驱动,用户可以共享工作流程和app
+- 社区驱动,用户可以共享工作流程和APP
 
 ## OctoMationApps 
 
 OctoMationApps 提供了一系列为 OctoMation 建立的自动化应用程序和脚本。这些应用程序可以直接导入 OctoMation 中,实现各种自动化任务。
 
-## 如何使用
-### 源码包
-1. git clone [https://github.com/flagify-com/OctoMationApp.git](https://github.com/flagify-com/OctoMationApps.git)
-2. zip压缩应用
-3. 把zip包上传到OctoMation
+## 如何使用应用APP
 
 ### Releases
-1. 下载应用包
+1. 通过项目Release列表，下载应用包zip文件
 2. 如果批量下载则需要进行解压
-3. 把zip包上传到OctoMation
+3. 登录OctoMation后台，访问【应用管理】界面，上传zip包完成导入
 
-## 贡献
 
-欢迎为 OctoMation 贡献新的应用!请开 Pull Request 将你的应用加入到对应的文件夹中。
+### 应用源码包
+1. 下载项目源码，`git clone [https://github.com/flagify-com/OctoMationApp.git](https://github.com/flagify-com/OctoMationApps.git)`；
+2. 找到你想用的应用APP文件夹，使用zip压缩该应用目录；
+3. 登录OctoMation后台，访问【应用管理】界面，上传zip包完成导入。
+
+
+
+## 如何参与社区贡献
+欢迎参与OctoMationApps项目，如果您愿意向APP仓库贡献，可以在GitHub上Fork本项目，并在修改后提交Pull Request：
+
+1. Fork项目[https://github.com/flagify-com/OctoMationApp.git](https://github.com/flagify-com/OctoMationApps.git)
+2. 按需修改应用APP的源码、配置文件和资源文件
+3. 充分测试和验证您的APP代码
+4. Pull Request
+
+关于如何编写应用能力APP，请参考：
+- [🐙我的第一个OctoMation 应用APP开发](https://github.com/flagify-com/OctoMation/wiki/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAOctoMation-%E5%BA%94%E7%94%A8APP%E5%BC%80%E5%8F%91)
+- [🚀️OctoMation应用开发手册](https://github.com/flagify-com/OctoMation/wiki/OctoMation%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C)
+
 
 ## 许可
+
+[LICESEN.md](./LICESEN.md)
