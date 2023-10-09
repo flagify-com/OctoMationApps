@@ -1,6 +1,6 @@
 # OctoMationApps
 
-OctoMationApps 是 [OctoMation]编排自动化产品(https://github.com/flagify-com/OctoMation) （雾帜智能HoneyGuide SOAR产品的社区免费版）的应用能力（联动网络、安全、IT和SaaS等产品）的集合。
+OctoMationApps 是 [OctoMation](https://github.com/flagify-com/OctoMation) （雾帜智能HoneyGuide SOAR产品的社区免费版）编排自动化产品的应用能力（联动网络、安全、IT和SaaS等产品的能力扩展包）的集合。
 
 ## OctoMation 介绍
 
