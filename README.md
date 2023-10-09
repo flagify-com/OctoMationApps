@@ -47,4 +47,8 @@ OctoMationApps 提供了一系列为 OctoMation 建立的自动化应用程序�
 
 ## 许可
 
-[LICESEN.md](./LICESEN.md)
+**本项目采用双重许可。对于非商业用途，我们使用MIT许可证。对于商业用途，请查看我们的商业许可证，或者联系我们获取更多信息。**
+
+- [MIT许可协议](MIT_License.txt)
+- [商用许可协议](Commercial_License.txt)
+
