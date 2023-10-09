@@ -2,7 +2,7 @@ MIT License
 
 Copyright (c) [2019~2023] Shanghai Wuzhi Intelligent Technology Co.,Ltd (上海雾帜智能科技有限公司)
 
-Permission is hereby granted, free of charge, to any community version user 
+Permission is hereby granted, free of charge, to any community edition user 
 obtaining a copy of this software and associated documentation files (the "Software"), 
 to deal in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, the Software, and 
