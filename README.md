@@ -20,16 +20,16 @@ OctoMationApps 提供了一系列为 OctoMation 建立的自动化应用程序�
 ## 如何使用应用APP
 
 ### Releases
+
 1. 通过项目[releases](https://github.com/flagify-com/OctoMationApps/releases)列表，下载应用包zip文件
 2. 如果批量下载则需要进行解压
 3. 登录OctoMation后台，访问【应用管理】界面，上传zip包完成导入
 
 
 ### 应用源码包
-1. 下载项目源码：`git clone https://github.com/flagify-com/OctoMationApp.git`；
+1. 下载项目源码：`git clone https://github.com/flagify-com/OctoMationApps.git`；
 2. 找到你想用的应用APP文件夹，使用zip压缩该应用目录；
 3. 登录OctoMation后台，访问【应用管理】界面，上传zip包完成导入。
-
 
 
 ## 如何参与社区贡献
