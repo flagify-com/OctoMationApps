@@ -1,3 +1,12 @@
+- [OctoMationApps](#octomationapps)
+  - [OctoMation 介绍](#octomation-介绍)
+  - [OctoMationApps](#octomationapps-1)
+  - [如何使用应用APP](#如何使用应用app)
+    - [Releases](#releases)
+    - [应用源码包](#应用源码包)
+  - [如何参与社区贡献](#如何参与社区贡献)
+  - [许可](#许可)
+
 # OctoMationApps
 
 OctoMationApps 是 [OctoMation编排自动化产品](https://github.com/flagify-com/OctoMation) （雾帜智能HoneyGuide SOAR产品的社区免费版）的应用能力（联动网络、安全、IT和SaaS等产品的能力扩展包）的集合。
@@ -25,11 +34,29 @@ OctoMationApps 提供了一系列为 OctoMation 建立的自动化应用程序�
 2. 如果批量下载则需要进行解压
 3. 登录OctoMation后台，访问【应用管理】界面，上传zip包完成导入
 
-
 ### 应用源码包
-1. 下载项目源码：`git clone https://github.com/flagify-com/OctoMationApps.git`；
-2. 找到你想用的应用APP文件夹，使用zip压缩该应用目录；
-3. 登录OctoMation后台，访问【应用管理】界面，上传zip包完成导入。
+1. 下载项目源码
+
+```bash
+# 下载主版本
+git clone --depth 1 https://github.com/flagify-com/OctoMationApps.git
+
+# 下载特定分支（适合开发）
+git clone --depth 1 --branch dev-ce https://github.com/flagify-com/OctoMationApps.git
+```
+
+2. 创建应用包
+
+找到你需要的应用APP文件夹，使用zip压缩该目录，如：
+   
+```bash
+# 除了命令行，也可以使用图形化工具
+zip -r shakespeare-action-python-IPinfo.zip shakespeare-action-python-IPinfo
+```
+
+3. 上传zip包
+
+录OctoMation后台，访问【应用管理】界面，上传zip包完成导入。
 
 
 ## 如何参与社区贡献
@@ -51,4 +78,3 @@ OctoMationApps 提供了一系列为 OctoMation 建立的自动化应用程序�
 
 - [MIT许可协议](MIT_License.txt)
 - [商用许可协议](Commercial_License.txt)
-
