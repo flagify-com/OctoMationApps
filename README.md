@@ -35,7 +35,7 @@ OctoMationApps 提供了一系列为 OctoMation 建立的自动化应用程序�
 ## 如何参与社区贡献
 欢迎参与OctoMationApps项目，如果您愿意向APP仓库贡献，可以在GitHub上Fork本项目，并在修改后提交Pull Request：
 
-1. Fork项目[https://github.com/flagify-com/OctoMationApp.git](https://github.com/flagify-com/OctoMationApps.git)
+1. Fork项目[https://github.com/flagify-com/OctoMationApps.git](https://github.com/flagify-com/OctoMationApps.git)
 2. 按需修改应用APP的源码、配置文件和资源文件
 3. 充分测试和验证您的APP代码
 4. Pull Request
