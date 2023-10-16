@@ -9,6 +9,15 @@ import shelve
 from difflib import SequenceMatcher
 import os
 
+
+def is_valid_ip(ip):
+    try:
+        ipaddress.ip_address(ip)
+        return True
+    except ValueError:
+        return False
+
+
 # 判断ip地址是否在某个段内
 def ip_in_range(params, assets, context_info):
     #def ip_in_range(ip, start, end):
@@ -17,6 +26,13 @@ def ip_in_range(params, assets, context_info):
     end = params.get('end',"")
 
     json_ret = {"code": 200, "msg": "","data":{"is_range": False}}
+
+    invalid_ips = [addr for addr in [ip, start, end] if not is_valid_ip(addr)]
+
+    if invalid_ips:
+        json_ret['code'] = 400
+        json_ret['msg'] = f'Invalid IP format for: {", ".join(invalid_ips)}'
+        return json_ret
 
     ip = ipaddress.ip_address(ip)
     start = ipaddress.ip_address(start)
@@ -28,7 +44,7 @@ def ip_in_range(params, assets, context_info):
 # 文本相似度
 def str_similar(params, assets, context_info):
     s1 = params.get("one", "")
-    s2 = params.get("twp", "")
+    s2 = params.get("two", "")
     #def str_similar(s1, s2):
     json_ret = {"code": 200, "msg": "","data":{"ratio": 0}}
     json_ret['data']['ratio'] = SequenceMatcher(None, s1, s2).ratio()
@@ -81,6 +97,12 @@ def divide(params, assets, context_info):
     a = params.get("one", 0)
     b = params.get("two", 0)
     json_ret = {"code": 200, "msg": "","data":{"result": 0}}
+    
+    if b == 0:
+        json_ret['code'] = 400
+        json_ret['msg'] = "Divisor can't be 0"
+        return json_ret
+    
     try:
         json_ret['data']["result"] = a / b
     except Exception as e:
@@ -91,7 +113,7 @@ def divide(params, assets, context_info):
 
 # 字符串输出
 def input_output(params, assets, context_info):
-    str_data = params.get("srt_data","")
+    str_data = params.get("str_data","")
     out_type = params.get("out_type","str")
 
     json_ret = {"code": 200, "msg": "","data":{"str": "", "int": 0, "float": 0.0}}
@@ -159,7 +181,7 @@ def md5(params, assets, context_info):
 # b64 en
 def base64_encode(params, assets, context_info):
     s = params.get('str_data', "")
-    json_ret = {"code": 200, "msg": "","data":{"b64": base64.b64encode(s.encode('utf-8'))}}
+    json_ret = {"code": 200, "msg": "","data":{"b64": base64.b64encode(s.encode('utf-8')).decode('utf-8')}}
     return json_ret
 
 # b64 de
@@ -181,15 +203,28 @@ def split(params, assets, context_info):
 def join(params, assets, context_info):
     str1 = params.get('one', "")
     str2 = params.get('two', "")
-    json_ret = {"code": 200, "msg": "","data":{"str_data": str1.join(str2)}}
+    json_ret = {"code": 200, "msg": "","data":{"str_data": f"{str1}{str2}"}}
     return json_ret
 
 # 读取文件
 def read_file(params, assets, context_info):
     filename = params.get("filename","")
     json_ret = {"code": 200, "msg": "","data":{"str_data": ""}}
-    with open(filename, 'r') as f:
-        json_ret['data']['str_data'] = f.read()        
+    
+    # 获取文件大小（以字节为单位）
+    file_size_bytes = os.path.getsize(filename)
+
+    # 定义0.5MB的字节数
+    half_megabyte = 0.5 * 1024 * 1024  # 1 MB = 1024 KB, 1 KB = 1024 bytes
+
+    # 检查文件大小是否小于0.5MB
+    if file_size_bytes < half_megabyte:
+        # 读取文件内容
+        with open(filename, 'r', encoding='utf-8') as f:
+            json_ret["data"]["str_data"] = f.read()
+    else:
+        json_ret["data"]["msg"] = "The file is 0.5MB or larger."     
+        json_ret["code"] = 400
     return json_ret
 
 # 字符串替换
@@ -205,7 +240,7 @@ def date_to_timestamp(params, assets, context_info):
     date = params.get("date", "")
     json_ret = {"code": 200, "msg": "","data":{"timestamp": 0}}
     try:
-        _t = int(datetime.datetime.strptime(date, '%Y-%m-%d').timestamp())
+        _t = int(datetime.datetime.strptime(date, '%Y-%m-%d %H:%M:%S').timestamp())
         json_ret['data']['timestamp'] = _t
     except Exception as e:
         json_ret['code'] = 500
@@ -217,8 +252,8 @@ def timestamp_to_date(params, assets, context_info):
     timestamp = params.get("timestamp", 0)
     json_ret = {"code": 200, "msg": "","data":{"date": ""}}
     try:
-        _d = str(datetime.datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d'))
-        json_retp['data']['date'] = _d
+        _d = str(datetime.datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S'))
+        json_ret['data']['date'] = _d
     except Exception as e:
         json_ret['code'] = 500
         json_ret['msg'] = str(e)

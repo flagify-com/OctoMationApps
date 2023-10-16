@@ -7,7 +7,7 @@
                         <th>
                             <span class="ant-table-header-column">
                                 <div>
-                                    <span class="ant-table-column-title">key</span>
+                                    <span class="ant-table-column-title">描述</span>
                                     <span class="ant-table-column-sorter"></span>
                                 </div>
                             </span>
@@ -15,7 +15,7 @@
                         <th>
                             <span class="ant-table-header-column">
                                 <div>
-                                    <span class="ant-table-column-title">value</span>
+                                    <span class="ant-table-column-title">值</span>
                                     <span class="ant-table-column-sorter"></span>
                                 </div>
                             </span>
@@ -25,8 +25,12 @@
                 <tbody class="ant-table-tbody">
                     {{each action_results as action_result}}
                     <tr class="ant-table-row">
+                        <td>信息</td>
+                        <td>{{action_result.data.msg}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
                         <td>返回值</td>
-                        <td>{{action_result.data}}</td>
+                        <td>{{action_result.data.data}}</td>
                     </tr>
                     {{/each}}
                 </tbody>

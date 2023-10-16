@@ -18,7 +18,7 @@ def ssh_execute(params, assets, context_info):
     ret_flag = params["ret_flag"]
 
     # 返回值
-    json_ret = {"code": 200, "msg": "","data": ""}
+    json_ret = {"code": 200, "msg": "","data": {"msg": "", "data": ""}}
 
     '''添加函数实现
     
@@ -31,8 +31,11 @@ def ssh_execute(params, assets, context_info):
         cmd = [cmd]
 
     ssh = SSH(host, int(port), username, password)
-    json_ret = ssh.executing(cmd, str_find=ret_flag)
+    ssh_ret = ssh.executing(cmd, str_find=ret_flag)
     
+    json_ret['data']['msg'] = ssh_ret['msg']
+    json_ret['data']['data'] = ssh_ret['data']
+    json_ret['code'] = ssh_ret['code']
 
     return json_ret 
 

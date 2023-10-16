@@ -70,9 +70,14 @@
             },
             "output": [
                 {
-                    "data_path": "action_result.data",
+                    "data_path": "action_result.data.data",
                     "data_type": "string",
                     "description": "SSH返回结果"
+                },
+                {
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "异常信息或成功信息"
                 }
             ]
         }

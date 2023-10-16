@@ -280,7 +280,7 @@
             "is_test": false,
             "classify": "query",
             "parameters": {
-                "srt_data": {
+                "str_data": {
                     "data_type": "string",
                     "description": "需要格式化输出的字符串",
                     "default_value": "",
@@ -673,7 +673,7 @@
         {
             "action": "date_to_timestamp",
             "class_name": "date_to_timestamp",
-            "description": "时间字符串转换时间戳",
+            "description": "时间字符串转换时间戳（秒）",
             "result_display_tmpt_type": "js",
             "result_display_tmpt": "shakespeare-action-template/date_to_timestamp.art",
             "safe_mode": false,
@@ -682,7 +682,7 @@
             "parameters": {
                 "date": {
                     "data_type": "string",
-                    "description": "时间字符串 Demo: 2023-10-01",
+                    "description": "时间字符串,格式%Y-%m-%d %H:%M:%S Demo: 2023-10-01 12:12:12",
                     "default_value": "",
                     "options": "",
                     "required": true,
@@ -700,7 +700,7 @@
         {
             "action": "timestamp_to_date",
             "class_name": "timestamp_to_date",
-            "description": "时间戳转时间字符串",
+            "description": "时间戳（秒）转时间字符串",
             "result_display_tmpt_type": "js",
             "result_display_tmpt": "shakespeare-action-template/timestamp_to_date.art",
             "safe_mode": false,
@@ -709,7 +709,7 @@
             "parameters": {
                 "timestamp": {
                     "data_type": "long",
-                    "description": "时间字符串",
+                    "description": "时间字符串（秒）",
                     "default_value": "",
                     "options": "",
                     "required": true,
