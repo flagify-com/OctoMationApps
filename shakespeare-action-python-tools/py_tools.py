@@ -336,7 +336,7 @@ def cache_mgmt(params, assets, context_info):
             # 将值设置到缓存中
             cache.add(_key, _value, expire=_ttl)
             json_ret['data']["status"] = True
-        elif _operate == "delete":
+        elif _operate == "del":
             # 删除缓存中的键
             cache.pop(_key)
             json_ret['data']['status'] = True
