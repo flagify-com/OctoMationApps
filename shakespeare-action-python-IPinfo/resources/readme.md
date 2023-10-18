@@ -12,7 +12,7 @@
 ## 应用配置说明
 
 - **官方网站**：https://ipinfo.io
-- **API Token获取方式**：https://ipinfo.io/account/token
+- **API Token获取方式**：<a href="https://ipinfo.io/account/token" target="_blank">https://ipinfo.io/account/token</a>
 - **API文档**：https://ipinfo.io/developers/data-types#geolocation-data
 
 ## 动作说明
