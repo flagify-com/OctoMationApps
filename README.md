@@ -62,10 +62,10 @@ zip -r shakespeare-action-python-IPinfo.zip shakespeare-action-python-IPinfo
 ## 如何参与社区贡献
 欢迎参与OctoMationApps项目，如果您愿意向APP仓库贡献，可以在GitHub上Fork本项目，并在修改后提交Pull Request：
 
-1. Fork项目[https://github.com/flagify-com/OctoMationApps.git](https://github.com/flagify-com/OctoMationApps.git)
+1. Fork项目[https://github.com/flagify-com/OctoMationApps.git](https://github.com/flagify-com/OctoMationApps.git)，建议copy所有分支。
 2. 按需修改应用APP的源码、配置文件和资源文件
 3. 充分测试和验证您的APP代码
-4. Pull Request
+4. Pull Request到项目`dev-ce`分支
 
 关于如何编写应用能力APP，请参考：
 - [🐙我的第一个OctoMation 应用APP开发](https://github.com/flagify-com/OctoMation/wiki/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAOctoMation-%E5%BA%94%E7%94%A8APP%E5%BC%80%E5%8F%91)
