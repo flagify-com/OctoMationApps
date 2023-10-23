@@ -14,6 +14,7 @@
 
 - ChatId可以是群会话的Id，也可以是User会话的Id
 - 为了防止骚扰，机器人点对点给用户发消息前，用户必须先发一条消息给机器人
+- 接口可用性验证：`https://api.telegram.org/bot<BOT_TOKEN>/getMe`
 
 ## 参考信息
 - [Telegram Bot API](https://core.telegram.org/bots/api)
