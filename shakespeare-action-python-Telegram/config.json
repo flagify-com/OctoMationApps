@@ -1,0 +1,93 @@
+{
+    "name": "Telegram",
+    "description": "Telegram",
+    "app_version": "1.0.0",
+    "jar": "tg.py",
+    "readme": "resources/readme.md",
+    "logo": "resources/telegram.png",
+    "category": "网络工具,消息通知",
+    "product_name": "Telegram Messenger",
+    "app_supplier": "telegram.org",
+    "logic_language": "PYTHON",
+    "min_shakespeare_version": "1.0",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {
+        "bot_token": {
+            "data_type": "password",
+            "description": "Telegram Bot Token. 可以通过 @BotFather获取",
+            "required": true,
+            "order": 0
+        },
+        "api_url": {
+            "data_type": "string",
+            "description": "API地址，支持自定义（魔法地址）",
+            "default_value": "https://api.telegram.org",
+            "required": false,
+            "order": 1
+        },
+        "http_proxy": {
+            "data_type": "string",
+            "description": "HTTP代理费服务器，格式：http://192.168.0.1:8080",
+            "required": false,
+            "order": 2
+        }
+    },
+    "actions": [
+        {
+            "action": "send_text_message",
+            "class_name": "send_text_message",
+            "description": "发送消息到会话ID（或用户ID）",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/send_text_message.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "notify",
+            "parameters": {
+                "chatid": {
+                    "data_type": "integer",
+                    "description": "Chat Id或者User Id",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "text_message": {
+                    "data_type": "string",
+                    "description": "文本消息",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.success",
+                    "data_type": "boolean",
+                    "description": "发送结果（True或False）"
+                }
+            ]
+        },
+        {
+            "action": "test",
+            "class_name": "test",
+            "description": "测试Telegram服务",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/test.art",
+            "safe_mode": false,
+            "is_test": true,
+            "classify": "query",
+            "parameters": {},
+            "output": [
+                {
+                    "data_path": "action_result.data.success",
+                    "data_type": "boolean",
+                    "description": "测试结果（True或者False）"
+                }
+            ]
+        }
+    ]
+}
