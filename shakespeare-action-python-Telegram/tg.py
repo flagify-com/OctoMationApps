@@ -82,10 +82,10 @@ def test(params, assets, context_info):
             if 'ok' in json_res.keys() and json_res['ok'] is True:
                 json_ret['data']['success'] = True
                 json_ret['code'] = 200
-                json_ret['message'] = "测试成功"
+                json_ret['msg'] = "测试成功"
         else:
-            json_ret['message'] = response.text
+            json_ret['msg'] = response.text
     except Exception as e:
-        json_ret['message'] = str(e)
+        json_ret['msg'] = str(e)
     return json_ret 
 
