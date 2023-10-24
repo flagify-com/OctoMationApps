@@ -20,5 +20,5 @@ context_info = None
 # ret = test(params, assets, context_info)
 # print(ret)
 
-ret = update_issue(params, assets, context_info)
-print(ret)
+# ret = update_issue(params, assets, context_info)
+# print(ret)
