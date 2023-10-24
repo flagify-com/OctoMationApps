@@ -1,0 +1,214 @@
+{
+    "name": "GitHubAssistant",
+    "description": "GitHub助手",
+    "app_version": "1.0.0",
+    "jar": "github_project_assistant.py",
+    "readme": "resources/readme.md",
+    "logo": "resources/github.png",
+    "category": "网络工具,开发工具",
+    "product_name": "GitHub助手",
+    "app_supplier": "github.com",
+    "logic_language": "PYTHON",
+    "min_shakespeare_version": "1.0",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {
+        "owner": {
+            "data_type": "string",
+            "description": "所有者，即用户或者组织名（https://github.com/octo-org/octo-repo， owner：octo-org）",
+            "required": true,
+            "order": 0
+        },
+        "repository": {
+            "data_type": "string",
+            "description": "代码仓库名称（https://github.com/octo-org/octo-repo， 仓库名：octo-repo）",
+            "required": true,
+            "order": 1
+        },
+        "pat_token": {
+            "data_type": "password",
+            "description": "Personal Access Token",
+            "required": true,
+            "order": 2
+        },
+        "http_proxy": {
+            "data_type": "string",
+            "description": "HTTP代理费服务器，格式：http://192.168.0.1:8080",
+            "required": false,
+            "order": 3
+        }
+    },
+    "actions": [
+        {
+            "action": "create_issue",
+            "class_name": "create_issue",
+            "description": "创建一个GitHub Issue",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/create_issue.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "issue_title": {
+                    "data_type": "string",
+                    "description": "GitHub Issue的标题",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "issue_body": {
+                    "data_type": "string",
+                    "description": "GitHub Issue的内容",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                },
+                "issue_labels": {
+                    "data_type": "string",
+                    "description": "GitHub Issue的标签，默认为空",
+                    "default_value": "",
+                    "options": [{"bug": "bug"}, {"question": "question"}],
+                    "required": false,
+                    "order": 2
+                },
+                "issue_assignees": {
+                    "data_type": "string",
+                    "description": "被指派的用户",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 3
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.success",
+                    "data_type": "boolean",
+                    "description": "是否成功（True或者False）"
+                },
+                {
+                    "data_path": "action_result.data.issue_number",
+                    "data_type": "string",
+                    "description": "Issue Number"
+                },
+                {
+                    "data_path": "action_result.data.issue_api_url",
+                    "data_type": "string",
+                    "description": "Issue API URL"
+                },
+                {
+                    "data_path": "action_result.data.issue_html_url",
+                    "data_type": "string",
+                    "description": "Issue HTML URL"
+                }
+            ]
+        },
+        {
+            "action": "update_issue",
+            "class_name": "update_issue",
+            "description": "更新GitHub Issue",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/update_issue.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "issue_number": {
+                    "data_type": "integer",
+                    "description": "GitHub Issue Number",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "issue_title": {
+                    "data_type": "string",
+                    "description": "GitHub Issue的标题",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 1
+                },
+                "issue_body": {
+                    "data_type": "string",
+                    "description": "GitHub Issue的内容",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 2
+                },
+                "issue_labels": {
+                    "data_type": "string",
+                    "description": "GitHub Issue的标签，默认为空",
+                    "default_value": "",
+                    "options": [{"默认为空": ""},{"bug": "bug"}, {"question": "question"}],
+                    "required": false,
+                    "order": 3
+                },
+                "issue_state": {
+                    "data_type": "string",
+                    "description": "GitHub Issue的状态（open/closed）",
+                    "default_value": "",
+                    "options": [{"Open": "open"},{"Closed": "clsoed"}],
+                    "required": false,
+                    "order": 4
+                },
+                "issue_state_reason": {
+                    "data_type": "string",
+                    "description": "更新状态的理由",
+                    "default_value": null,
+                    "options": [{"completed": "completed"}, {"not_planned": "not_planned"}, {"reopened": "reopened"}, {"null": null}],
+                    "required": false,
+                    "order": 5
+                },
+                "issue_assignees": {
+                    "data_type": "string",
+                    "description": "被指派的用户",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 6
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.success",
+                    "data_type": "boolean",
+                    "description": "是否成功（True或者False）"
+                },
+                {
+                    "data_path": "action_result.data.issue_api_url",
+                    "data_type": "string",
+                    "description": "Issue API URL"
+                },
+                {
+                    "data_path": "action_result.data.issue_html_url",
+                    "data_type": "string",
+                    "description": "Issue HTML URL"
+                }
+            ]
+        },
+        {
+            "action": "test",
+            "class_name": "test",
+            "description": " 测试",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/test.art",
+            "safe_mode": false,
+            "is_test": true,
+            "classify": "query",
+            "parameters": {},
+            "output": [
+                {
+                    "data_path": "action_result.data.success",
+                    "data_type": "boolean",
+                    "description": "测试结果（True或者False）"
+                }
+            ]
+        }
+    ]
+}
