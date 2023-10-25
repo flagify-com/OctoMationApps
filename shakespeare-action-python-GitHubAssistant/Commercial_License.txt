@@ -1,0 +1,45 @@
+Commercial License
+
+Copyright (c) [2019~2023] Shanghai Wuzhi Intelligent Technology Co.,Ltd (上海雾帜智能科技有限公司)
+
+This license agreement ("Agreement") is entered into by and between you ("Licensee") and 
+Shanghai Wuzhi Intelligent Technology Co.,Ltd (上海雾帜智能科技有限公司) ("Licensor"). 
+This Agreement is made effective as of the date of your acceptance of this Agreement.
+
+Licensor has developed and owns certain proprietary software product(s) known as [OctoMationApps] (the "Software").
+ Licensee desires to use the Software for commercial purposes, and Licensor has agreed to permit 
+ Licensee to do so on the terms and conditions set forth in this Agreement.
+
+Licensee acknowledges that this is only a limited nonexclusive license. Licensor is and remains 
+the owner of all titles, rights, and interests in the Software.
+
+This License permits Licensee to install the Software on more than one computer system, 
+as long as the Software will not be used on more than one computer system simultaneously.
+ Licensee will not make copies of the Software or allow copies of the Software to be 
+ made by others, unless authorized by this License Agreement.Unless authorized by this 
+ license agreement, the licensee may not create or modify the software for commercial purposes.
+
+Please contact Licensor at [admin@wuzhi-ai.com] for pricing and other details.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY 
+EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES 
+OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+
+商业许可证
+
+版权所有 (c) [2019~2023] 上海雾帜智能科技有限公司 (Shanghai Wuzhi Intelligent Technology Co.,Ltd)
+
+本许可证协议（“协议”）由你（“许可证持有人”）和上海雾帜智能科技有限公司（“许可证发放者”）共同签订。本协议自你接受此协议之日起生效。
+
+许可证发放者已开发并拥有名为 [OctoMationApps]（“软件”）的某些专有软件产品。许可证持有人希望出于商业目的使用该软件，
+许可证发放者已同意允许许可证持有人在本协议规定的条款和条件下这样做。
+
+许可证持有人承认，这只是一份有限的非独家许可证。许可证发放者现在和将来都是该软件的所有权、权利和利益的所有者。
+
+本许可证允许许可证持有人在多个计算机系统上安装该软件，只要该软件不会在多个计算机系统上同时使用。
+除非本许可证协议授权，否则许可证持有人不得制作该软件的副本或允许他人制作该软件的副本。除非本许可证协议授权，
+否则许可证持有人不得制作或修改该软件用于商业用途。
+
+请联系许可证发放者 [admin@wuzhi-ai.com] 以获取定价和其他详细信息。
+
+本软件由版权所有者和贡献者“按原样”提供，不做任何明示或暗示的保证，包括但不限于对适销性和适用于特定用途的暗示保证的否认。
