@@ -1,0 +1,78 @@
+<div class="ant-table ant-table-default ant-table-bordered">
+   <div class="ant-table-content">
+       <div class="ant-table-body">
+           <table>
+               <thead class="ant-table-thead">
+                   <tr>
+                       <th>
+                           <span class="ant-table-header-column">
+                               <div>
+                                   <span class="ant-table-column-title">描述</span>
+                                   <span class="ant-table-column-sorter"></span>
+                               </div>
+                           </span>
+                       </th>
+                       <th>
+                           <span class="ant-table-header-column">
+                               <div>
+                                   <span class="ant-table-column-title">值</span>
+                                   <span class="ant-table-column-sorter"></span>
+                               </div>
+                           </span>
+                       </th>
+                   </tr>
+               </thead>
+               <tbody class="ant-table-tbody">
+               {{each action_results as action_result}}
+               {{if action_result.data}}
+                   <tr class="ant-table-row">
+                       <td>name</td>
+                       <td>{{action_result.data.name}}</td>
+                   </tr>
+                   <tr class="ant-table-row">
+                       <td>threat_severity</td>
+                       <td>{{action_result.data.threat_severity}}</td>
+                   </tr>
+                   <tr class="ant-table-row">
+                       <td>public_date</td>
+                       <td>{{action_result.data.public_date}}</td>
+                   </tr>
+                   <tr class="ant-table-row">
+                       <td>bugzilla</td>
+                       <td>{{action_result.data.bugzilla}}</td>
+                   </tr>
+                   <tr class="ant-table-row">
+                       <td>cvss</td>
+                       <td>{{action_result.data.cvss}}</td>
+                   </tr>
+                   <tr class="ant-table-row">
+                       <td>cwe</td>
+                       <td>{{action_result.data.cwe}}</td>
+                   </tr>
+                   <tr class="ant-table-row">
+                       <td>details</td>
+                       <td>{{action_result.data.details}}</td>
+                   </tr>
+                   <tr class="ant-table-row">
+                       <td>acknowledgement</td>
+                       <td>{{action_result.data.acknowledgement}}</td>
+                   </tr>
+                   <tr class="ant-table-row">
+                       <td>package_state</td>
+                       <td>{{action_result.data.package_state}}</td>
+                   </tr>
+                   <tr class="ant-table-row">
+                       <td>references</td>
+                       <td>{{action_result.data.references}}</td>
+                   </tr>
+                   <tr class="ant-table-row">
+                       <td>csaw</td>
+                       <td>{{action_result.data.csaw}}</td>
+                   </tr>
+               {{/if}}
+               {{/each}}
+               </tbody>
+           </table>
+       </div>
+   </div>
+</div>
