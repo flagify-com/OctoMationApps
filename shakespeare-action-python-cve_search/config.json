@@ -1,0 +1,267 @@
+{
+    "name": "cve_search",
+    "description": "cve搜索",
+    "app_version": "1.0.0",
+    "jar": "redhat_cve_search.py",
+    "readme": "resources/readme.md",
+    "logo": "resources/WX20231025-140107@2x.png",
+    "product_name": "Red Hat Security Data",
+    "app_supplier": "Red Hat",
+    "logic_language": "PYTHON",
+    "min_shakespeare_version": "1.0",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {
+        "proxy": {
+            "data_type": "string",
+            "description": "代理,例 http://xxxx:3128",
+            "required": false,
+            "order": 0
+        }
+    },
+    "actions": [
+        {
+            "action": "get_cve",
+            "class_name": "get_cve",
+            "description": "获取cve信息",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/get_cve.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "before": {
+                    "data_type": "string",
+                    "description": "查询日期之前的CVE。[ISO 8601为预期格式] 例 2016-03-01",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 0
+                },
+                "after": {
+                    "data_type": "string",
+                    "description": "查询日期之后的CVE。[ISO 8601为预期格式] 例 2016-02-01，默认为当前的前一天",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 1
+                },
+                "ids": {
+                    "data_type": "string",
+                    "description": "用逗号分隔的ID的CVE 例 CVE-2017-8797,CVE-2014-0161",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 2
+                },
+                "severity": {
+                    "data_type": "string",
+                    "description": "严重性 low,moderate,important",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 3
+                },
+                "package": {
+                    "data_type": "string",
+                    "description": "cve影响的包，多个使用英文逗号分隔。例nginx,redis",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 4
+                },
+                "product": {
+                    "data_type": "string",
+                    "description": "影响的产品，该参数支持Perl兼容的正则表达式，多个英文逗号分隔，例 openstack,linux",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 5
+                },
+                "cvss_score": {
+                    "data_type": "string",
+                    "description": "CVSS得分大于或等于该值的CVE，例 7.0",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 6
+                },
+                "cvss3_score": {
+                    "data_type": "string",
+                    "description": "CVSSv3得分大于或等于此值的CVE 例 7.0",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 7
+                },
+                "page": {
+                    "data_type": "integer",
+                    "description": "分页，页数",
+                    "default_value": "1",
+                    "options": "",
+                    "required": false,
+                    "order": 8
+                },
+                "per_page": {
+                    "data_type": "integer",
+                    "description": "分页大小",
+                    "default_value": "10",
+                    "options": "",
+                    "required": false,
+                    "order": 9
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.records.*.CVE",
+                    "data_type": "string",
+                    "description": "cve"
+                },
+                {
+                    "data_path": "action_result.data.records.*.severity",
+                    "data_type": "string",
+                    "description": "severity"
+                },
+                {
+                    "data_path": "action_result.data.records.*.public_date",
+                    "data_type": "string",
+                    "description": "public_date"
+                },
+                {
+                    "data_path": "action_result.data.records.*.advisories",
+                    "data_type": "jsonarray",
+                    "description": "advisories"
+                },
+                {
+                    "data_path": "action_result.data.records.*.bugzilla",
+                    "data_type": "string",
+                    "description": "bugzilla"
+                },
+                {
+                    "data_path": "action_result.data.records.*.bugzilla_description",
+                    "data_type": "string",
+                    "description": "bugzilla_description"
+                },
+                {
+                    "data_path": "action_result.data.records.*.cvss_score",
+                    "data_type": "string",
+                    "description": "cvss_score"
+                },
+                {
+                    "data_path": "action_result.data.records.*.cvss_scoring_vector",
+                    "data_type": "string",
+                    "description": "cvss_scoring_vector"
+                },
+                {
+                    "data_path": "action_result.data.records.*.CWE",
+                    "data_type": "string",
+                    "description": "CWE"
+                },
+                {
+                    "data_path": "action_result.data.records.*.affected_packages",
+                    "data_type": "jsonarray",
+                    "description": "affected_packages"
+                },
+                {
+                    "data_path": "action_result.data.records.*.resource_url",
+                    "data_type": "string",
+                    "description": "resource_url"
+                },
+                {
+                    "data_path": "action_result.data.records.*.cvss3_scoring_vector",
+                    "data_type": "string",
+                    "description": "cvss3_scoring_vector"
+                },
+                {
+                    "data_path": "action_result.data.records.*.cvss3_score",
+                    "data_type": "string",
+                    "description": "cvss3_score"
+                }
+            ]
+        },
+        {
+            "action": "get_cve_details",
+            "class_name": "get_cve_details",
+            "description": "检索完整的CVE详细信息",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/get_cve_details.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "id": {
+                    "data_type": "string",
+                    "description": "cve id 例 CVE-2016-3706",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.threat_severity",
+                    "data_type": "string",
+                    "description": "threat_severity"
+                },
+                {
+                    "data_path": "action_result.data.public_date",
+                    "data_type": "string",
+                    "description": "public_date"
+                },
+                {
+                    "data_path": "action_result.data.bugzilla",
+                    "data_type": "jsonobject",
+                    "description": "bugzilla"
+                },
+                {
+                    "data_path": "action_result.data.cvss3",
+                    "data_type": "jsonobject",
+                    "description": "cvss3"
+                },
+                {
+                    "data_path": "action_result.data.cwe",
+                    "data_type": "string",
+                    "description": "cwe"
+                },
+                {
+                    "data_path": "action_result.data.details",
+                    "data_type": "string",
+                    "description": "details"
+                },
+                {
+                    "data_path": "action_result.data.affected_release",
+                    "data_type": "jsonarray",
+                    "description": "affected_release"
+                },
+                {
+                    "data_path": "action_result.data.package_state",
+                    "data_type": "jsonarray",
+                    "description": "package_state"
+                },
+                {
+                    "data_path": "action_result.data.upstream_fix",
+                    "data_type": "string",
+                    "description": "upstream_fix"
+                },
+                {
+                    "data_path": "action_result.data.references",
+                    "data_type": "string",
+                    "description": "references"
+                },
+                {
+                    "data_path": "action_result.data.name",
+                    "data_type": "string",
+                    "description": "name"
+                },
+                {
+                    "data_path": "action_result.data.csaw",
+                    "data_type": "boolean",
+                    "description": "csaw"
+                }
+            ]
+        }
+    ]
+}

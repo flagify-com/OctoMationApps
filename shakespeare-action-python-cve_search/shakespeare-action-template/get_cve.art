@@ -1,0 +1,75 @@
+<div class="ant-table ant-table-default ant-table-bordered">
+    <div class="ant-table-content">
+        <div class="ant-table-body">
+            <table>
+                <thead class="ant-table-thead">
+                    <tr>
+                        <th>
+                            <span class="ant-table-header-column">
+                                <div>
+                                    <span class="ant-table-column-title">CVE</span>
+                                    <span class="ant-table-column-sorter"></span>
+                                </div>
+                            </span>
+                        </th>
+                        <th>
+                            <span class="ant-table-header-column">
+                                <div>
+                                    <span class="ant-table-column-title">严重程度</span>
+                                    <span class="ant-table-column-sorter"></span>
+                                </div>
+                            </span>
+                        </th>
+                        <th>
+                            <span class="ant-table-header-column">
+                                <div>
+                                    <span class="ant-table-column-title">公开日期</span>
+                                    <span class="ant-table-column-sorter"></span>
+                                </div>
+                            </span>
+                        </th>
+                        <th>
+                            <span class="ant-table-header-column">
+                                <div>
+                                    <span class="ant-table-column-title">描述</span>
+                                    <span class="ant-table-column-sorter"></span>
+                                </div>
+                            </span>
+                        </th>
+                        <th>
+                            <span class="ant-table-header-column">
+                                <div>
+                                    <span class="ant-table-column-title">详情</span>
+                                    <span class="ant-table-column-sorter"></span>
+                                </div>
+                            </span>
+                        </th>
+                        <th>
+                            <span class="ant-table-header-column">
+                                <div>
+                                    <span class="ant-table-column-title">cvss3分数</span>
+                                    <span class="ant-table-column-sorter"></span>
+                                </div>
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="ant-table-tbody">
+                    {{each action_results as action_result}}
+                    {{each action_result.data.records as records}}
+
+                    <tr class="ant-table-row">
+                        <td>{{records.CVE}}</td>
+                        <td>{{records.severity}}</td>
+                        <td>{{records.public_date}}</td>
+                        <td>{{records.bugzilla_description}}</td>
+                        <td><a href="{{records.resource_url}}" target="_blank">链接</a></td>
+                        <td>{{records.cvss3_score}}</td>
+                    </tr>
+                    {{/each}}
+                  {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
