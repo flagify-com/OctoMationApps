@@ -1,0 +1,408 @@
+{
+  "name": "wecom",
+  "description": "企业微信（企微应用管理）",
+  "app_version": "1.6.2",
+  "cn_name": "企业微信",
+  "connect_method": "api",
+  "adapted_version": "1.0.0",
+  "apptype_tag": "腾讯",
+  "app_author": "Han",
+  "min_shakespeare_version": "1.0",
+  "app_supplier": "腾讯",
+  "product_name": "企业微信",
+  "logo": "resources/wecom.jpg",
+  "read_me": "resources/readme.md",
+  "jar": "tencent_wecom.py",
+  "logic_language": "PYTHON",
+  "logic_language_version": "3",
+  "has_test": true,
+  "test_action": "health_check",
+  "resources": "",
+  "category": "发送消息",
+  "configuration": {
+    "corp_id": {
+      "required": true,
+      "order": 0,
+      "data_type": "string",
+      "description": "企业微信ID，例：ww5ff3a101f29***08"
+    },
+    "corp_secret": {
+      "required": true,
+      "order": 1,
+      "data_type": "password",
+      "description": "企业微信密钥，例：****"
+    },
+    "agent_id": {
+      "required": true,
+      "order": 2,
+      "data_type": "integer",
+      "description": "企业应用的ID，例：100***09"
+    },
+    "to_user": {
+      "required": false,
+      "order": 3,
+      "data_type": "string",
+      "description": "指定接收消息的成员ID，例：ZhangSan（中文名纯拼首字母大写），多个接收者用'|'分隔（需要做健康检查时必填）"
+    },
+    "verify_server_cert": {
+            "required": true,
+            "order": 5,
+            "data_type": "boolean",
+            "description": "是否需要SSL验证，默认False；例：True、False",
+            "defaultValue": "False",
+            "options": [
+                        {"False": false},
+                        {"True": true}
+                    ]
+         },
+    "conn_time_out": {
+        "required": true,
+        "order": 6,
+        "data_type": "integer",
+        "description": "API请求超时时间配置，单位/秒（例：5，不超过300秒）",
+        "defaultValue": 5
+     }
+  },
+  "actions": [
+    {
+      "action": "health_check",
+      "description": "检查企业微信发送消息是否正常",
+      "class_name": "health_check",
+      "result_display_tmpt": "",
+      "result_display_tmpt_type": "js",
+      "safe_mode": false,
+      "is_test": true,
+      "classify": "query",
+      "parameters": {},
+      "output": [
+        {
+          "data_path": "action_result.data",
+          "data_type": "string",
+          "description": "结果"
+        },
+        {
+          "data_path": "action_result.summary.statusCode",
+          "data_type": "integer",
+          "description": "执行状态码"
+        },
+        {
+          "data_path": "action_result.summary.msg",
+          "data_type": "string",
+          "description": "执行结果"
+        }
+      ]
+    },
+    {
+      "action": "Send_Message",
+      "description": "消息发送",
+      "class_name": "Send_Message",
+      "result_display_tmpt": "shakespeare-action-template/Send_Message.art",
+      "result_display_tmpt_type": "js",
+      "safe_mode": true,
+      "is_test": false,
+      "classify": "notify",
+      "parameters": {
+        "to_user": {
+          "required": true,
+          "order": 0,
+          "data_type": "string",
+          "description": "指定接收消息的成员ID，例：ZhangSan（中文名纯拼首字母大写），多个接收者用|分隔"
+        },
+        "content": {
+          "required": true,
+          "order": 1,
+          "data_type": "string",
+          "description": "消息内容，支持任一字符格式，最长不超过2048个字节，否则截断"
+        }
+      },
+      "output": [
+        {
+          "data_path": "action_result.data",
+          "data_type": "string",
+          "description": "结果"
+        },
+        {
+          "data_path": "action_result.data.errcode",
+          "data_type": "integer",
+          "description": "执行状态码"
+        },
+        {
+          "data_path": "action_result.data.errmsg",
+          "data_type": "string",
+          "description": "执行结果"
+        }
+      ]
+    },
+    {
+      "action": "get_user_device",
+      "description": "获取成员设备",
+      "class_name": "get_user_device",
+      "result_display_tmpt": "",
+      "result_display_tmpt_type": "js",
+      "safe_mode": false,
+      "is_test": false,
+      "classify": "query",
+      "parameters": {
+        "to_user": {
+          "required": true,
+          "order": 0,
+          "data_type": "string",
+          "description": "成员ID，例：ZhangSan（中文名纯拼首字母大写）"
+        },
+        "type_device": {
+          "required": true,
+          "order": 1,
+          "data_type": "integer",
+          "description": "消息内容",
+          "options": [
+            {
+              "可信企业设备": 1,
+              "未知设备": 2,
+              "可信个人设备": 3
+            }
+          ]
+        }
+      },
+      "output": [
+        {
+          "data_path": "action_result.data",
+          "data_type": "string",
+          "description": "结果"
+        }
+      ]
+    },
+    {
+      "action": "get_device_info",
+      "description": "获取设备信息",
+      "class_name": "get_device_info",
+      "result_display_tmpt": "",
+      "result_display_tmpt_type": "js",
+      "safe_mode": false,
+      "is_test": false,
+      "classify": "query",
+      "parameters": {
+        "type_device": {
+          "required": true,
+          "order": 1,
+          "data_type": "integer",
+          "description": "类型",
+          "options": [
+            {
+              "可信企业设备": 1,
+              "未知设备": 2,
+              "可信个人设备": 3
+            }
+          ]
+        }
+      },
+      "output": [
+        {
+          "data_path": "action_result.data",
+          "data_type": "string",
+          "description": "结果"
+        }
+      ]
+    },
+    {
+      "action": "get_file_oper_record",
+      "description": "文件防泄漏查询，被分配微盘高级功能的用户，其操作记录将永久保存；其他用户仅保存近90天的记录",
+      "class_name": "get_file_oper_record",
+      "result_display_tmpt": "",
+      "result_display_tmpt_type": "js",
+      "safe_mode": false,
+      "is_test": false,
+      "classify": "query",
+      "parameters": {
+        "start_time": {
+          "required": false,
+          "order": 0,
+          "data_type": "string",
+          "description": "开始时间，例：2023-10-11 00:00:00",
+          "options": [
+            {
+              "时间格式样例": "2023-10-11 00:00:00"
+            }
+          ]
+        },
+        "end_time": {
+          "required": false,
+          "order": 1,
+          "data_type": "string",
+          "description": "结束时间，例：2023-10-11 23:59:59；开始时间到结束时间的范围不能超过14天",
+          "options": [
+            {
+              "时间格式样例": "2023-10-11 23:59:59"
+            }
+          ]
+        },
+        "timedelta": {
+          "required": false,
+          "order": 2,
+          "data_type": "integer",
+          "description": "时间范围，例：60分钟（单位可通过其他参数勾选），输入该参数则无需输入起始时间参数查数据",
+          "default_value": 15
+        },
+        "timedelta_unit": {
+          "required": true,
+          "order": 3,
+          "data_type": "string",
+          "description": "输入时间单位，例：分钟、小时与时间范围参数timedelta同时使用生效",
+          "default_value": "minutes",
+          "options": [
+            {
+              "秒": "seconds"
+            },
+            {
+              "分钟": "minutes"
+            },
+            {
+              "小时": "hours"
+            },
+            {
+              "天": "days"
+            }
+          ]
+        },
+        "filter_file_type": {
+          "required": true,
+          "order": 4,
+          "data_type": "integer",
+          "description": "操作类型，默认所有",
+          "default_value": 0,
+          "options": [
+            {
+              "ALL": 0
+            },
+            {
+              "上传": 101
+            },
+            {
+              "下载": 103
+            },
+            {
+              "新建文件夹": 102
+            },
+            {
+              "其他(请参考文档：输入对应的数值)": 0
+            }
+          ]
+        },
+        "limit": {
+          "required": true,
+          "order": 5,
+          "data_type": "integer",
+          "description": "接口返回数量，例：1000；单次调用最多返1000条",
+          "default_value": 1000
+        },
+        "socket_addr": {
+          "required": false,
+          "order": 6,
+          "data_type": "string",
+          "description": "SOCK地址，例：172.16.1.2"
+        },
+        "socket_port": {
+          "required": false,
+          "order": 7,
+          "data_type": "integer",
+          "description": "SOCK地址，例：514"
+        },
+        "socket_protocol": {
+          "required": false,
+          "order": 8,
+          "data_type": "string",
+          "description": "SOCK协议，例：TCP、UDP",
+          "default_value": "UDP"
+        },
+        "socket_timeout": {
+          "required": false,
+          "order":9,
+          "data_type": "integer",
+          "description": "SOCK连接超时时间，仅TCP，单位/秒；例：3",
+          "default_value": 3
+        }
+      },
+      "output": [
+        {
+          "data_path": "action_result.data",
+          "data_type": "string",
+          "description": "返回结果"
+        },
+        {
+          "data_path": "action_result.summary.statusCode",
+          "data_type": "integer",
+          "description": "返回状态码"
+        },
+        {
+          "data_path": "action_result.summary.msg",
+          "data_type": "string",
+          "description": "返回信息"
+        },
+        {
+          "data_path": "action_result.data.data",
+          "data_type": "string",
+          "description": "返回数据"
+        },
+        {
+          "data_path": "action_result.data.data_info",
+          "data_type": "string",
+          "description": "返回接口数据"
+        },
+        {
+          "data_path": "action_result.data.data_info.*",
+          "data_type": "string",
+          "description": "返回接口数据Syslog推送数据"
+        },
+        {
+          "data_path": "action_result.data.count",
+          "data_type": "integer",
+          "description": "返回接口数据量"
+        }
+      ]
+    },
+    {
+      "action": "get_userid",
+      "description": "企微用户手机号查询用户ID",
+      "class_name": "get_userid",
+      "result_display_tmpt": "shakespeare-action-template/get_userid.art",
+      "result_display_tmpt_type": "js",
+      "safe_mode": false,
+      "is_test": false,
+      "classify": "query",
+      "parameters": {
+        "mobile_number": {
+          "required": true,
+          "order": 1,
+          "data_type": "string",
+          "description": "企微用户手机号，例：13688881088"
+        }
+      },
+      "output": [
+        {
+          "data_path": "action_result.data",
+          "data_type": "string",
+          "description": "返回结果"
+        },
+        {
+          "data_path": "action_result.summary.statusCode",
+          "data_type": "integer",
+          "description": "返回状态码"
+        },
+        {
+          "data_path": "action_result.summary.msg",
+          "data_type": "string",
+          "description": "返回执行结果"
+        },
+        {
+          "data_path": "action_result.data.userid",
+          "data_type": "integer",
+          "description": "用户ID"
+        },
+         {
+          "data_path": "action_result.data.mobile_number",
+          "data_type": "string",
+          "description": "用户号码"
+        }
+      ]
+    }
+  ]
+}

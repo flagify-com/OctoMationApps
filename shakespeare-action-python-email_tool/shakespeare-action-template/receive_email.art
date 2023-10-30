@@ -1,0 +1,35 @@
+<div class="ant-table ant-table-default ant-table-bordered">
+   <div class="ant-table-content">
+       <div class="ant-table-body">
+           <table>
+                <thead class="ant-table-thead">
+                    <tr>
+                        {{each action_results as action_result}}
+                            {{each action_result.data.column as column}}
+                                <th>
+                                    <span class="ant-table-header-column">
+                                        <div>
+                                            <span class="ant-table-column-title" style="text-transform:capitalize;">{{column}}</span>
+                                            <span class="ant-table-column-sorter"></span>
+                                        </div>
+                                    </span>
+                                </th>
+                             {{/each}}
+                        {{/each}}
+                    </tr>
+                </thead>
+                <tbody class="ant-table-tbody">
+                     {{each action_results as action_result}}
+                        {{each action_result.data.result as record}}
+                            <tr class="ant-table-row">
+                                {{each action_result.data.column as cc}}
+                                    <td>{{record[cc]}}</td>
+                                {{/each}}
+                            </tr>
+                        {{/each}}
+                    {{/each}}
+                </tbody>
+           </table>
+       </div>
+   </div>
+</div>

@@ -1,0 +1,346 @@
+{
+    "name": "variable_generator",
+    "description": "变量生成器（输出一个或者更多个变量供后续节点使用，配合函数使用）",
+    "app_version": "1.0.0",
+    "jar": "variable_generator.py",
+    "readme": "resources/readme.md",
+    "logo": "resources/logo-variable.png",
+    "category": "工具",
+    "product_name": "变量生成器",
+    "app_supplier": "雾帜智能",
+    "logic_language": "PYTHON",
+    "min_shakespeare_version": "1.0",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {},
+    "actions": [
+        {
+            "action": "set_variable",
+            "class_name": "set_variable",
+            "description": "设置变量",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/set_variable.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "iv_str_01": {
+                    "data_type": "string",
+                    "description": "输入：字符型变量01，默认为空",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 0
+                },
+                "iv_str_01_label": {
+                    "data_type": "string",
+                    "description": "输入：字符型变量01的label，默认为空",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 1
+                },
+                "iv_str_02": {
+                    "data_type": "string",
+                    "description": "输入：字符型变量02，默认为空",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 2
+                },
+                "iv_str_02_label": {
+                    "data_type": "string",
+                    "description": "输入：字符型变量02的label，默认为空",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 3
+                },
+                "iv_str_03": {
+                    "data_type": "string",
+                    "description": "输入：字符型变量03，默认为空",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 4
+                },
+                "iv_str_03_label": {
+                    "data_type": "string",
+                    "description": "输入：字符型变量03的label，默认为空",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 5
+                },
+                "iv_str_04": {
+                    "data_type": "string",
+                    "description": "输入：字符型变量04，默认为空",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 6
+                },
+                "iv_str_04_label": {
+                    "data_type": "string",
+                    "description": "输入：字符型变量04的label，默认为空",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 7
+                },
+                "iv_str_05": {
+                    "data_type": "string",
+                    "description": "输入：字符型变量05，默认为空",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 8
+                },
+                "iv_str_05_label": {
+                    "data_type": "string",
+                    "description": "输入：字符型变量05的label，默认为空",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 9
+                },
+                "iv_str_06": {
+                    "data_type": "string",
+                    "description": "输入：字符型变量06，默认为空",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 10
+                },
+                "iv_str_06_label": {
+                    "data_type": "string",
+                    "description": "输入：字符型变量06的label，默认为空",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 11
+                },
+                "iv_int_01": {
+                    "data_type": "integer",
+                    "description": "输入：整型变量01，默认为",
+                    "default_value": 0,
+                    "options": "",
+                    "required": false,
+                    "order": 12
+                },
+                "iv_int_01_lable": {
+                    "data_type": "string",
+                    "description": "输入：整型变量01的label，默认为空",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 13
+                },
+                "iv_int_02": {
+                    "data_type": "integer",
+                    "description": "输入：整型变量02，默认为0",
+                    "default_value": 0,
+                    "options": "",
+                    "required": false,
+                    "order": 14
+                },
+                "iv_int_02_lable": {
+                    "data_type": "string",
+                    "description": "输入：整型变量02的label，默认为空",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 15
+                },
+                "iv_int_03": {
+                    "data_type": "integer",
+                    "description": "输入：整型变量03，默认为0",
+                    "default_value": 0,
+                    "options": "",
+                    "required": false,
+                    "order": 16
+                },
+                "iv_int_03_lable": {
+                    "data_type": "string",
+                    "description": "输入：整型变量03的label，默认为空",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 17
+                },
+                "iv_double_01": {
+                    "data_type": "double",
+                    "description": "输入：双精度浮点型变量01，默认：0.0",
+                    "default_value": 0.0,
+                    "options": "",
+                    "required": false,
+                    "order": 18
+                },
+                "iv_double_01_lable": {
+                    "data_type": "string",
+                    "description": "输入：双精度浮点型变量01的label，默认为空",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 19
+                },
+                "iv_double_02": {
+                    "data_type": "double",
+                    "description": "输入：双精度浮点型变量02，默认：0.0",
+                    "default_value": 0.0,
+                    "options": "",
+                    "required": false,
+                    "order": 20
+                },
+                "iv_double_02_lable": {
+                    "data_type": "string",
+                    "description": "输入：双精度浮点型变量02的label，默认为空",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 21
+                },
+                "iv_bool_01": {
+                    "data_type": "boolean",
+                    "description": "输入：布尔型变量01，默认：False",
+                    "default_value": false,
+                    "options": "",
+                    "required": false,
+                    "order": 22
+                },
+                "iv_bool_01_label": {
+                    "data_type": "string",
+                    "description": "输入：布尔型变量01的label，默认为空",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 23
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.ov_str_01",
+                    "data_type": "string",
+                    "description": "输出：字符型变量01"
+                },
+                {
+                    "data_path": "action_result.data.ov_str_01_label",
+                    "data_type": "string",
+                    "description": "输出：字符型变量01的label"
+                },
+                {
+                    "data_path": "action_result.data.ov_str_02",
+                    "data_type": "string",
+                    "description": "输出：字符型变量02"
+                },
+                {
+                    "data_path": "action_result.data.ov_str_02_label",
+                    "data_type": "string",
+                    "description": "输出：字符型变量02的label"
+                },
+                {
+                    "data_path": "action_result.data.ov_str_03",
+                    "data_type": "string",
+                    "description": "输出：字符型变量03"
+                },
+                {
+                    "data_path": "action_result.data.ov_str_03_label",
+                    "data_type": "string",
+                    "description": "输出：字符型变量03的label"
+                },
+                {
+                    "data_path": "action_result.data.ov_str_04",
+                    "data_type": "string",
+                    "description": "输出：字符型变量04"
+                },
+                {
+                    "data_path": "action_result.data.ov_str_04_label",
+                    "data_type": "string",
+                    "description": "输出：字符型变量04的label"
+                },
+                {
+                    "data_path": "action_result.data.ov_str_05",
+                    "data_type": "string",
+                    "description": "输出：字符型变量05"
+                },
+                {
+                    "data_path": "action_result.data.ov_str_05_label",
+                    "data_type": "string",
+                    "description": "输出：字符型变量05的label"
+                },
+                {
+                    "data_path": "action_result.data.ov_str_06",
+                    "data_type": "string",
+                    "description": "输出：字符型变量06"
+                },
+                {
+                    "data_path": "action_result.data.ov_str_06_label",
+                    "data_type": "string",
+                    "description": "输出：字符型变量06的label"
+                },
+                {
+                    "data_path": "action_result.data.ov_int_01",
+                    "data_type": "integer",
+                    "description": "输出：整型变量01"
+                },
+                {
+                    "data_path": "action_result.data.ov_int_01_lable",
+                    "data_type": "string",
+                    "description": "输出：整型变量01的label"
+                },
+                {
+                    "data_path": "action_result.data.ov_int_02",
+                    "data_type": "integer",
+                    "description": "输出：整型变量02"
+                },
+                {
+                    "data_path": "action_result.data.ov_int_02_lable",
+                    "data_type": "string",
+                    "description": "输出：整型变量02的label"
+                },
+                {
+                    "data_path": "action_result.data.ov_int_03",
+                    "data_type": "integer",
+                    "description": "输出：整型变量03"
+                },
+                {
+                    "data_path": "action_result.data.ov_int_03_lable",
+                    "data_type": "string",
+                    "description": "输出：整型变量03的label"
+                },
+                {
+                    "data_path": "action_result.data.ov_double_01",
+                    "data_type": "integer",
+                    "description": "输出：双精度浮点型变量01"
+                },
+                {
+                    "data_path": "action_result.data.ov_double_01_lable",
+                    "data_type": "string",
+                    "description": "输出：双精度浮点型变量01的label"
+                },
+                {
+                    "data_path": "action_result.data.ov_double_02",
+                    "data_type": "integer",
+                    "description": "输出：双精度浮点型变量02"
+                },
+                {
+                    "data_path": "action_result.data.ov_double_02_lable",
+                    "data_type": "string",
+                    "description": "输出：双精度浮点型变量02的label"
+                },
+                {
+                    "data_path": "action_result.data.ov_bool_01",
+                    "data_type": "boolean",
+                    "description": "输出：布尔型变量01"
+                },
+                {
+                    "data_path": "action_result.data.ov_bool_01_label",
+                    "data_type": "string",
+                    "description": "输出：布尔型变量01的label"
+                }
+            ]
+        }
+    ]
+}

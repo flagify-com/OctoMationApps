@@ -1,0 +1,210 @@
+{
+    "name": "email_tool",
+    "description": "邮件工具",
+    "app_version": "1.0.0",
+    "min_shakespeare_version": "1.0",
+    "app_supplier": "雾帜",
+    "product_name": "email_tool",
+    "logo": "resources/email_tool.png",
+    "read_me": "resources/readme.md",
+    "jar": "email_tool.py",
+    "logic_language": "PYTHON",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {
+        "smtp_host": {
+            "required": true,
+            "order": 0,
+            "data_type": "string",
+            "description": "smtp服务器信息,如smtp.163.com"
+        },
+        "smtp_port": {
+            "required": false,
+            "order": 1,
+            "data_type": "integer",
+            "description": "smtp服务器服务端口,如果ssl连接则默认为465,如果使用tsl连接则默认为587,否则默认为25"
+        },
+        "imap_host": {
+            "required": true,
+            "order": 2,
+            "data_type": "string",
+            "description": "imap服务器信息,如imap.163.com"
+        },
+        "imap_port": {
+            "required": false,
+            "order": 3,
+            "data_type": "integer",
+            "description": "imap服务器服务端口,如果ssl连接则默认为993,否则默认为143"
+        },
+        "username": {
+            "required": true,
+            "order": 4,
+            "data_type": "string",
+            "description": "邮箱登录账号"
+        },
+        "password": {
+            "required": true,
+            "order": 5,
+            "data_type": "password",
+            "description": "邮箱登录密码或授权码"
+        },
+        "sender": {
+            "required": true,
+            "order": 6,
+            "data_type": "string",
+            "description": "发件人,有时登录用户名和发件人不一样,所以需要填写发件人信息.eg: xxx@qq.com"
+        },
+        "ssl": {
+            "required": false,
+            "order": 7,
+            "data_type": "boolean",
+            "description": "是否使用ssl连接,默认不使用"
+        },
+        "tsl": {
+            "required": false,
+            "order": 8,
+            "data_type": "boolean",
+            "description": "是否使用tsl连接,默认不使用"
+        }
+    },
+    "actions": [
+        {
+            "action": "health_check",
+            "description": "健康检查",
+            "class_name": "health_check",
+            "result_display_tmpt": "shakespeare-action-template/health_check.art",
+            "result_display_tmpt_type": "js",
+            "safe_mode": false,
+            "is_test": true,
+            "classify": "query",
+            "parameters": {},
+            "output": [
+                {
+                    "data_path": "action_result.data.result",
+                    "data_type": "string",
+                    "description": "健康检查结果"
+                }
+            ]
+        },
+        {
+            "action": "send_email",
+            "description": "发送邮件",
+            "class_name": "send_email",
+            "result_display_tmpt": "shakespeare-action-template/send_email.art",
+            "result_display_tmpt_type": "js",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "notify",
+            "parameters": {
+                "cc": {
+                    "required": false,
+                    "order": 0,
+                    "data_type": "string",
+                    "description": "抄送人,多人用英文逗号隔开"
+                },
+                "receiver": {
+                    "required": true,
+                    "order": 1,
+                    "data_type": "string",
+                    "description": "收件人"
+                },
+                "subject": {
+                    "required": true,
+                    "order": 2,
+                    "data_type": "string",
+                    "description": "邮件主题"
+                },
+                "text_body": {
+                    "required": false,
+                    "order": 3,
+                    "data_type": "string",
+                    "description": "文本格式邮件正文"
+                },
+                "attachment": {
+                    "required": false,
+                    "order": 4,
+                    "data_type": "outside_file",
+                    "description": "邮件附件,如需上传的附件仅支持一个附件,多个请压缩成一个文件上传.如文件在服务器上,多个文件用英文逗号隔开"
+                },
+                "sender": {
+                    "required": false,
+                    "order": 5,
+                    "data_type": "string",
+                    "description": "发件人,不填则默认用邮箱用户名作为发件人"
+                },
+                "html_body": {
+                    "required": false,
+                    "order": 6,
+                    "data_type": "string",
+                    "description": "html格式的邮件正文"
+                },
+                "bcc": {
+                    "required": false,
+                    "order": 7,
+                    "data_type": "string",
+                    "description": "暗送人,多人用英文逗号隔开"
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.result",
+                    "data_type": "string",
+                    "description": "邮件发送结果"
+                }
+            ]
+        },
+        {
+            "action": "receive_email",
+            "description": "接收邮件,只处理收件箱中未读邮件",
+            "class_name": "receive_email",
+            "result_display_tmpt": "shakespeare-action-template/receive_email.art",
+            "result_display_tmpt_type": "js",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "sender": {
+                    "required": false,
+                    "order": 1,
+                    "data_type": "string",
+                    "description": "收件箱中发件人"
+                },
+                "subject": {
+                    "required": false,
+                    "order": 2,
+                    "data_type": "string",
+                    "description": "邮件主题"
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.result",
+                    "data_type": "string",
+                    "description": "具体见readme文档"
+                },
+                {
+                    "data_path": "action_result.data.result.*.sender",
+                    "data_type": "string",
+                    "description": "发件人信息"
+                },
+                {
+                    "data_path": "action_result.data.result.*.body",
+                    "data_type": "string",
+                    "description": "邮件正文(纯文本)"
+                },
+                {
+                    "data_path": "action_result.data.result.*.subject",
+                    "data_type": "string",
+                    "description": "邮件主题"
+                },
+                {
+                    "data_path": "action_result.data.result.*.attachments",
+                    "data_type": "string",
+                    "description": "邮件附件(考虑到多封邮件可能存在同一附件名的情况,附件名前加了uuid)"
+                }
+            ]
+        }
+    ]
+}

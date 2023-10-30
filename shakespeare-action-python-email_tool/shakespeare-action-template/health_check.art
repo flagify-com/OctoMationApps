@@ -1,0 +1,38 @@
+<div class="ant-table ant-table-default ant-table-bordered">
+   <div class="ant-table-content">
+       <div class="ant-table-body">
+           <table>
+               <thead class="ant-table-thead">
+                   <tr>
+                       <th>
+                           <span class="ant-table-header-column">
+                               <div>
+                                   <span class="ant-table-column-title">描述</span>
+                                   <span class="ant-table-column-sorter"></span>
+                               </div>
+                           </span>
+                       </th>
+                       <th>
+                           <span class="ant-table-header-column">
+                               <div>
+                                   <span class="ant-table-column-title">值</span>
+                                   <span class="ant-table-column-sorter"></span>
+                               </div>
+                           </span>
+                       </th>
+                   </tr>
+               </thead>
+               <tbody class="ant-table-tbody">
+               {{each action_results as action_result}}
+               {{if action_result.data.result}}
+                                        <tr class="ant-table-row">
+                        <td>健康检查结果</td>
+                        <td>{{action_result.data.result}}</td>
+                    </tr>
+               {{/if}}
+               {{/each}}
+               </tbody>
+           </table>
+       </div>
+   </div>
+</div>
