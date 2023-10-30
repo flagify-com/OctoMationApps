@@ -1,0 +1,356 @@
+{
+  "name": "aliyun_waf",
+  "description": "阿里云云Web应用防火墙",
+  "app_version": "1.0.0",
+  "min_shakespeare_version": "1.0",
+  "app_supplier": "阿里云",
+  "product_name": "云Web应用防火墙",
+  "logo": "resources/aliyun_waf.png",
+  "read_me": "resources/readme.md",
+  "jar": "aliyun_waf.py",
+  "logic_language": "PYTHON",
+  "logic_language_version": "3",
+  "has_test": false,
+  "test_action": "",
+  "resources": "",
+  "configuration": {
+    "service_address": {
+      "required": true,
+      "order": 0,
+      "data_type": "string",
+      "default_value": "wafopenapi.ap-southeast-1.aliyuncs.com",
+      "description": "服务地址，云WAFopenapi左上角可获取，主要取决于waf地域，不确定可尝试使用默认值，如海外(香港)：wafopenapi.cn-hangzhou.aliyuncs.com，海内(北京)：wafopenapi.cn-hangzhou.aliyuncs.com"
+    },
+    "domain_id": {
+      "required": true,
+      "order": 1,
+      "data_type": "string",
+      "default_value": "cn-hongkong",
+      "description": "区域ID，云WAFopenapi左上角可获取，不确定填示例值即可，如海外(香港)：cn-hongkong，海内(北京)：cn-beijing"
+    },
+    "accesskey_id": {
+      "required": true,
+      "order": 2,
+      "data_type": "string",
+      "description": "访问ID，搜索【用户信息ID】可找到，如：LTAI5tR***vYVEmZ11"
+    },
+    "accesskey_secret": {
+      "required": true,
+      "order": 3,
+      "data_type": "string",
+      "description": "访问密钥，搜索【用户信息ID】可找到，如：LTAI5tR***vYVEmZ11"
+    },
+    "InstanceId": {
+      "required": true,
+      "order": 4,
+      "data_type": "string",
+      "description": "实例ID/名称，可从【控制台】-【费用】-【订单】-【我的订单】进入到对应的订单详情查看，例如：web应用防火墙(包月)，实例名称：waf-cn-xxx29xxfn1k"
+    }
+  },
+  "actions": [
+    {
+      "action": "health_check",
+      "description": "健康检查(获取实例信息)",
+      "class_name": "health_check",
+      "result_display_tmpt": "shakespeare-action-template/health_check.art",
+      "result_display_tmpt_type": "js",
+      "safe_mode": false,
+      "is_test": true,
+      "classify": "query",
+      "parameters": {},
+      "output": [
+        {
+          "data_path": "action_result.data.source_data",
+          "data_type": "string",
+          "description": "源数据"
+        }
+      ]
+    },
+    {
+      "action": "get_domain_assets",
+      "description": "获取域名资产信息",
+      "class_name": "get_domain_assets",
+      "result_display_tmpt": "shakespeare-action-template/get_domain_assets.art",
+      "result_display_tmpt_type": "js",
+      "safe_mode": false,
+      "is_test": false,
+      "classify": "query",
+      "parameters": {},
+      "output": [
+        {
+          "data_path": "action_result.data.DomainNames",
+          "data_type": "string",
+          "description": "DomainNames"
+        },
+        {
+          "data_path": "action_result.data.source_data",
+          "data_type": "string",
+          "description": "源数据"
+        }
+      ]
+    },
+    {
+      "action": "modify_protection_module_status",
+      "description": "打开或关闭指定WAF防护功能",
+      "class_name": "modify_protection_module_status",
+      "result_display_tmpt": "shakespeare-action-template/modify_protection_module_status.art",
+      "result_display_tmpt_type": "js",
+      "safe_mode": false,
+      "is_test": false,
+      "classify": "query",
+      "parameters": {
+        "domain": {
+          "required": true,
+          "order": 1,
+          "data_type": "string",
+          "description": "已添加的域名名称，网站域名必须已经接入WAF进行防护，例如：www.example.com"
+        },
+        "ModuleStatus": {
+          "required": true,
+          "order": 2,
+          "data_type": "string",
+          "default_value": "1",
+          "options": [
+            {
+              "开": 1,
+              "关": "0"
+            }
+          ],
+          "description": "设置开启或关闭指定的防护功能模块。0：表示关闭。1：表示开启。"
+        },
+        "DefenseType": {
+          "required": true,
+          "order": 3,
+          "default_value": "waf",
+          "data_type": "string",
+          "options": [
+            {
+              "规则防护引擎": "waf",
+              "深度学习引擎": "dld",
+              "网站防篡改": "tamperproof",
+              "防敏感信息泄漏": "dlp",
+              "主动防御": "normalized",
+              "合法爬虫": "bot_crawler",
+              "爬虫威胁情报": "bot_intelligence",
+              "数据风控": "antifraud",
+              "智能算法": "bot_algorithm",
+              "App防护": "bot_wxbb",
+              "App防护中的版本防护": "bot_wxbb_pkg",
+              "CC安全防护": "ac_cc",
+              "IP黑名单": "ac_blacklist",
+              "扫描防护中的高频Web攻击封禁": "ac_highfreq",
+              "扫描防护中的目录扫描防护": "ac_dirscan",
+              "扫描防护中的扫描工具封禁": "ac_scantools",
+              "扫描防护中的协同防御": "ac_collaborative",
+              "自定义防护策略": "ac_custom"
+            }
+          ],
+          "description": "防护功能模块，例如：waf"
+        }
+      },
+      "output": [
+        {
+          "data_path": "action_result.data.code",
+          "data_type": "string",
+          "description": "状态码"
+        },
+        {
+          "data_path": "action_result.data.source_data",
+          "data_type": "string",
+          "description": "源数据"
+        }
+      ]
+    },
+    {
+      "action": "describe_protection_module_rules",
+      "description": "查询防护“黑名单”功能规则配置",
+      "class_name": "describe_protection_module_rules",
+      "result_display_tmpt": "shakespeare-action-template/describe_protection_module_rules.art",
+      "result_display_tmpt_type": "js",
+      "safe_mode": false,
+      "is_test": false,
+      "classify": "query",
+      "parameters": {
+        "domain": {
+          "required": true,
+          "order": 1,
+          "data_type": "string",
+          "description": "已添加的域名名称，网站域名必须已经接入WAF进行防护，例如：www.example.com"
+        }
+      },
+      "output": [
+        {
+          "data_path": "action_result.data.code",
+          "data_type": "string",
+          "description": "状态码"
+        },
+        {
+          "data_path": "action_result.data.source_data",
+          "data_type": "string",
+          "description": "源数据"
+        }
+      ]
+    },
+    {
+      "action": "add_blackip",
+      "description": "IP添加黑名单",
+      "class_name": "add_blackip",
+      "result_display_tmpt": "shakespeare-action-template/add_blackip.art",
+      "result_display_tmpt_type": "js",
+      "safe_mode": false,
+      "is_test": false,
+      "classify": "query",
+      "parameters": {
+        "domain": {
+          "required": true,
+          "order": 1,
+          "data_type": "string",
+          "description": "已添加的域名名称，网站域名必须已经接入WAF进行防护，例如：www.example.com"
+        },
+        "blackip": {
+          "required": true,
+          "order": 2,
+          "data_type": "string",
+          "description": "如1.1.1.1,2.2.2.2"
+        }
+      },
+      "output": [
+        {
+          "data_path": "action_result.data.code",
+          "data_type": "string",
+          "description": "状态码"
+        },
+        {
+          "data_path": "action_result.data.source_data",
+          "data_type": "string",
+          "description": "源数据"
+        },
+        {
+          "data_path": "action_result.data.code",
+          "data_type": "integer",
+          "description": "返回代码， 非200都为异常"
+        },
+        {
+          "data_path": "action_result.data.msg",
+          "data_type": "integer",
+          "description": "消息"
+        }
+      ]
+    },
+    {
+      "action": "remove_blackip",
+      "description": "IP移出黑名单",
+      "class_name": "remove_blackip",
+      "result_display_tmpt": "shakespeare-action-template/remove_blackip.art",
+      "result_display_tmpt_type": "js",
+      "safe_mode": false,
+      "is_test": false,
+      "classify": "query",
+      "parameters": {
+        "domain": {
+          "required": true,
+          "order": 1,
+          "data_type": "string",
+          "description": "已添加的域名名称，网站域名必须已经接入WAF进行防护，例如：www.example.com"
+        },
+        "blackip": {
+          "required": true,
+          "order": 2,
+          "data_type": "string",
+          "description": "如1.1.1.1,2.2.2.2"
+        }
+      },
+      "output": [
+        {
+          "data_path": "action_result.data.code",
+          "data_type": "string",
+          "description": "状态码"
+        },
+                {
+          "data_path": "action_result.data.source_data",
+          "data_type": "string",
+          "description": "源数据"
+        },
+        {
+          "data_path": "action_result.data.code",
+          "data_type": "integer",
+          "description": "返回代码， 非200都为异常"
+        },
+        {
+          "data_path": "action_result.data.msg",
+          "data_type": "integer",
+          "description": "消息"
+        }
+      ]
+    },
+    {
+      "action": "get_pro_module_status",
+      "description": "查询WAF各防护功能的状态",
+      "class_name": "get_pro_module_status",
+      "result_display_tmpt": "shakespeare-action-template/get_pro_module_status.art",
+      "result_display_tmpt_type": "js",
+      "safe_mode": false,
+      "is_test": false,
+      "classify": "query",
+      "parameters": {
+        "domain": {
+          "required": true,
+          "order": 1,
+          "data_type": "string",
+          "description": "已添加的域名名称，网站域名必须已经接入WAF进行防护，例如：www.example.com"
+        }
+      },
+      "output": [
+        {
+          "data_path": "action_result.data.source_data",
+          "data_type": "string",
+          "description": "源数据"
+        }
+      ]
+    },
+    {
+      "action": "add_whilelist",
+      "description": "新建IP白名单",
+      "class_name": "add_whilelist",
+      "result_display_tmpt": "shakespeare-action-template/add_whilelist.art",
+      "result_display_tmpt_type": "js",
+      "safe_mode": false,
+      "is_test": false,
+      "classify": "query",
+      "parameters": {
+        "domain": {
+          "required": true,
+          "order": 1,
+          "data_type": "string",
+          "description": "已添加的域名名称，网站域名必须已经接入WAF进行防护，例如：www.example.com"
+        },
+        "whileip": {
+          "required": true,
+          "order": 2,
+          "data_type": "string",
+          "description": "需加白名单的IP，例如：1.1.1.1,2.2.2.2/24,3.3.3.3"
+        },
+        "if_belong": {
+          "required": true,
+          "order": 3,
+          "data_type": "integer",
+          "default_value": 1,
+          "options": [
+            {
+              "属于": 1,
+              "不属于": 0
+            }
+          ],
+          "description": "逻辑参数，0为不属于，默认为：属于1"
+        }
+      },
+      "output": [
+        {
+          "data_path": "action_result.data.source_data",
+          "data_type": "string",
+          "description": "源数据"
+        }
+      ]
+    }
+  ]
+}

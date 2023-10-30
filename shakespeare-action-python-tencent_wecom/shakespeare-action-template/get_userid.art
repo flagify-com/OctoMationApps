@@ -1,0 +1,50 @@
+<div class="ant-table ant-table-default ant-table-bordered">
+   <div class="ant-table-content">
+       <div class="ant-table-body">
+           <table>
+               <thead class="ant-table-thead">
+                   <tr>
+                       <th>
+                           <span class="ant-table-header-column">
+                               <div>
+                                   <span class="ant-table-column-title">描述</span>
+                                   <span class="ant-table-column-sorter"></span>
+                               </div>
+                           </span>
+                       </th>
+                       <th>
+                           <span class="ant-table-header-column">
+                               <div>
+                                   <span class="ant-table-column-title">值</span>
+                                   <span class="ant-table-column-sorter"></span>
+                               </div>
+                           </span>
+                       </th>
+                   </tr>
+               </thead>
+               <tbody class="ant-table-tbody">
+               {{each action_results as action_result}}
+               {{if action_result.data}}
+                   <tr class="ant-table-row">
+                       <td>执行状态码</td>
+                       <td>{{action_result.summary.statusCode}}</td>
+                   </tr>
+                   <tr class="ant-table-row">
+                       <td>执行结果</td>
+                       <td>{{action_result.summary.msg}}</td>
+                   </tr>
+                   <tr class="ant-table-row">
+                       <td>用户ID</td>
+                       <td>{{action_result.data.userid}}</td>
+                   </tr>
+                   <tr class="ant-table-row">
+                       <td>用户号码</td>
+                       <td>{{action_result.data.mobile_number}}</td>
+                   </tr>
+               {{/if}}
+               {{/each}}
+               </tbody>
+           </table>
+       </div>
+   </div>
+</div>
