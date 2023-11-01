@@ -1,0 +1,159 @@
+{
+    "name": "HTTP_Client",
+    "description": "通用HTTP客户端",
+    "app_version": "1.0.1",
+    "jar": "http_client.py",
+    "readme": "resources/readme.md",
+    "logo": "resources/http.png",
+    "category": "网络工具",
+    "product_name": "通用HTTP客户端",
+    "app_supplier": "雾帜智能",
+    "logic_language": "PYTHON",
+    "min_shakespeare_version": "1.0",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {},
+    "actions": [
+        {
+            "action": "http_request",
+            "class_name": "http_request",
+            "description": "HTTP请求",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/http_request.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "SERVER": {
+                    "data_type": "string",
+                    "description": "URL服务器，如：https://user:pass@example.com:8080",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "PATH": {
+                    "data_type": "string",
+                    "description": "URL路径，如：/user/info，默认为：/",
+                    "default_value": "/",
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                },
+                "QUERY": {
+                    "data_type": "string",
+                    "description": "URL请求参数(不带?，需自行做好URL Encode，如：user=Chris&comment=I%20love%20OctoMation）",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 2
+                },
+                "CONTENT_TYPE": {
+                    "data_type": "string",
+                    "description": "HTTP请求头中的Content-Type，默认：application/json",
+                    "default_value": "application/json",
+                    "options": [
+                        {
+                            "application/json": "application/json",
+                            "text/html": "text/plain",
+                            "text/plain": "text/plain",
+                            "application/x-www-form-urlencoded": "application/x-www-form-urlencoded"
+                        }
+                    ],
+                    "required": false,
+                    "order": 3
+                },
+                "HEADER": {
+                    "data_type": "string",
+                    "description": "自定义HTTP头，KEY:VALUE，按行填写。",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 4
+                },
+                "BODY": {
+                    "data_type": "string",
+                    "description": "HTTP请求体（Form模式需要自行URL Encode）",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 5
+                },
+                "METHOD": {
+                    "data_type": "string",
+                    "description": "HTTP请求方法，默认：GET",
+                    "default_value": "GET",
+                    "options": [
+                        {
+                            "HEAD": "HEAD",
+                            "GET": "GET",
+                            "POST": "POST",
+                            "DELETE": "DELETE",
+                            "OPTIONS": "OPTIONS",
+                            "PUT": "PUT",
+                            "TRACE": "TRACE"
+                        }
+                    ],
+                    "required": true,
+                    "order": 6
+                },
+                "PROXY": {
+                    "data_type": "string",
+                    "description": "代理服务器，如：http://127.0.0.1:3128",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 7
+                },
+                "ALLOW_REDIRECTS": {
+                    "data_type": "boolean",
+                    "description": "是否允许重定向，默认：True",
+                    "default_value": true,
+                    "options": [
+                        {
+                            "是": true,
+                            "否": false
+                        }
+                    ],
+                    "required": false,
+                    "order": 8
+                },
+                "VERIFY_SSL": {
+                    "data_type": "boolean",
+                    "description": "是否校验SSL证书，默认：True",
+                    "default_value": true,
+                    "options": [
+                        {
+                            "是": true,
+                            "否": false
+                        }
+                    ],
+                    "required": false,
+                    "order": 9
+                },
+                "TIMEOUT": {
+                    "data_type": "integer",
+                    "description": "HTTP请求超时（秒）",
+                    "default_value": 60,
+                    "options": "",
+                    "required": false,
+                    "order": 10
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.http_response_code",
+                    "data_type": "integer",
+                    "description": "HTTP返回码"
+                },
+                {
+                    "data_path": "action_result.data.http_response_text",
+                    "data_type": "string",
+                    "description": "HTTP返回的文本内容"
+                }
+            ]
+        }
+    ]
+}
