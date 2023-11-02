@@ -85,7 +85,7 @@ def http_request(params, assets, context_info):
             json_ret['msg'] = "可能请求失败，请检查错误信息:("
         
     except Exception as e:
-        json_ret['code']= -1
+        json_ret['code']= 500
         json_ret["msg"] = str(e)
 
     return json_ret
