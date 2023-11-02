@@ -21,7 +21,7 @@
             "class_name": "http_request",
             "description": "HTTP请求",
             "result_display_tmpt_type": "js",
-            "result_display_tmpt": "shakespeare-action-template/http_request.art",
+            "result_display_tmpt": "",
             "safe_mode": false,
             "is_test": false,
             "classify": "write",
