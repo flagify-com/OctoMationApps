@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import requests
-import json
 
 def http_request(params, assets, context_info):
     """HTTP请求"""
