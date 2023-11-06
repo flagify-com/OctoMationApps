@@ -52,8 +52,8 @@
                 },
                 "CONTENT_TYPE": {
                     "data_type": "string",
-                    "description": "HTTP请求头中的Content-Type，默认：application/json",
-                    "default_value": "application/json",
+                    "description": "HTTP请求头中的Content-Type，默认为空",
+                    "default_value": "",
                     "options": [
                         {
                             "application/json": "application/json",
@@ -65,13 +65,30 @@
                     "required": false,
                     "order": 3
                 },
+                "USER_AGENT": {
+                    "data_type": "string",
+                    "description": "HTTP请求头中的User Agent，默认为：OctoMation-HTTP-Client v1.0.0",
+                    "default_value": "OctoMation-HTTP-Client v1.0.0",
+                    "options": [
+                        {
+                            "OctoMation-HTTP-Client v1.0.0": "OctoMation-HTTP-Client v1.0.0",
+                            "Firefox+Win": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0",
+                            "Chrome+macOS": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+                            "Huawei P30 Pro": "Mozilla/5.0 (Linux; Android 10; VOG-L29) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Mobile Safari/537.36",
+                            "iPhone 13 Pro Max": "Mozilla/5.0 (iPhone14,3; U; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/10.0 Mobile/19A346 Safari/602.1",
+                            "Edge+Win10": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"
+                        }
+                    ],
+                    "required": false,
+                    "order": 4
+                },
                 "HEADER": {
                     "data_type": "string",
                     "description": "自定义HTTP头，KEY:VALUE，按行填写。",
                     "default_value": "",
                     "options": "",
                     "required": false,
-                    "order": 4
+                    "order": 5
                 },
                 "BODY": {
                     "data_type": "string",
@@ -79,7 +96,7 @@
                     "default_value": "",
                     "options": "",
                     "required": false,
-                    "order": 5
+                    "order": 6
                 },
                 "METHOD": {
                     "data_type": "string",
@@ -92,12 +109,11 @@
                             "POST": "POST",
                             "DELETE": "DELETE",
                             "OPTIONS": "OPTIONS",
-                            "PUT": "PUT",
-                            "TRACE": "TRACE"
+                            "PUT": "PUT"
                         }
                     ],
                     "required": true,
-                    "order": 6
+                    "order": 7
                 },
                 "PROXY": {
                     "data_type": "string",
@@ -105,7 +121,7 @@
                     "default_value": "",
                     "options": "",
                     "required": false,
-                    "order": 7
+                    "order": 8
                 },
                 "ALLOW_REDIRECTS": {
                     "data_type": "boolean",
@@ -118,7 +134,7 @@
                         }
                     ],
                     "required": false,
-                    "order": 8
+                    "order": 9
                 },
                 "VERIFY_SSL": {
                     "data_type": "boolean",
@@ -131,7 +147,7 @@
                         }
                     ],
                     "required": false,
-                    "order": 9
+                    "order": 10
                 },
                 "TIMEOUT": {
                     "data_type": "integer",
@@ -139,7 +155,20 @@
                     "default_value": 60,
                     "options": "",
                     "required": false,
-                    "order": 10
+                    "order": 11
+                },
+                "COOKIE_FILE": {
+                    "data_type": "string",
+                    "description": "存储Cookie的文件路径，默认：空，不存储",
+                    "default_value": "",
+                    "options": [
+                        {
+                            "随机生成一个Cookie文件": "__RANDOM__COOKIE__FILE__",
+                            "不使用Cookie文件": ""
+                        }
+                    ],
+                    "required": false,
+                    "order": 12
                 }
             },
             "output": [
@@ -152,6 +181,16 @@
                     "data_path": "action_result.data.http_response_text",
                     "data_type": "string",
                     "description": "HTTP返回的文本内容"
+                },
+                {
+                    "data_path": "action_result.data.cookies",
+                    "data_type": "string",
+                    "description": "适用于HTTP头的Cookie字符串"
+                },
+                {
+                    "data_path": "action_result.data.cookie_file",
+                    "data_type": "string",
+                    "description": "存储Cookie的文件路径"
                 }
             ]
         }
