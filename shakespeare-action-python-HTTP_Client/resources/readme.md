@@ -130,8 +130,7 @@
                 "POST": "POST",
                 "DELETE": "DELETE",
                 "OPTIONS": "OPTIONS",
-                "PUT": "PUT",
-                "TRACE": "TRACE"
+                "PUT": "PUT"
             }
         ],
         "required": true,
