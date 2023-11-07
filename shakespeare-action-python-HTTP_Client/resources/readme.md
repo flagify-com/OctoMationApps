@@ -9,8 +9,8 @@
 
 | 内容 | 详细描述 |
 | ---- | ------ |
-| app版本      | 1.0.1 |
-| 发布时间     | 2023-11-01|02:27:06 |
+| app版本      | 1.0.2 |
+| 发布时间     | 2023-11-06 20:09:10 |
 | 应用连接方式  | 标准HTTP请求 |
 | 支持版本     | HTTP/1.1 |
 | 作者        |  [@wzfukui](https://github.com/wzfukui) |
@@ -52,6 +52,7 @@
 | PATH |  string  | /user/info | 是 | / |  URL路径 |
 | QUERY |  string  | user=Chris&comment=I%20love%20OctoMation| 否 | 空 |  URL请求参数(不带?，需自行做好URL Encode) |
 | CONTENT_TYPE |  string  | application/json| 否 | application/json |  HTTP请求头中的Content-Type |
+| USER_AGENT |  string  | Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0 | 否 | 空 |  HTTP请求头中的Content-Type |
 | HEADER |  string  | KEY:VALUE| 否 | 空 |  自定义HTTP头 |
 | BODY |  string  | 一段文本 | 否 | 空 |  HTTP请求体（Form模式需要自行URL Encode） |
 | METHOD |  string  | GET| 否 | GET |  HTTP请求方法 |
@@ -90,8 +91,8 @@
     },
     "CONTENT_TYPE": {
         "data_type": "string",
-        "description": "HTTP请求头中的Content-Type，默认：application/json",
-        "default_value": "application/json",
+        "description": "HTTP请求头中的Content-Type，默认为空",
+        "default_value": "",
         "options": [
             {
                 "application/json": "application/json",
@@ -103,13 +104,30 @@
         "required": false,
         "order": 3
     },
+    "USER_AGENT": {
+        "data_type": "string",
+        "description": "HTTP请求头中的User Agent，默认为：OctoMation-HTTP-Client v1.0.0",
+        "default_value": "OctoMation-HTTP-Client v1.0.0",
+        "options": [
+            {
+                "OctoMation-HTTP-Client v1.0.0": "OctoMation-HTTP-Client v1.0.0",
+                "Firefox+Win": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0",
+                "Chrome+macOS": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+                "Huawei P30 Pro": "Mozilla/5.0 (Linux; Android 10; VOG-L29) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Mobile Safari/537.36",
+                "iPhone 13 Pro Max": "Mozilla/5.0 (iPhone14,3; U; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/10.0 Mobile/19A346 Safari/602.1",
+                "Edge+Win10": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"
+            }
+        ],
+        "required": false,
+        "order": 4
+    },
     "HEADER": {
         "data_type": "string",
         "description": "自定义HTTP头，KEY:VALUE，按行填写。",
         "default_value": "",
         "options": "",
         "required": false,
-        "order": 4
+        "order": 5
     },
     "BODY": {
         "data_type": "string",
@@ -117,7 +135,7 @@
         "default_value": "",
         "options": "",
         "required": false,
-        "order": 5
+        "order": 6
     },
     "METHOD": {
         "data_type": "string",
@@ -130,12 +148,11 @@
                 "POST": "POST",
                 "DELETE": "DELETE",
                 "OPTIONS": "OPTIONS",
-                "PUT": "PUT",
-                "TRACE": "TRACE"
+                "PUT": "PUT"
             }
         ],
         "required": true,
-        "order": 6
+        "order": 7
     },
     "PROXY": {
         "data_type": "string",
@@ -143,7 +160,7 @@
         "default_value": "",
         "options": "",
         "required": false,
-        "order": 7
+        "order": 8
     },
     "ALLOW_REDIRECTS": {
         "data_type": "boolean",
@@ -156,7 +173,7 @@
             }
         ],
         "required": false,
-        "order": 8
+        "order": 9
     },
     "VERIFY_SSL": {
         "data_type": "boolean",
@@ -169,7 +186,7 @@
             }
         ],
         "required": false,
-        "order": 9
+        "order": 10
     },
     "TIMEOUT": {
         "data_type": "integer",
@@ -177,7 +194,20 @@
         "default_value": 60,
         "options": "",
         "required": false,
-        "order": 10
+        "order": 11
+    },
+    "COOKIE_FILE": {
+        "data_type": "string",
+        "description": "存储Cookie的文件路径，默认：空，不存储",
+        "default_value": "",
+        "options": [
+            {
+                "随机生成一个Cookie文件": "__RANDOM__COOKIE__FILE__",
+                "不使用Cookie文件": ""
+            }
+        ],
+        "required": false,
+        "order": 12
     }
 }
 ```
@@ -186,10 +216,12 @@
 
 | 参数  | 类型   | 数据样例  | 说明 |
 | ---- | ----- | ------- | ---- |  
-| action_result.code |  integer  | 200 |  APP执行返回状态码，默认：200  |
-| action_result.msg |  string  | 请求发送成功，请确认返回结果:) |  APP执行返回的消息  |
-| action_result.data.http_response_code |  integer  | 200 |  HTTP返回的状态码  |
+| action_result.code |  integer  | `200` |  APP执行返回状态码，默认：200  |
+| action_result.msg |  string  | `请求发送成功，请确认返回结果:)` |  APP执行返回的消息  |
+| action_result.data.http_response_code |  integer  | `200` |  HTTP返回的状态码  |
 | action_result.data.http_response_text |  string  | `<html>...</html>`，`{"errcode":0,"errmsg":"ok"}` |  HTTP返回的文本结果  |
+| action_result.data.cookies |  string  | `BAIDUID=5A19B:FG=1; BIDUPSID=5A19BE8392; PSTM=1699268694` |  Cookie字符串  |
+| action_result.data.cookie_file |  string  | `/tmp/cookie_12121212.pkl` |  存放cookie的文件路径  |
 
 使用过程截图：
 
@@ -208,10 +240,10 @@ HTTP Client请求钉钉webhook
 
 | 配置项     | 样例                  | 说明                                           |
 | ---------- | --------------------- | ---------------------------------------------- |
-| 资源名     |     | 资源名称具备可辨识度，比如设备所在的位置       |
-| 描述       |  | 描述尽可能清晰              |
+| 资源名     |     | /       |
+| 描述       |  | /              |
 | 产品供应商 |  WZZN | 产品生产厂商（可选）        |
-| 产品名称   |  通用HTTP客户端  | 产品名称 （可选）    |
+| 产品名称   |  通用通用HTTP客户端  | 产品名称 （可选）    |
 | 执行引擎   | 任意引擎  | 在多引擎环境下可以指派执行引擎，默认“任意引擎” |
         
 ### 2）资源配置参数
@@ -219,3 +251,10 @@ HTTP Client请求钉钉webhook
 | 参数 | 类型 | 样例 | 必须 | 默认值 | 说明 |
 | ---- | ---- | ---- | ---- | ------ | ---- |
 |      |      |      |      |        |      |
+
+
+# Release log
+
+- 2023-11-01 02:27:06 v1.0.0 初始 
+- 2023-11-03 14:13:27 v1.0.1 删除空白文件
+- 2023-11-06 20:09:10 v1.0.2 增加Cookie支持
