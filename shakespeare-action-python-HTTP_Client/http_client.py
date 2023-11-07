@@ -3,8 +3,10 @@ import requests
 import time
 import pickle
 import os
+import copy
 from urllib.parse import urlparse
 from http.cookiejar import Cookie, CookieJar
+
 
 def from_string_to_cookiejar(cookie_string, domain):
     cookie_jar = CookieJar()
@@ -162,10 +164,14 @@ def http_request(params, assets, context_info):
         else:
             cookies = read_cookie_to_pickle_file(COOKIE_FILE)
         
+        original_cookies = {}
         s = requests.session()
         if cookies:
             s.cookies = cookies
-        
+            original_cookies = {c.name: c.value for domain in s.cookies._cookies for path in s.cookies._cookies[domain] for c in s.cookies._cookies[domain][path].values()}
+
+            # original_cookies = {c.name: c.value for domain in s.cookies._cookies for path in s.cookies._cookies[domain].values() for c in path.values()}
+        # print(original_cookies)
         res = None
         if 'GET'  == METHOD:
             res = s.get(url=url, headers=headers, allow_redirects=ALLOW_REDIRECTS, proxies=PROXY, verify=VERIFY_SSL, timeout=TIMEOUT)
@@ -181,7 +187,14 @@ def http_request(params, assets, context_info):
             res = s.put(url=url, headers=headers, data=BODY.encode(), allow_redirects=ALLOW_REDIRECTS,proxies=PROXY, verify=VERIFY_SSL, timeout=TIMEOUT)
         
         if res is not None:
-            save_cookie_to_pickle_file(s.cookies, COOKIE_FILE)
+            ### Genereate by ChatGPT
+            for domain in s.cookies._cookies:
+                for path in s.cookies._cookies[domain].values():
+                    for c in path.values():
+                        original_cookies[c.name] = c.value
+    
+            save_cookie_to_pickle_file(original_cookies, COOKIE_FILE)
+            # save_cookie_to_pickle_file(s.cookies, COOKIE_FILE)
             json_ret['data']['http_response_code'] = res.status_code
             json_ret['data']['http_response_text'] = res.text
             json_ret['data']['cookies'] = from_cookiejar_to_string(s.cookies)
