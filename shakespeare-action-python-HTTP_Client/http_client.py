@@ -3,7 +3,34 @@ import requests
 import time
 import pickle
 import os
-from http.cookiejar import CookieJar
+from urllib.parse import urlparse
+from http.cookiejar import Cookie, CookieJar
+
+def from_string_to_cookiejar(cookie_string, domain):
+    cookie_jar = CookieJar()
+    for item in cookie_string.split(';'):
+        name, value = item.strip().split('=', 1)
+        cookie = Cookie(
+            version=0,
+            name=name,
+            value=value,
+            port=None,
+            port_specified=False,
+            domain=domain,
+            domain_specified=False,
+            domain_initial_dot=False,
+            path='/',
+            path_specified=True,
+            secure=False,
+            expires=None,
+            discard=True,
+            comment=None,
+            comment_url=None,
+            rest={'HttpOnly': None},
+            rfc2109=False,
+        )
+        cookie_jar.set_cookie(cookie)
+    return cookie_jar
 
 def from_cookiejar_to_string(cookiejar):
     """
@@ -62,6 +89,9 @@ def http_request(params, assets, context_info):
     # HTTP请求方法，默认：GET
     METHOD = "GET" if "METHOD" not in params.keys() or params["METHOD"] == "" else params["METHOD"]
 
+    COOKIES = ""
+    if "COOKIES" in params.keys() and params["COOKIES"] != "" and params["COOKIES"] is not None: COOKIES= params["COOKIES"]
+
     COOKIE_FILE = ""
     if "COOKIE_FILE" in params.keys() and params["COOKIE_FILE"] != "" and params["COOKIE_FILE"] is not None:
         if '__RANDOM__COOKIE__FILE__' == params["COOKIE_FILE"]:
@@ -89,7 +119,7 @@ def http_request(params, assets, context_info):
     TIMEOUT = 60 if "TIMEOUT" not in params.keys() or params["TIMEOUT"] == "" else int(params["TIMEOUT"])
 
     # 返回值
-    json_ret = {"code": 200, "msg": "","data": {"http_response_code": 0, "http_response_text": "", "cookies":"", "cookie_file": COOKIE_FILE}}
+    json_ret = {"code": 200, "msg": "","data": {"http_response_code": 0, "http_response_text": "", "cookies": COOKIES, "cookie_file": COOKIE_FILE}}
 
     '''添加函数实现
     
@@ -125,10 +155,17 @@ def http_request(params, assets, context_info):
                 headers[key.lower()] = value.lower()
     
     try:
-        cookies = read_cookie_to_pickle_file(COOKIE_FILE)
+        cookies = None
+        if COOKIES != "":
+            domain = urlparse(url).hostname
+            cookies = from_string_to_cookiejar(COOKIES, domain)
+        else:
+            cookies = read_cookie_to_pickle_file(COOKIE_FILE)
+        
         s = requests.session()
         if cookies:
             s.cookies = cookies
+        
         res = None
         if 'GET'  == METHOD:
             res = s.get(url=url, headers=headers, allow_redirects=ALLOW_REDIRECTS, proxies=PROXY, verify=VERIFY_SSL, timeout=TIMEOUT)
@@ -142,6 +179,7 @@ def http_request(params, assets, context_info):
             res = s.post(url=url, headers=headers, data=BODY.encode(), allow_redirects=ALLOW_REDIRECTS,proxies=PROXY, verify=VERIFY_SSL, timeout=TIMEOUT)
         elif 'PUT' == METHOD:
             res = s.put(url=url, headers=headers, data=BODY.encode(), allow_redirects=ALLOW_REDIRECTS,proxies=PROXY, verify=VERIFY_SSL, timeout=TIMEOUT)
+        
         if res is not None:
             save_cookie_to_pickle_file(s.cookies, COOKIE_FILE)
             json_ret['data']['http_response_code'] = res.status_code

@@ -157,6 +157,14 @@
                     "required": false,
                     "order": 11
                 },
+                "COOKIES": {
+                    "data_type": "string",
+                    "description": "适用于HTTP请求头的Cookie字符串，作为入参优先级大于：COOKIE_FILE，默认：空",
+                    "default_value": "",
+                    "options":"",
+                    "required": false,
+                    "order": 12
+                },
                 "COOKIE_FILE": {
                     "data_type": "string",
                     "description": "存储Cookie的文件路径，默认：空，不存储",
@@ -168,7 +176,7 @@
                         }
                     ],
                     "required": false,
-                    "order": 12
+                    "order": 13
                 }
             },
             "output": [

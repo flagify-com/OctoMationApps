@@ -45,6 +45,18 @@ class TestStringMethods(unittest.TestCase):
         params2['COOKIE_FILE'] = req['data']['cookie_file']
         req = http_request(params1, None, None)
         self.assertRegex(req['data']['cookies'], r'\S+=\S+')
+    
+
+    def test_cookie_3(self):
+        params1 = self.params1.copy()
+        params1['SERVER'] = 'http://setcookie.net'
+        params1['PATH'] = '/'
+        params1['COOKIE_FILE'] = '__RANDOM__COOKIE__FILE__'
+        params1['COOKIES'] = "COKIE_TEST=COOKIE_TEST_VALUE; COOKIE_TEST_01=COOKIE_TEST_01_VALUE; COOKIE_TEST_02=COOKIE_TEST_02_VALUE"
+        req = http_request(params1, None, None)
+        # print(req['data']['cookie_file'])
+        self.assertRegex(req['data']['http_response_text'], r'COOKIE_TEST_01_VALUE')
+
 
 if __name__ == '__main__':
     unittest.main()
