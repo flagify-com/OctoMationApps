@@ -64,7 +64,6 @@
 | TIMEOUT |  string  |120| 否 | 60 |  HTTP请求超时（秒） |
 
 
-
 ```json
 {
     "SERVER": {
@@ -230,8 +229,10 @@
 | action_result.msg |  string  | `请求发送成功，请确认返回结果:)` |  APP执行返回的消息  |
 | action_result.data.http_response_code |  integer  | `200` |  HTTP返回的状态码  |
 | action_result.data.http_response_text |  string  | `<html>...</html>`，`{"errcode":0,"errmsg":"ok"}` |  HTTP返回的文本结果  |
+| action_result.data.http_response_headers |  json  | `{"Server": "nginx/1.12.2", "Content-Type": "text/html"}` |  JSON格式的HTTP Header  |
 | action_result.data.cookies |  string  | `BAIDUID=5A19B:FG=1; BIDUPSID=5A19BE8392; PSTM=1699268694` |  Cookie字符串  |
 | action_result.data.cookie_file |  string  | `/tmp/cookie_12121212.pkl` |  存放cookie的文件路径  |
+
 
 使用过程截图：
 

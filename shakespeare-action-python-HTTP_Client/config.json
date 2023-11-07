@@ -191,6 +191,11 @@
                     "description": "HTTP返回的文本内容"
                 },
                 {
+                    "data_path": "action_result.data.http_response_headers",
+                    "data_type": "json",
+                    "description": "HTTP返回的Headers，JSON格式"
+                },
+                {
                     "data_path": "action_result.data.cookies",
                     "data_type": "string",
                     "description": "适用于HTTP头的Cookie字符串"
