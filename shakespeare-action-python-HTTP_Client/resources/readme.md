@@ -9,8 +9,8 @@
 
 | 内容 | 详细描述 |
 | ---- | ------ |
-| app版本      | 1.0.2 |
-| 发布时间     | 2023-11-06 20:09:10 |
+| app版本      | 1.0.3 |
+| 发布时间     | 2023-11-07 14:08:00 |
 | 应用连接方式  | 标准HTTP请求 |
 | 支持版本     | HTTP/1.1 |
 | 作者        |  [@wzfukui](https://github.com/wzfukui) |
@@ -21,7 +21,7 @@
 
 | 型号   | 软件版本  |
 | ----- | ------- |
-| 无 |  |
+| / | / |
 
 2）作者提示
 
@@ -53,6 +53,8 @@
 | QUERY |  string  | user=Chris&comment=I%20love%20OctoMation| 否 | 空 |  URL请求参数(不带?，需自行做好URL Encode) |
 | CONTENT_TYPE |  string  | application/json| 否 | application/json |  HTTP请求头中的Content-Type |
 | USER_AGENT |  string  | Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0 | 否 | 空 |  HTTP请求头中的Content-Type |
+| COOKIES |  string  | vk=70acfa88; cbc-sid=2043816; ua=0b690880; uba_countrycode=HK;| 否 | 空 |  HTTP请求头中的Cookie字符串 |
+| COOKIE_FILE |  string  | /tmp/cookie.1312112.pkl | 否 | 空 |  存储Cookie的文件，优先级低于COOKIES |
 | HEADER |  string  | KEY:VALUE| 否 | 空 |  自定义HTTP头 |
 | BODY |  string  | 一段文本 | 否 | 空 |  HTTP请求体（Form模式需要自行URL Encode） |
 | METHOD |  string  | GET| 否 | GET |  HTTP请求方法 |
@@ -196,6 +198,14 @@
         "required": false,
         "order": 11
     },
+    "COOKIES": {
+        "data_type": "string",
+        "description": "适用于HTTP请求头的Cookie字符串，作为入参优先级大于：COOKIE_FILE，默认：空",
+        "default_value": "",
+        "options":"",
+        "required": false,
+        "order": 12
+    },
     "COOKIE_FILE": {
         "data_type": "string",
         "description": "存储Cookie的文件路径，默认：空，不存储",
@@ -207,7 +217,7 @@
             }
         ],
         "required": false,
-        "order": 12
+        "order": 13
     }
 }
 ```
@@ -255,6 +265,7 @@ HTTP Client请求钉钉webhook
 
 # Release log
 
-- 2023-11-01 02:27:06 v1.0.0 初始 
-- 2023-11-03 14:13:27 v1.0.1 删除空白文件
+- 2023-11-07 14:08:00 v1.0.3 入参在cookie_file基础上增加cookie string的支持
 - 2023-11-06 20:09:10 v1.0.2 增加Cookie支持
+- 2023-11-03 14:13:27 v1.0.1 删除空白文件
+- 2023-11-01 02:27:06 v1.0.0 初始 

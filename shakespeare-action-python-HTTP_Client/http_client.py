@@ -3,11 +3,68 @@ import requests
 import time
 import pickle
 import os
-from http.cookiejar import CookieJar
+import copy
+from urllib.parse import urlparse
+from http.cookiejar import Cookie, CookieJar, MozillaCookieJar
+
+def save_cookie_to_file(obj_cookie_jar, cookie_file):
+    """
+    将CookieJar对象转换为MozillaCookieJar，并存储到文件
+    """
+    mozilla_cookiejar = MozillaCookieJar()
+    for cookie in obj_cookie_jar:
+        mozilla_cookiejar.set_cookie(cookie)
+    mozilla_cookiejar.save(cookie_file, ignore_discard=True, ignore_expires=True)
+
+def load_cookie_from_file(cookie_file):
+    """
+    从文件加载MozillaCookieJar对象，并转换成CookieJar对象
+    """
+    cookiejar = None
+    if not os.path.exists(cookie_file):
+        return cookiejar
+    mozilla_cookiejar = MozillaCookieJar()
+    try:
+        mozilla_cookiejar.load(cookie_file, ignore_discard=True, ignore_expires=True)
+        cookiejar = CookieJar()
+        for cookie in mozilla_cookiejar:
+            cookiejar.set_cookie(cookie)
+    except Exception as e:
+        print(e)
+    return cookiejar
+
+def from_string_to_cookiejar(cookie_string, domain):
+    """
+    将Cookie字符串转换为CookieJar对象，如："vk=70acfa88; cbc-sid=20493701 "
+    """
+    cookie_jar = CookieJar()
+    for item in cookie_string.split(';'):
+        name, value = item.strip().split('=', 1)
+        cookie = Cookie(
+            version=0,
+            name=name,
+            value=value,
+            port=None,
+            port_specified=False,
+            domain=domain,
+            domain_specified=False,
+            domain_initial_dot=False,
+            path='/',
+            path_specified=True,
+            secure=False,
+            expires=None,
+            discard=True,
+            comment=None,
+            comment_url=None,
+            rest={'HttpOnly': None},
+            rfc2109=False,
+        )
+        cookie_jar.set_cookie(cookie)
+    return cookie_jar
 
 def from_cookiejar_to_string(cookiejar):
     """
-    将CookieJar对象转换成Cookie字符串，用于HTTP HEADER
+    将CookieJar对象转换成Cookie字符串，用于HTTP请求中的HEAD
     """
     cookie_string = ''
     if isinstance(cookiejar, CookieJar):
@@ -17,30 +74,8 @@ def from_cookiejar_to_string(cookiejar):
         cookie_string = cookie_string[:-2]
     return cookie_string
 
-def save_cookie_to_pickle_file(cookies, cookie_file):
-    """
-    保存Cookie文件，暂时未做异常处理
-    """
-    if cookie_file != "":
-        with open(cookie_file, 'wb+') as file:
-            pickle.dump(cookies, file)
-            file.close()
-
-def read_cookie_to_pickle_file(cookie_file):
-    """
-    从文件中读取Cookie，暂时未做异常处理
-    """
-    cookies = None
-    if os.path.exists(cookie_file):
-        with open(cookie_file, 'rb') as file:
-            print(cookies)
-            cookies = pickle.load(file)
-            file.close()
-    return cookies
-        
-
 def http_request(params, assets, context_info):
-    """HTTP请求"""
+    """通用HTTP请求"""
 
     # URL服务器，如：https://user:pass@example.com:8080
     SERVER = params["SERVER"]
@@ -62,6 +97,9 @@ def http_request(params, assets, context_info):
     # HTTP请求方法，默认：GET
     METHOD = "GET" if "METHOD" not in params.keys() or params["METHOD"] == "" else params["METHOD"]
 
+    COOKIES = ""
+    if "COOKIES" in params.keys() and params["COOKIES"] != "" and params["COOKIES"] is not None: COOKIES= params["COOKIES"]
+
     COOKIE_FILE = ""
     if "COOKIE_FILE" in params.keys() and params["COOKIE_FILE"] != "" and params["COOKIE_FILE"] is not None:
         if '__RANDOM__COOKIE__FILE__' == params["COOKIE_FILE"]:
@@ -72,9 +110,7 @@ def http_request(params, assets, context_info):
             COOKIE_FILE =  params["COOKIE_FILE"]
         # 初始化一个存放Cookie的文件
         if not os.path.exists(COOKIE_FILE):
-            with open(COOKIE_FILE, 'wb+') as file:
-                pickle.dump(None, file)
-                file.close()
+            save_cookie_to_file(CookieJar(), COOKIE_FILE)
 
     # 代理服务器
     PROXY = None
@@ -89,7 +125,7 @@ def http_request(params, assets, context_info):
     TIMEOUT = 60 if "TIMEOUT" not in params.keys() or params["TIMEOUT"] == "" else int(params["TIMEOUT"])
 
     # 返回值
-    json_ret = {"code": 200, "msg": "","data": {"http_response_code": 0, "http_response_text": "", "cookies":"", "cookie_file": COOKIE_FILE}}
+    json_ret = {"code": 200, "msg": "","data": {"http_response_code": 0, "http_response_text": "", "cookies": COOKIES, "cookie_file": COOKIE_FILE}}
 
     '''添加函数实现
     
@@ -123,12 +159,18 @@ def http_request(params, assets, context_info):
             value = headline.split(':')[-1].strip()
             if key != "" and value != "":
                 headers[key.lower()] = value.lower()
-    
     try:
-        cookies = read_cookie_to_pickle_file(COOKIE_FILE)
+        cookies_for_request = None
+        # COOKIES字符串存在的情况下，优先使用COOKIES
+        if COOKIES != "":
+            domain = urlparse(url).hostname
+            cookies_for_request = from_string_to_cookiejar(COOKIES, domain)
+        else:
+            cookies_for_request = load_cookie_from_file(COOKIE_FILE)
         s = requests.session()
-        if cookies:
-            s.cookies = cookies
+        if cookies_for_request:
+            s.cookies = cookies_for_request
+
         res = None
         if 'GET'  == METHOD:
             res = s.get(url=url, headers=headers, allow_redirects=ALLOW_REDIRECTS, proxies=PROXY, verify=VERIFY_SSL, timeout=TIMEOUT)
@@ -142,11 +184,15 @@ def http_request(params, assets, context_info):
             res = s.post(url=url, headers=headers, data=BODY.encode(), allow_redirects=ALLOW_REDIRECTS,proxies=PROXY, verify=VERIFY_SSL, timeout=TIMEOUT)
         elif 'PUT' == METHOD:
             res = s.put(url=url, headers=headers, data=BODY.encode(), allow_redirects=ALLOW_REDIRECTS,proxies=PROXY, verify=VERIFY_SSL, timeout=TIMEOUT)
+        
         if res is not None:
-            save_cookie_to_pickle_file(s.cookies, COOKIE_FILE)
+            for cookie in s.cookies:
+                cookies_for_request.set_cookie(cookie)
+            save_cookie_to_file(cookies_for_request, COOKIE_FILE)
             json_ret['data']['http_response_code'] = res.status_code
             json_ret['data']['http_response_text'] = res.text
             json_ret['data']['cookies'] = from_cookiejar_to_string(s.cookies)
+
         if json_ret['data']['http_response_code'] in (200, 201):
             json_ret['msg'] = "请求发送成功，请确认返回结果:)"
         else:
