@@ -198,7 +198,7 @@ def http_request(params, assets, context_info):
         if res is not None:
             for cookie in s.cookies:
                 cookies_for_request.set_cookie(cookie)
-            if os.path.exists(COOKIE_FILE):
+            if COOKIE_FILE != "":
                 save_cookie_to_file(cookies_for_request, COOKIE_FILE)
             json_ret['data']['http_response_code'] = res.status_code
             json_ret['data']['http_response_text'] = res.text
