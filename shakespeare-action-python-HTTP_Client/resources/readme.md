@@ -9,8 +9,8 @@
 
 | 内容 | 详细描述 |
 | ---- | ------ |
-| app版本      | 1.0.4 |
-| 发布时间     | 2023-11-07 23:03:00 |
+| app版本      | 1.0.5 |
+| 发布时间     | 2023-11-08 15:13:00 |
 | 应用连接方式  | 标准HTTP请求 |
 | 支持版本     | HTTP/1.1 |
 | 作者        |  [@wzfukui](https://github.com/wzfukui) |
@@ -266,6 +266,7 @@ HTTP Client请求钉钉webhook
 
 # Release log
 
+- 2023-11-08 15:13:00 v1.0.5 修复HTTP Header赋值value时强制小写的bug
 - 2023-11-07 23:03:00 v1.0.4 增加HTTP Header JSON的输出
 - 2023-11-07 14:08:00 v1.0.3 入参在cookie_file基础上增加cookie string的支持
 - 2023-11-06 20:09:10 v1.0.2 增加Cookie支持

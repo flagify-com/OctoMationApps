@@ -1,7 +1,7 @@
 {
     "name": "HTTP_Client",
     "description": "通用HTTP客户端",
-    "app_version": "1.0.4",
+    "app_version": "1.0.5",
     "jar": "http_client.py",
     "readme": "resources/readme.md",
     "logo": "resources/http.png",
