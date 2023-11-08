@@ -763,8 +763,7 @@
             "parameters": {
                 "key": {
                     "data_type": "string",
-                    "description": "缓存的key",
-                    "default_value": "",
+                    "description": "缓存的key,建议不同业务增加不同的前缀，避免key一样",
                     "options": "",
                     "required": true,
                     "order": 0
@@ -780,7 +779,6 @@
                 "ttl": {
                     "data_type": "integer",
                     "description": "缓存的时效, 不填则不存在失效时间，计量单位为秒",
-                    "default_value": "",
                     "options": "",
                     "required": false,
                     "order": 2

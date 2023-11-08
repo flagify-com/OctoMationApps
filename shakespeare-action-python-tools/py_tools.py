@@ -317,7 +317,7 @@ def cache_mgmt(params, assets, context_info):
     _ttl = params.get("ttl", None)
     _operate = params.get("operate", "get")
 
-    json_ret = {"code": 200, "msg": "", "data": {"key": _key, "value": "", "status": False}}
+    json_ret = {"code": 200, "msg": "", "data": {"key": _key, "value": "","status": False}}
 
     try:
         cache = dc.Cache("/opt/shakespeare/data/diskcache")
@@ -336,6 +336,7 @@ def cache_mgmt(params, assets, context_info):
             # 将值设置到缓存中
             cache.add(_key, _value, expire=_ttl)
             json_ret['data']["status"] = True
+            json_ret['data']["value"] = _value
         elif _operate == "del":
             # 删除缓存中的键
             cache.pop(_key)
