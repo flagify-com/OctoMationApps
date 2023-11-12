@@ -1,0 +1,141 @@
+{
+    "name": "vika",
+    "description": "维格云",
+    "app_version": "1.0.0",
+    "min_shakespeare_version": "1.0",
+    "logo": "resources/logo.svg",
+    "category": "工具",
+    "read_me": "resources/readme.md",
+    "jar": "vika_data.py",
+    "logic_language": "PYTHON",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {
+        "host": {
+            "required": true,
+            "order": 1,
+            "data_type": "string",
+            "description": "https://api.vika.cn",
+            "default_value": "https://api.vika.cn"
+        },
+        "api_token": {
+            "required": true,
+            "order": 2,
+            "data_type": "password",
+            "description": "api_token"
+        },
+        "space_id": {
+            "required": true,
+            "order": 3,
+            "data_type": "string",
+            "description": "空间ID"
+        },
+        "datasheetId": {
+            "required": true,
+            "order": 4,
+            "data_type": "string",
+            "description": "datasheetId"
+        }
+    },
+    "actions": [
+        {
+            "action": "search_tables",
+            "description": "查找内容",
+            "class_name": "search_tables",
+            "result_display_tmpt": "shakespeare-action-template/search_tables.art",
+            "result_display_tmpt_type": "js",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "filter_by_formula": {
+                    "required": false,
+                    "order": 1,
+                    "data_type": "string",
+                    "description": "过滤条件-公式,为空查询所有，详情见readme",
+                    "default_value": "{管理员审批}=\"同意\""
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.records",
+                    "data_type": "string",
+                    "description": "结果"
+                },
+                {
+                    "data_path": "action_result.data.total",
+                    "data_type": "integer",
+                    "description": "查询数量"
+                },
+                {
+                    "data_path": "action_result.data.records.*",
+                    "data_type": "string",
+                    "description": "遍历-recordId"
+                },
+                {
+                    "data_path": "action_result.data.records.*.recordId",
+                    "data_type": "string",
+                    "description": "recordId"
+                }
+            ]
+        },
+        {
+            "action": "change_tables",
+            "description": "修改内容",
+            "class_name": "change_tables",
+            "result_display_tmpt": "shakespeare-action-template/change_tables.art",
+            "result_display_tmpt_type": "js",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "recordId": {
+                    "required": true,
+                    "order": 1,
+                    "data_type": "string",
+                    "description": "recordId"
+                },
+                "col_name": {
+                    "required": true,
+                    "order": 2,
+                    "data_type": "string",
+                    "description": "列名",
+                    "default_value": "soar_status"
+                },
+                "value": {
+                    "required": true,
+                    "order": 3,
+                    "data_type": "string",
+                    "description": "修改内容",
+                    "default_value": "已处理"
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.msg",
+                    "data_type": "string",
+                    "description": "结果"
+                }
+            ]
+        },
+        {
+            "action": "spaces",
+            "description": "获取空间站列表",
+            "class_name": "spaces",
+            "safe_mode": false,
+            "is_test": true,
+            "classify": "query",
+            "parameters": {
+            },
+            "output": [
+                {
+                    "data_path": "action_result.msg",
+                    "data_type": "string",
+                    "description": "结果"
+                }
+            ]
+        }
+    ]
+}
