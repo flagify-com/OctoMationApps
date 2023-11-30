@@ -1,0 +1,153 @@
+{
+    "name": "nvd_cve",
+    "description": "cve数据获取",
+    "app_version": "1.0.0",
+    "jar": "nvd_cve.py",
+    "readme": "resources/readme.md",
+    "logo": "resources/nvd.png",
+    "logic_language": "PYTHON",
+    "min_shakespeare_version": "1.0",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {
+        "proxy": {
+            "data_type": "string",
+            "description": "代理,例 http://xxxx:3128",
+            "required": false,
+            "order": 0
+        }
+    },
+    "actions": [
+        {
+            "action": "health_check",
+            "class_name": "health_check",
+            "description": "健康检查",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/health_check.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {},
+            "output": [
+                {
+                    "data_path": "action_result.data.code",
+                    "data_type": "integer",
+                    "description": "状态码"
+                },
+                {
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "信息"
+                },
+                {
+                    "data_path": "action_result.data.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "状态码"
+                },
+                {
+                    "data_path": "action_result.data.summary.msg",
+                    "data_type": "string",
+                    "description": "信息"
+                }
+            ]
+        },
+        {
+            "action": "cves",
+            "class_name": "cves",
+            "description": "获取指定时间段内某个产品的cve数据",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/cves.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "keywordSearch": {
+                    "data_type": "string",
+                    "description": "产品名关键字例如 chrome",
+                    "default_value": "chrome",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "pubStartDate": {
+                    "data_type": "date",
+                    "description": "查询cve公布时间范围（起始时间）,默认为前一天",
+                    "options": "",
+                    "format": "yyyy-MM-dd HH:mm:ss",
+                    "required": false,
+                    "order": 1
+                },
+                "pubEndDate": {
+                    "data_type": "date",
+                    "description": "查询cve公布时间范围（截止时间）,默认为今天",
+                    "options": "",
+                    "format": "yyyy-MM-dd HH:mm:ss",
+                    "required": false,
+                    "order": 2
+                },
+                "cvssV3Severity": {
+                    "data_type": "string",
+                    "description": "cvssV3Severity",
+                    "options": [{"所有":""},{"低危":"LOW"},{"中危":"MEDIUM"},{"高危":"HIGH"},{"危急":"CRITICAL"}],
+                    "required": false,
+                    "order": 3
+                },
+                "resultsPerPage": {
+                    "data_type": "integer",
+                    "description": "分页参数，每页大小",
+                    "default_value": "10",
+                    "options": "",
+                    "required": false,
+                    "order": 4
+                },
+                "startIndex": {
+                    "data_type": "integer",
+                    "description": "分页起始值，例：从第二页开始（resultsPerPage=10）则值为10",
+                    "default_value": "0",
+                    "options": "",
+                    "required": false,
+                    "order": 5
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.records.*.cve_id",
+                    "data_type": "string",
+                    "description": "cve id"
+                },
+                {
+                    "data_path": "action_result.data.records.*.descriptions",
+                    "data_type": "string",
+                    "description": "描述"
+                },
+                {
+                    "data_path": "action_result.data.records.*.published",
+                    "data_type": "string",
+                    "description": "published"
+                },
+                {
+                    "data_path": "action_result.data.records.*.references",
+                    "data_type": "string",
+                    "description": "references"
+                },
+                {
+                    "data_path": "action_result.data.resultsPerPage",
+                    "data_type": "integer",
+                    "description": "resultsPerPage"
+                },
+                {
+                    "data_path": "action_result.data.startIndex",
+                    "data_type": "integer",
+                    "description": "startIndex"
+                },
+                {
+                    "data_path": "action_result.data.totalResults",
+                    "data_type": "integer",
+                    "description": "totalResults"
+                }
+            ]
+        }
+    ]
+}
