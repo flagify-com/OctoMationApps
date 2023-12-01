@@ -65,10 +65,17 @@
             "parameters": {
                 "keywordSearch": {
                     "data_type": "string",
-                    "description": "产品名关键字例如 chrome",
+                    "description": "产品名关键字例如 chrome（模糊搜索）",
                     "default_value": "chrome",
                     "options": "",
                     "required": true,
+                    "order": 0
+                },
+                "keywordExactMatch":{
+                    "data_type": "boolean",
+                    "description": "是否精确匹配搜索",
+                    "default_value": false,
+                    "required": false,
                     "order": 0
                 },
                 "pubStartDate": {
@@ -125,12 +132,27 @@
                 {
                     "data_path": "action_result.data.records.*.published",
                     "data_type": "string",
-                    "description": "published"
+                    "description": "公布时间"
                 },
                 {
                     "data_path": "action_result.data.records.*.references",
                     "data_type": "string",
                     "description": "references"
+                },
+                {
+                    "data_path": "action_result.data.records.*.impact_score",
+                    "data_type": "double",
+                    "description": "影响得分"
+                },
+                {
+                    "data_path": "action_result.data.records.*.exploitability_score",
+                    "data_type": "double",
+                    "description": "可利用性得分"
+                },
+                {
+                    "data_path": "action_result.data.records.*.base_score",
+                    "data_type": "double",
+                    "description": "基础得分"
                 },
                 {
                     "data_path": "action_result.data.resultsPerPage",

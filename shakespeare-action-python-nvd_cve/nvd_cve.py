@@ -24,6 +24,7 @@ def cves(params, assets, context_info):
     json_ret = {"code": 200, "msg": "", "data": {"records":[]}}
     current_time_with_timezone = datetime.now(timezone(timedelta(hours=8)))
     proxy = assets.get("proxy", None)
+    keyword_exact_match = params.get("keywordExactMatch",False)
     keyword_search = params.get("keywordSearch", "chrome")
     
     # pubStartDate，默认为前一天
@@ -72,16 +73,30 @@ def cves(params, assets, context_info):
     base_url = "https://services.nvd.nist.gov/rest/json/cves/2.0/"
     url = urljoin(base_url, "?" + urlencode(params, safe=':/'))
     
+    if keyword_exact_match:
+        url = url + "&keywordExactMatch"
+        
     proxies = {"http:": proxy, "https": proxy}
     try:
-        r = requests.get(url, timeout=20, proxies=proxies).json()
+        r = requests.get(url, timeout=30, proxies=proxies)
+        if r.status_code != 200:
+            json_ret["code"] = 500
+            json_ret["msg"] = str(r.text)
+            return json_ret
+        
+        r = r.json()
         cve_data = r["vulnerabilities"]
         if len(cve_data) > 0:
             for row in cve_data:
                 descriptions = row["cve"]["descriptions"][0]['value'] if row["cve"]["descriptions"] else ""
                 references = row["cve"]["references"][0]["url"] if row["cve"]["references"] else ""
-
-                row_data = {"cve_id":row["cve"]["id"],"descriptions":descriptions,"published":row["cve"]["published"],"references":references}
+                cvss_data = row["cve"]["metrics"]["cvssMetricV31"][0]
+                base_score = cvss_data["cvssData"]["baseScore"]
+                exploitability_score = cvss_data["exploitabilityScore"]
+                impact_score = cvss_data["impactScore"]
+                published = row["cve"]["published"][:-4]
+                
+                row_data = {"cvss_data":cvss_data["cvssData"],"impact_score":impact_score,"base_score":base_score,"exploitability_score":exploitability_score,"cve_id":row["cve"]["id"],"descriptions":descriptions,"published":published,"references":references}
                 json_ret["data"]["records"].append(row_data)
         
         json_ret["data"]["resultsPerPage"] = r["resultsPerPage"]

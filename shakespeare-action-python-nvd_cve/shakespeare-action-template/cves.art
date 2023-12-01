@@ -56,7 +56,7 @@
                        <th>
                            <span class="ant-table-header-column">
                                <div>
-                                   <span class="ant-table-column-title">descriptions</span>
+                                   <span class="ant-table-column-title">描述</span>
                                    <span class="ant-table-column-sorter"></span>
                                </div>
                            </span>
@@ -64,7 +64,24 @@
                        <th>
                            <span class="ant-table-header-column">
                                <div>
-                                   <span class="ant-table-column-title">references</span>
+                                   <span class="ant-table-column-title">参考</span>
+                                   <span class="ant-table-column-sorter"></span>
+                               </div>
+                           </span>
+                       </th>
+                       
+                       <th>
+                           <span class="ant-table-header-column">
+                               <div>
+                                   <span class="ant-table-column-title">基础得分</span>
+                                   <span class="ant-table-column-sorter"></span>
+                               </div>
+                           </span>
+                       </th>
+                       <th>
+                           <span class="ant-table-header-column">
+                               <div>
+                                   <span class="ant-table-column-title">公布时间</span>
                                    <span class="ant-table-column-sorter"></span>
                                </div>
                            </span>
@@ -78,6 +95,8 @@
                        <td>{{records.cve_id}}</td>
                        <td>{{records.descriptions}}</td>
                        <td><a href="{{records.references}}" target="_blank">链接</a></td>
+                       <td>{{records.base_score}}</td>
+                       <td>{{records.published}}</td>
                    </tr>
                {{/each}}
                {{/each}}
