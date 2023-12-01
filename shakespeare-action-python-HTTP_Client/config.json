@@ -1,7 +1,7 @@
 {
     "name": "HTTP_Client",
     "description": "通用HTTP客户端",
-    "app_version": "1.0.1",
+    "app_version": "1.0.5",
     "jar": "http_client.py",
     "readme": "resources/readme.md",
     "logo": "resources/http.png",
@@ -189,6 +189,11 @@
                     "data_path": "action_result.data.http_response_text",
                     "data_type": "string",
                     "description": "HTTP返回的文本内容"
+                },
+                {
+                    "data_path": "action_result.data.http_response_headers",
+                    "data_type": "json",
+                    "description": "HTTP返回的Headers，JSON格式"
                 },
                 {
                     "data_path": "action_result.data.cookies",

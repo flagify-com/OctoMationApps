@@ -90,6 +90,15 @@ class TestStringMethods(unittest.TestCase):
         req = http_request(params1, None, None)
         self.assertRegex(req['data']['http_response_text'], r'COOKIE_TEST_01_VALUE')
 
+    def test_header(self):
+        params = {
+            "SERVER": "https://www.baidu.com",
+            "PATH": "/",
+            "VERIFY_SSL": True,
+            "COOKIE_FILE":""
+        }
+        req = http_request(params, None, None)
+        self.assertEqual(req['data']['http_response_headers']['Content-Type'], 'text/html')
 
 if __name__ == '__main__':
     unittest.main()
