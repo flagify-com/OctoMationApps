@@ -45,7 +45,7 @@
                 "ssl_verify": {
                     "data_type": "boolean",
                     "description": "HTTP请求的SSL验证",
-                    "default_value": "False",
+                    "default_value": false,
                     "options": "",
                     "required": true,
                     "order": 2
