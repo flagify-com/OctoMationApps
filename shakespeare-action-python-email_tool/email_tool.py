@@ -3,7 +3,6 @@ import uuid
 import email
 import smtplib
 import imaplib
-import chardet
 from traceback import format_exc
 from email.header import Header
 from email.mime.text import MIMEText
