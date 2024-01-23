@@ -1,7 +1,7 @@
 {
     "name": "redis_client",
     "description": "Redis客户端",
-    "app_version": "1.0.0",
+    "app_version": "1.0.1",
     "jar": "redis_client.py",
     "readme": "resources/readme.md",
     "logo": "resources/redis.png",
@@ -111,7 +111,7 @@
                     "default_value": "",
                     "options": "",
                     "required": true,
-                    "order": 1
+                    "order": 0
                 },
                 "value": {
                     "data_type": "string",
@@ -319,7 +319,7 @@
         {
             "action": "execute_raw_command",
             "class_name": "redis_raw_command",
-            "description": "执行原始命令",
+            "description": "执行Redis原始命令",
             "result_display_tmpt_type": "js",
             "result_display_tmpt": "shakespeare-action-template/execute_raw_command.art",
             "safe_mode": false,
@@ -346,7 +346,7 @@
         {
             "action": "health_check",
             "class_name": "health_check",
-            "description": "监控性检查",
+            "description": "健康性检查",
             "result_display_tmpt_type": "js",
             "result_display_tmpt": "shakespeare-action-template/health_check.art",
             "safe_mode": false,
