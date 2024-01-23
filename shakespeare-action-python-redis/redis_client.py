@@ -277,22 +277,3 @@ def redis_raw_command(params, assets, context_info):
 
 
     return json_ret 
-
-
-if __name__ == '__main__':
-    assets = {
-        "host": "192.168.44.2",
-        "password": "qwe123"
-    }
-    params = {
-        "key": "honeyguide_redis_test",
-        "value": "ddd"
-    }
-    params_lpush = {
-        "key": "honeyguide_redis_lpush_test",
-        "value": "ddd"
-    }
-    params_command = {
-        "key": "honeyguide_redis_lpush_test",
-        "command": "lrange honeyguide_redis_lpush_test 0 3"
-    }
