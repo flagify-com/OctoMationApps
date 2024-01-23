@@ -1,0 +1,370 @@
+{
+    "name": "redis_client",
+    "description": "Redis客户端",
+    "app_version": "1.0.0",
+    "jar": "redis_client.py",
+    "readme": "resources/readme.md",
+    "logo": "resources/redis.png",
+    "category": "数据库,基础工具",
+    "product_name": "Redis",
+    "app_supplier": "redis.io",
+    "logic_language": "PYTHON",
+    "min_shakespeare_version": "1.0",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {
+        "host": {
+            "data_type": "string",
+            "description": "Redis服务器主机名或者IP地址",
+            "required": true,
+            "options": "",
+            "order": 0
+        },
+        "port": {
+            "data_type": "integer",
+            "description": "Redis对外开放的端口",
+            "default_value": "6379",
+            "required": false,
+            "options": "",
+            "order": 1
+        },
+        "db": {
+            "data_type": "integer",
+            "description": "Redis db（默认为：0）",
+            "default_value": "0",
+            "required": false,
+            "options": "",
+            "order": 2
+        },
+        "password": {
+            "data_type": "password",
+            "description": "Redis认证密码",
+            "required": false,
+            "options": "",
+            "order": 3
+        },
+        "socket_timeout_seconds": {
+            "data_type": "integer",
+            "description": "Socket超时数（秒），默认永不过期",
+            "default_value": "",
+            "options": "",
+            "required": false,
+            "order": 4
+        },
+        "encode": {
+            "data_type": "string",
+            "description": "字符串编码，默认：utf-8",
+            "default_value": "utf-8",
+            "options": "",
+            "required": false,
+            "order": 5
+        }
+    },
+    "actions": [
+        {
+            "action": "get",
+            "class_name": "redis_get",
+            "description": "GET",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/get.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "key": {
+                    "data_type": "string",
+                    "description": "key名称",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "string",
+                    "description": "应用返回码，200为成功"
+                },
+                {
+                    "data_path": "action_result.data.value",
+                    "data_type": "string",
+                    "description": "redist get 返回值"
+                }
+            ]
+        },
+        {
+            "action": "set",
+            "class_name": "redis_set",
+            "description": "SET",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/set.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "key": {
+                    "data_type": "string",
+                    "description": "SET key name",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                },
+                "value": {
+                    "data_type": "string",
+                    "description": "SET value",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                },
+                "expire_seconds": {
+                    "data_type": "integer",
+                    "description": "过期时间，默认永不过期",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 2
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "string",
+                    "description": "应用返回码，200为成功"
+                },
+                {
+                    "data_path": "action_result.data.success",
+                    "data_type": "boolean",
+                    "description": "操作是否成功，默认：False"
+                }
+            ]
+        },
+        {
+            "action": "lpush",
+            "class_name": "redis_lpush",
+            "description": "LPUSH",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/lpush.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "key": {
+                    "data_type": "string",
+                    "description": "LPUSH key name",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "value": {
+                    "data_type": "string",
+                    "description": "LPUSH value",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "string",
+                    "description": "应用返回码，200为成功"
+                },
+                {
+                    "data_path": "action_result.data.success",
+                    "data_type": "boolean",
+                    "description": "操作是否成功，默认：False"
+                },
+                {
+                    "data_path": "action_result.data.length",
+                    "data_type": "integer",
+                    "description": "列表当前长度"
+                }
+            ]
+        },
+        {
+            "action": "rpop",
+            "class_name": "redis_rpop",
+            "description": "RPOP",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/rpop.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "key": {
+                    "data_type": "string",
+                    "description": "RPOP list name",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "string",
+                    "description": "应用返回码，200为成功"
+                },
+                {
+                    "data_path": "action_result.data.value",
+                    "data_type": "string",
+                    "description": "rpop返回值，默认为空"
+                }
+            ]
+        },
+        {
+            "action": "exists",
+            "class_name": "redis_exists",
+            "description": "EXISTS",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/exists.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "key": {
+                    "data_type": "string",
+                    "description": "Redis Key name",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "string",
+                    "description": "应用返回码，200为成功"
+                },
+                {
+                    "data_path": "action_result.data.exists",
+                    "data_type": "boolean",
+                    "description": "是否存在，默认为：False"
+                }
+            ]
+        },
+        {
+            "action": "del",
+            "class_name": "redis_del",
+            "description": "DEL",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/del.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "key": {
+                    "data_type": "string",
+                    "description": "Redis key name",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "string",
+                    "description": "应用返回码，200为成功"
+                },
+                {
+                    "data_path": "action_result.data.success",
+                    "data_type": "boolean",
+                    "description": "操作结果，默认：False"
+                }
+            ]
+        },
+        {
+            "action": "llen",
+            "class_name": "redis_llen",
+            "description": "LLEN",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/llen.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "key": {
+                    "data_type": "string",
+                    "description": "Key name",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "string",
+                    "description": "应用返回码，200为成功"
+                },
+                {
+                    "data_path": "action_result.data.length",
+                    "data_type": "integer",
+                    "description": "列表长度，默认：0"
+                }
+            ]
+        },
+        {
+            "action": "execute_raw_command",
+            "class_name": "redis_raw_command",
+            "description": "执行原始命令",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/execute_raw_command.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "command": {
+                    "data_type": "string",
+                    "description": "Redis Command",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.result",
+                    "data_type": "string",
+                    "description": "返回结果"
+                }
+            ]
+        },
+        {
+            "action": "health_check",
+            "class_name": "health_check",
+            "description": "监控性检查",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/health_check.art",
+            "safe_mode": false,
+            "is_test": true,
+            "classify": "query",
+            "parameters": {},
+            "output": [
+                {
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "string",
+                    "description": "应用返回码，200为成功"
+                },
+                {
+                    "data_path": "action_result.data.success",
+                    "data_type": "boolean",
+                    "description": "是否健康，默认：False"
+                }
+            ]
+        }
+    ]
+}

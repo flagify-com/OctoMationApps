@@ -1,0 +1,65 @@
+<div class="ant-table ant-table-default ant-table-bordered">
+    <div class="ant-table-content">
+        <div class="ant-table-body">
+            <table>
+                <thead class="ant-table-thead">
+                    <tr>
+                        <th>
+                            <span class="ant-table-header-column">
+                                <div>
+                                    <span class="ant-table-column-title">描述</span>
+                                    <span class="ant-table-column-sorter"></span>
+                                </div>
+                            </span>
+                        </th>
+                        <th>
+                            <span class="ant-table-header-column">
+                                <div>
+                                    <span class="ant-table-column-title">路径</span>
+                                    <span class="ant-table-column-sorter"></span>
+                                </div>
+                            </span>
+                        </th>
+                        <th>
+                            <span class="ant-table-header-column">
+                                <div>
+                                    <span class="ant-table-column-title">值</span>
+                                    <span class="ant-table-column-sorter"></span>
+                                </div>
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="ant-table-tbody">
+                    {{each action_results action_result}}
+                    <tr class="ant-table-row">
+                        <td>执行引擎状态码</td>
+                        <td>action_result.code</td>
+                        <td>{{ action_result.code }}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>应用返回状态码</td>
+                        <td>action_result.summary.statusCode</td>
+                        <td>{{ action_result.summary.statusCode }}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>应用返回消息</td>
+                        <td>action_result.summary.msg</td>
+                        <td>{{ action_result.summary.msg }}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>Redis KEY</td>
+                        <td>action_result.data.key</td>
+                        <td>{{ action_result.data.key }}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>Redis RPOP</td>
+                        <td>action_result.data.value</td>
+                        <td>{{ action_result.data.value }}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
