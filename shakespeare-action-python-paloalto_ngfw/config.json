@@ -1,0 +1,70 @@
+{
+    "name": "paloalto_ngfw",
+    "description": "Palo Alto NGFW",
+    "app_version": "1.0",
+    "jar": "main.py",
+    "readme": "resources/readme.md",
+    "logo": "resources/logo.png",
+    "category": "安全产品",
+    "product_name": "防火墙",
+    "app_supplier": " Palo Alto",
+    "logic_language": "PYTHON",
+    "min_shakespeare_version": "1.0",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {
+        "url": {
+            "data_type": "string",
+            "description": "防火墙地址，格式为 http[s]://IP地址或域名:port",
+            "required": true,
+            "options": "",
+            "order": 0
+        },
+        "api_key": {
+            "data_type": "password",
+            "description": "具有访问防火墙 API 权限的 API Key，参考应用说明",
+            "required": true,
+            "options": "",
+            "order": 1
+        }
+    },
+    "actions": [
+        {
+            "action": "block_ip",
+            "class_name": "blockIP",
+            "description": "封禁 IP",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/block_ip.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "ip": {
+                    "data_type": "string",
+                    "description": " 需要封禁的 IP",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "ip_tag": {
+                    "data_type": "string",
+                    "description": "创建动态地址组时的 IP 标签，将 IP 打上该标签后会自动添加到创建动态地址，防火墙策略会应用该创建动态地址，自动封禁 IP",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.action_status",
+                    "data_type": "boolean",
+                    "description": "操作是否成功"
+                }
+            ]
+        }
+    ]
+}
