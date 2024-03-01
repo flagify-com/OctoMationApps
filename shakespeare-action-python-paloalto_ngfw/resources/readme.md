@@ -14,6 +14,9 @@
 
 Palo Alto NGFW 自动封禁 IP 流程可以参考 [链接](https://pan.dev/panos/docs/tutorials/automating-ip-blocking/)。
 
-### 参数
+### 输入参数
 - ip：需要查询的 IP 地址  
 - ip_tag: IP 标签，上述链接里 Step 1: Create a Dynamic Address Group Address Group 中的 match 内容
+
+### 输出参数
+- result：操作结果，为空则表示成功，不为空则表示失败
