@@ -2,7 +2,7 @@
     "name": "paloalto_ngfw",
     "description": "Palo Alto NGFW",
     "app_version": "1.1",
-    "jar": "main.py",
+    "jar": "paloalto_ngfw.py",
     "readme": "resources/readme.md",
     "logo": "resources/logo.png",
     "category": "安全产品",
@@ -18,17 +18,13 @@
         "url": {
             "data_type": "string",
             "description": "防火墙地址，格式为 http[s]://IP地址或域名:port",
-            "default_value": "",
             "required": true,
-            "options": "",
             "order": 0
         },
         "api_key": {
             "data_type": "password",
             "description": "具有访问防火墙 API 权限的 API Key，参考应用说明",
-            "default_value": "",
             "required": true,
-            "options": "",
             "order": 1
         }
     },
@@ -46,16 +42,12 @@
                 "ip": {
                     "data_type": "string",
                     "description": " 需要封禁的 IP",
-                    "default_value": "",
-                    "options": "",
                     "required": true,
                     "order": 0
                 },
                 "ip_tag": {
                     "data_type": "string",
                     "description": "创建动态地址组时的 IP 标签，将 IP 打上该标签后会自动添加到创建动态地址，防火墙策略会应用该创建动态地址，自动封禁 IP",
-                    "default_value": "",
-                    "options": "",
                     "required": true,
                     "order": 1
                 }
