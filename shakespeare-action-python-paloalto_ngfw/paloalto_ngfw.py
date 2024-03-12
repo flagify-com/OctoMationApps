@@ -9,10 +9,10 @@ def blockIP(params, assets, context_info):
     # 有访问防火墙 API 权限的 API Key，参考使用说明
     api_key = assets["api_key"]
 
-    #  需要封禁的 IP
+    #  需要封禁的 IP 地址
     ip = params["ip"]
 
-    # 创建动态地址组时的 IP 标签，将 IP 打上该标签后会自动添加到创建动态地址，防火墙策略会应用该创建动态地址，自动封禁 IP
+    # 创建动态地址组时的 IP 标签，将 IP 打上该标签后会自动添加到动态地址组，防火墙策略会应用该动态地址组，从而实现自动封禁 IP
     ip_tag = params["ip_tag"]
 
     # 返回值

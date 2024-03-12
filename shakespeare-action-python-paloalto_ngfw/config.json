@@ -41,13 +41,13 @@
             "parameters": {
                 "ip": {
                     "data_type": "string",
-                    "description": " 需要封禁的 IP",
+                    "description": " 需要封禁的 IP 地址",
                     "required": true,
                     "order": 0
                 },
                 "ip_tag": {
                     "data_type": "string",
-                    "description": "创建动态地址组时的 IP 标签，将 IP 打上该标签后会自动添加到创建动态地址，防火墙策略会应用该创建动态地址，自动封禁 IP",
+                    "description": "创建动态地址组时的 IP 标签，将 IP 打上该标签后会自动添加到动态地址组，防火墙策略会应用该动态地址组，从而实现自动封禁 IP",
                     "required": true,
                     "order": 1
                 }
