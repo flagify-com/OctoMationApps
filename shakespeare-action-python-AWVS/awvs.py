@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-
+import requests
 def add_targets(params, assets, context_info):
     """add_targets"""
 
