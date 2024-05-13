@@ -1,0 +1,96 @@
+{
+    "name": "Gemini",
+    "description": "Google Gemini大模型",
+    "app_version": "1.0",
+    "jar": "gemini.py",
+    "readme": "resources/readme.md",
+    "logo": "resources/gemini.jpg",
+    "category": "网络工具,大模型,AI",
+    "product_name": "Gemini",
+    "app_supplier": "Google",
+    "logic_language": "PYTHON",
+    "min_shakespeare_version": "1.0",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {
+        "key": {
+            "data_type": "password",
+            "description": "API Key",
+            "required": true,
+            "options": "",
+            "order": 0
+        },
+        "api_host": {
+            "data_type": "string",
+            "description": "API主机名",
+            "default_value": "generativelanguage.googleapis.com",
+            "required": false,
+            "options": "",
+            "order": 1
+        }
+    },
+    "actions": [
+        {
+            "action": "generateContent",
+            "class_name": "generateContent",
+            "description": "向Gemini提问",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/generateContent.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "question": {
+                    "data_type": "string",
+                    "description": "问题",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.answer",
+                    "data_type": "string",
+                    "description": "Gemini回答"
+                },
+                {
+                    "data_path": "action_result.data.err_code",
+                    "data_type": "integer",
+                    "description": "错误码，默认：200"
+                },
+                {
+                    "data_path": "action_result.data.err_msg",
+                    "data_type": "string",
+                    "description": "返回信息，默认为空"
+                }
+            ]
+        },
+        {
+            "action": "health_check",
+            "class_name": "health_check",
+            "description": "健康检查",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/health_check.art",
+            "safe_mode": false,
+            "is_test": true,
+            "classify": "query",
+            "parameters": {},
+            "output": [
+                {
+                    "data_path": "action_result.data.err_code",
+                    "data_type": "integer",
+                    "description": "返回码，默认：200"
+                },
+                {
+                    "data_path": "action_result.data.err_msg",
+                    "data_type": "string",
+                    "description": "返回消息"
+                }
+            ]
+        }
+    ]
+}
