@@ -1,0 +1,287 @@
+{
+    "name": "wework_group_admin",
+    "description": "企业微信群管理",
+    "app_version": "1.0",
+    "jar": "wework_group_admin.py",
+    "readme": "resources/readme.md",
+    "logo": "resources/wework.jpeg",
+    "category": "IM,办公",
+    "product_name": "企业微信",
+    "app_supplier": "腾讯",
+    "logic_language": "PYTHON",
+    "min_shakespeare_version": "1.0",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {
+        "apiserver_base_uri": {
+            "data_type": "string",
+            "description": "API服务器地址Base URI, 如：https://qyapi.weixin.qq.com/cgi-bin",
+            "required": true,
+            "default_value": "https://qyapi.weixin.qq.com/cgi-bin",
+            "options": "",
+            "order": 0  
+        },
+        "corpid": {
+            "data_type": "string",
+            "description": "企业组织ID",
+            "required": true,
+            "options": "",
+            "order": 1
+        },
+        "corpsecret": {
+            "data_type": "password",
+            "description": "应用的凭证密钥，注意应用需要是启用状态",
+            "required": true,
+            "options": "",
+            "order": 2
+        }
+    },
+    "actions": [
+        {
+            "action": "create_appchat_group",
+            "class_name": "create_appchat_group",
+            "description": "创建群聊会话",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/create_appchat_group.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "group_name": {
+                    "data_type": "string",
+                    "description": "群聊名，最多50个utf8字符，超过将截断",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 0,
+                    "multi-selected": false
+                },
+                "group_owner": {
+                    "data_type": "string",
+                    "description": "指定群主的id。如果不指定，系统会随机从userlist中选一人作为群主",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 1,
+                    "multi-selected": false
+                },
+                "group_userids": {
+                    "data_type": "string",
+                    "description": "群成员id，逗号（,）分隔，至少2人，至多2000人",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 2,
+                    "multi-selected": false
+                },
+                "group_chatid": {
+                    "data_type": "string",
+                    "description": "群id，群聊的唯一标志，不能与已有的群重复；字符串类型，最长32个字符。只允许字符0-9及字母a-zA-Z。如果不填，系统会随机生成",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 3,
+                    "multi-selected": false
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.errcode",
+                    "data_type": "integer",
+                    "description": "返回码，0为成功"
+                },
+                {
+                    "data_path": "action_result.data.errmsg",
+                    "data_type": "string",
+                    "description": "对返回码的文本描述内容"
+                },
+                {
+                    "data_path": "action_result.data.chatid",
+                    "data_type": "string",
+                    "description": "新建群ID，群聊的唯一标志"
+                }
+            ]
+        },
+        {
+            "action": "update_appchat_group",
+            "class_name": "update_appchat_group",
+            "description": "修改群聊会话",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/update_appchat_group.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "group_chatid": {
+                    "data_type": "string",
+                    "description": "群聊id",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0,
+                    "multi-selected": false
+                },
+                "group_name": {
+                    "data_type": "string",
+                    "description": "新的群聊名。若不需更新，请忽略此参数。最多50个utf8字符，超过将截断",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 1,
+                    "multi-selected": false
+                },
+                "group_owner": {
+                    "data_type": "string",
+                    "description": "新群主的id。若不需更新，请忽略此参数。课程群聊群主必须在设置的群主列表内",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 2,
+                    "multi-selected": false
+                },
+                "group_add_userids": {
+                    "data_type": "string",
+                    "description": "添加成员的id，逗号（,）分隔",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 3,
+                    "multi-selected": false
+                },
+                "group_del_userids": {
+                    "data_type": "string",
+                    "description": "移除成员的id，逗号（,）分隔\t",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 4,
+                    "multi-selected": false
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.errcode",
+                    "data_type": "integer",
+                    "description": "返回码"
+                },
+                {
+                    "data_path": "action_result.data.errmsg",
+                    "data_type": "string",
+                    "description": "对返回码的文本描述内容"
+                }
+            ]
+        },
+        {
+            "action": "get_appchat_group",
+            "class_name": "get_appchat_group",
+            "description": "获取群聊会话",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/get_appchat_group.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "group_chatid": {
+                    "data_type": "string",
+                    "description": "群聊id",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0,
+                    "multi-selected": false
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.errcode",
+                    "data_type": "integer",
+                    "description": "返回码"
+                },
+                {
+                    "data_path": "action_result.data.errmsg",
+                    "data_type": "string",
+                    "description": "对返回码的文本描述内容"
+                },
+                {
+                    "data_path": "action_result.data.chatid",
+                    "data_type": "string",
+                    "description": "群聊唯一标志"
+                },
+                {
+                    "data_path": "action_result.data.name",
+                    "data_type": "string",
+                    "description": "群聊名"
+                },
+                {
+                    "data_path": "action_result.data.owner",
+                    "data_type": "string",
+                    "description": "群主id"
+                },
+                {
+                    "data_path": "action_result.data.userlist",
+                    "data_type": "jsonarray",
+                    "description": "群成员id列表"
+                }
+            ]
+        },
+        {
+            "action": "send_appchat_group_text",
+            "class_name": "send_appchat_group_text",
+            "description": "发送群聊文本消息",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/send_appchat_group_text.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "notify",
+            "parameters": {
+                "group_chatid": {
+                    "data_type": "string",
+                    "description": "群ID",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0,
+                    "multi-selected": false
+                },
+                "text": {
+                    "data_type": "string",
+                    "description": "消息内容，最长不超过2048个字节",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1,
+                    "multi-selected": false
+                },
+                "safe": {
+                    "data_type": "integer",
+                    "description": "是保密消息，0表示否，1表示是，默认0",
+                    "default_value": "0",
+                    "options": [
+                        {
+                            "是": 1
+                        },
+                        {
+                            "否": 0
+                        }
+                    ],
+                    "required": false,
+                    "order": 2
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.errcode",
+                    "data_type": "integer",
+                    "description": "返回码"
+                },
+                {
+                    "data_path": "action_result.data.errmsg",
+                    "data_type": "string",
+                    "description": "返回文本"
+                }
+            ]
+        }
+    ]
+}
