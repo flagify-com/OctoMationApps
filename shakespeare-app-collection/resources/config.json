@@ -1,0 +1,184 @@
+{
+  "name": "octomation_collection",
+  "description": "Octomation集合操作应用",
+  "app_version": "1.0",
+  "min_shakespeare_version":"2.32.0",
+  "logo": "fif.PNG",
+  "read_me": "README.md",
+  "jar": "shakespeare-action-octomation_collection.jar",
+  "has_test": false,
+  "test_action": "",
+  "configuration": {
+    "serverAddress": {
+      "required": true,
+      "order": 0,
+      "data_type": "string",
+      "description": "octomation服务地址(例如:https://172.16.17.2)"
+    },
+    "appToken": {
+      "required": true,
+      "order": 1,
+      "data_type": "password",
+      "description": "系统调用api token(至少需要有集合以及集合元素的create,delete权限)"
+    }
+
+
+  },
+  "resources": "",
+  "actions": [
+    {
+      "action": "addCollectionElement",
+      "description": "通过集合英文名称添加集合元素",
+      "class_name": "com.shakespeare.action.collection.AddCollectionElement",
+      "safe_mode":false,
+      "classify":"write",
+      "result_display_tmpt":"",
+      "parameters": {
+        "collectionName": {
+          "description": "集合英文名",
+          "data_type": "string",
+          "order": 1,
+          "required": true
+        },
+        "value": {
+          "description": "集合元素",
+          "data_type": "string",
+          "order": 2,
+          "required": true
+        },
+        "remark": {
+          "description": "备注",
+          "data_type": "string",
+          "order": 3,
+          "required": false
+        },
+        "effectiveTime": {
+          "description": "生效时间",
+          "data_type": "date",
+          "format": "yyyy-MM-dd HH:mm:ss",
+          "order": 4,
+          "required": false
+        },
+        "expireTime": {
+          "description": "过期时间",
+          "data_type": "date",
+          "format": "yyyy-MM-dd HH:mm:ss",
+          "order": 5,
+          "required": false
+        }
+      },
+      "output": [
+        {
+          "data_path": "action_result.data.result",
+          "data_type": "integer",
+          "description": "影响行数"
+        },
+        {
+          "data_path": "action_result.data.msg",
+          "data_type": "string",
+          "description": "请求说明,异常信息"
+        },
+        {
+          "data_path": "action_result.data.code",
+          "data_type": "integer",
+          "description": "状态码"
+        }
+      ]
+
+    },
+    {
+      "action": "addCollection",
+      "description": "添加集合",
+      "class_name": "com.shakespeare.action.collection.AddCollection",
+      "safe_mode":false,
+      "classify":"write",
+      "result_display_tmpt":"",
+      "parameters": {
+        "name": {
+          "description": "集合名称(仅支持输入英文/数字/下划线)",
+          "data_type": "string",
+          "order": 1,
+          "required": true
+        },
+        "cnName": {
+          "description": "中文名",
+          "data_type": "string",
+          "order": 2,
+          "required": true
+        },
+        "description": {
+          "description": "描述",
+          "data_type": "string",
+          "order": 4,
+          "required": false
+        },
+        "effectiveTime": {
+          "description": "生效时间",
+          "data_type": "date",
+          "format": "yyyy-MM-dd HH:mm:ss",
+          "order": 3,
+          "required": false
+        }
+      },
+      "output": [
+        {
+          "data_path": "action_result.data.result",
+          "data_type": "long",
+          "description": "集合ID"
+        },
+        {
+          "data_path": "action_result.data.msg",
+          "data_type": "string",
+          "description": "请求说明,异常信息"
+        },
+        {
+          "data_path": "action_result.data.code",
+          "data_type": "integer",
+          "description": "状态码"
+        }
+      ]
+    },
+
+    {
+      "action": "deleteCollectionElement",
+      "description": "通过集合英文名和元素值删除元素",
+      "class_name": "com.shakespeare.action.collection.DeleteCollectionElementV2",
+      "safe_mode":false,
+      "classify":"write",
+      "result_display_tmpt":"",
+      "parameters": {
+        "collectionName": {
+          "description": "集合英文名",
+          "data_type": "string",
+          "order": 1,
+          "required": true
+        },
+        "value": {
+          "description": "集合元素",
+          "data_type": "string",
+          "order": 2,
+          "required": true
+        }
+      },
+      "output": [
+        {
+          "data_path": "action_result.data.result",
+          "data_type": "integer",
+          "description": "影响行数"
+        },
+        {
+          "data_path": "action_result.data.msg",
+          "data_type": "string",
+          "description": "请求说明,异常信息"
+        },
+        {
+          "data_path": "action_result.data.code",
+          "data_type": "integer",
+          "description": "状态码"
+        }
+      ]
+
+    }
+
+  ]
+}
