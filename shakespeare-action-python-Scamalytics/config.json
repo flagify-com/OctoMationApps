@@ -1,0 +1,77 @@
+{
+    "name": "Scamalytics",
+    "description": "Scamalytics威胁情报",
+    "app_version": "1.0.2",
+    "min_shakespeare_version": "1.0",
+    "app_supplier": "scamalytics.com",
+    "product_name": "IP Address Fraud Check",
+    "logo": "resources/Scamalytics.jpg",
+    "read_me": "resources/readme.html",
+    "jar": "Scamalytics.py",
+    "logic_language": "PYTHON",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {},
+    "actions": [
+        {
+            "action": "search_ip",
+            "description": "查询IP",
+            "class_name": "search_ip",
+            "result_display_tmpt": "shakespeare-action-template/search_ip.art",
+            "result_display_tmpt_type": "js",
+            "classify": "query",
+            "parameters": {
+                "ip": {
+                    "order": 1,
+                    "data_type": "string",
+                    "description": "查询的IP地址",
+                    "required": true
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.score",
+                    "data_type": "integer",
+                    "description": "风险评分"
+                },
+                {
+                    "data_path": "action_result.data.risk",
+                    "data_type": "string",
+                    "description": "风险级别， 威胁等级：low: 低,  medium：中， highes: 高"
+                },
+                {
+                    "data_path": "action_result.data.anonymizing_vpn",
+                    "data_type": "boolean",
+                    "description": "是否VPN"
+                },
+                {
+                    "data_path": "action_result.data.tor",
+                    "data_type": "boolean",
+                    "description": "是否tor"
+                },
+                {
+                    "data_path": "action_result.data.server",
+                    "data_type": "boolean",
+                    "description": "是否服务器地址"
+                },
+                {
+                    "data_path": "action_result.data.public_proxy",
+                    "data_type": "boolean",
+                    "description": "是否公共代理服务器"
+                },
+                {
+                    "data_path": "action_result.data.web_proxy",
+                    "data_type": "boolean",
+                    "description": "是否WEB代理服务器"
+                },
+                {
+                    "data_path": "action_result.data.search_engine_robot",
+                    "data_type": "boolean",
+                    "description": "是否搜索引擎爬虫"
+                }
+            ]
+        }
+    ]
+}

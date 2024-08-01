@@ -1,0 +1,68 @@
+<style>.ant-table {  box-sizing: border-box;  margin: 0;  padding: 0;  color: rgba(0,0,0,.65);  font-size: 14px;  font-variant: tabular-nums;  line-height: 1.5;  list-style: none;  font-feature-settings: "tnum";  position: relative;  clear: both}.ant-table-body {  transition: opacity .3s}.ant-table-empty .ant-table-body {  overflow-x: auto!important;  overflow-y: hidden!important}.ant-table table {  width: 100%;  text-align: left;  border-radius: 4px 4px 0 0;  border-collapse: separate;  border-spacing: 0}.ant-table-layout-fixed table {  table-layout: fixed}.ant-table-thead>tr>th {  color: rgba(0,0,0,.85);  font-weight: 500;  text-align: left;  background: #fafafa;  border-bottom: 1px solid #e8e8e8;  transition: background .3s ease}.ant-table-thead>tr>th[colspan] {  text-align: center}.ant-table-thead>tr>th .ant-table-filter-icon,.ant-table-thead>tr>th .anticon-filter {  position: absolute;  top: 0;  right: 0;  width: 28px;  height: 100%;  color: #bfbfbf;  font-size: 12px;  text-align: center;  cursor: pointer;  transition: all .3s}.ant-table-thead>tr>th .ant-table-filter-icon>svg,.ant-table-thead>tr>th .anticon-filter>svg {  position: absolute;  top: 50%;  left: 50%;  margin-top: -5px;  margin-left: -6px}.ant-table-thead>tr>th .ant-table-filter-selected.anticon-filter {  color: #1890ff}.ant-table-thead>tr>th .ant-table-column-sorter {  display: table-cell;  vertical-align: middle}.ant-table-thead>tr>th .ant-table-column-sorter .ant-table-column-sorter-inner {  height: 1em;  margin-top: .35em;  margin-left: .57142857em;  color: #bfbfbf;  line-height: 1em;  text-align: center;  transition: all .3s}.ant-table-thead>tr>th .ant-table-column-sorter .ant-table-column-sorter-inner .ant-table-column-sorter-down,.ant-table-thead>tr>th .ant-table-column-sorter .ant-table-column-sorter-inner .ant-table-column-sorter-up {  display: inline-block;  font-size: 12px;  font-size: 11px9;  transform: scale(.91666667) rotate(0deg);  display: block;  height: 1em;  line-height: 1em;  transition: all .3s}:root .ant-table-thead>tr>th .ant-table-column-sorter .ant-table-column-sorter-inner .ant-table-column-sorter-down,:root .ant-table-thead>tr>th .ant-table-column-sorter .ant-table-column-sorter-inner .ant-table-column-sorter-up {  font-size: 12px}.ant-table-thead>tr>th .ant-table-column-sorter .ant-table-column-sorter-inner .ant-table-column-sorter-down.on,.ant-table-thead>tr>th .ant-table-column-sorter .ant-table-column-sorter-inner .ant-table-column-sorter-up.on {  color: #1890ff}.ant-table-thead>tr>th .ant-table-column-sorter .ant-table-column-sorter-inner-full {  margin-top: -.15em}.ant-table-thead>tr>th .ant-table-column-sorter .ant-table-column-sorter-inner-full .ant-table-column-sorter-down,.ant-table-thead>tr>th .ant-table-column-sorter .ant-table-column-sorter-inner-full .ant-table-column-sorter-up {  height: .5em;  line-height: .5em}.ant-table-thead>tr>th .ant-table-column-sorter .ant-table-column-sorter-inner-full .ant-table-column-sorter-down {  margin-top: .125em}.ant-table-thead>tr>th.ant-table-column-has-actions {  position: relative;  background-clip: padding-box;  -webkit-background-clip: border-box}.ant-table-thead>tr>th.ant-table-column-has-actions.ant-table-column-has-filters {  padding-right: 30px!important}.ant-table-thead>tr>th.ant-table-column-has-actions.ant-table-column-has-filters .ant-table-filter-icon.ant-table-filter-open,.ant-table-thead>tr>th.ant-table-column-has-actions.ant-table-column-has-filters .anticon-filter.ant-table-filter-open {  color: rgba(0,0,0,.45);  background: #e5e5e5}.ant-table-thead>tr>th.ant-table-column-has-actions.ant-table-column-has-filters:hover .ant-table-filter-icon:hover,.ant-table-thead>tr>th.ant-table-column-has-actions.ant-table-column-has-filters:hover .anticon-filter:hover {  color: rgba(0,0,0,.45);  background: #e5e5e5}.ant-table-thead>tr>th.ant-table-column-has-actions.ant-table-column-has-filters:hover .ant-table-filter-icon:active,.ant-table-thead>tr>th.ant-table-column-has-actions.ant-table-column-has-filters:hover .anticon-filter:active {  color: rgba(0,0,0,.65)}.ant-table-thead>tr>th.ant-table-column-has-actions.ant-table-column-has-sorters {  cursor: pointer}.ant-table-thead>tr>th.ant-table-column-has-actions.ant-table-column-has-sorters:hover {  background: #f2f2f2}.ant-table-thead>tr>th.ant-table-column-has-actions.ant-table-column-has-sorters:hover .ant-table-filter-icon,.ant-table-thead>tr>th.ant-table-column-has-actions.ant-table-column-has-sorters:hover .anticon-filter {  background: #f2f2f2}.ant-table-thead>tr>th.ant-table-column-has-actions.ant-table-column-has-sorters:active .ant-table-column-sorter-down:not(.on),.ant-table-thead>tr>th.ant-table-column-has-actions.ant-table-column-has-sorters:active .ant-table-column-sorter-up:not(.on) {  color: rgba(0,0,0,.45)}.ant-table-thead>tr>th .ant-table-header-column {  display: inline-block;  max-width: 100%;  vertical-align: top}.ant-table-thead>tr>th .ant-table-header-column .ant-table-column-sorters {  display: table}.ant-table-thead>tr>th .ant-table-header-column .ant-table-column-sorters>.ant-table-column-title {  display: table-cell;  vertical-align: middle}.ant-table-thead>tr>th .ant-table-header-column .ant-table-column-sorters>:not(.ant-table-column-sorter) {  position: relative}.ant-table-thead>tr>th .ant-table-header-column .ant-table-column-sorters:before {  position: absolute;  top: 0;  right: 0;  bottom: 0;  left: 0;  background: transparent;  transition: all .3s;  content: ""}.ant-table-thead>tr>th .ant-table-header-column .ant-table-column-sorters:hover:before {  background: rgba(0,0,0,.04)}.ant-table-thead>tr>th.ant-table-column-has-sorters {  -webkit-user-select: none;  -moz-user-select: none;  -ms-user-select: none;  user-select: none}.ant-table-thead>tr:first-child>th:first-child {  border-top-left-radius: 4px}.ant-table-thead>tr:first-child>th:last-child {  border-top-right-radius: 4px}.ant-table-thead>tr:not(:last-child)>th[colspan] {  border-bottom: 0}.ant-table-tbody>tr>td {  border-bottom: 1px solid #e8e8e8;  transition: all .3s,border 0s}.ant-table-tbody>tr,.ant-table-thead>tr {  transition: all .3s,height 0s}.ant-table-tbody>tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected)>td,.ant-table-tbody>tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected)>td,.ant-table-thead>tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected)>td,.ant-table-thead>tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected)>td {  background: #e6f7ff}.ant-table-tbody>tr.ant-table-row-selected>td.ant-table-column-sort,.ant-table-thead>tr.ant-table-row-selected>td.ant-table-column-sort {  background: #fafafa}.ant-table-tbody>tr:hover.ant-table-row-selected>td,.ant-table-thead>tr:hover.ant-table-row-selected>td {  background: #fafafa}.ant-table-tbody>tr:hover.ant-table-row-selected>td.ant-table-column-sort,.ant-table-thead>tr:hover.ant-table-row-selected>td.ant-table-column-sort {  background: #fafafa}.ant-table-thead>tr:hover {  background: none}.ant-table.ant-table-bordered .ant-table-footer {  border: 1px solid #e8e8e8}.ant-table-title {  position: relative;  top: 1px;  padding: 16px 0;  border-radius: 4px 4px 0 0}.ant-table.ant-table-bordered .ant-table-title {  padding-right: 16px;  padding-left: 16px;  border: 1px solid #e8e8e8}.ant-table-title+.ant-table-content {  position: relative;  border-radius: 4px 4px 0 0}ant-table-default.ant-table-bordered .ant-table-title+.ant-table-content,.ant-table-bordered .ant-table-title+.ant-table-content .ant-table-thead>tr:first-child>th,.ant-table-bordered .ant-table-title+.ant-table-content table {  border-radius: 0}.ant-table-without-column-header .ant-table-title+.ant-table-content,.ant-table-without-column-header table {  border-radius: 0}.ant-table-without-column-header.ant-table-bordered.ant-table-empty .ant-table-placeholder {  border-top: 1px solid #e8e8e8;  border-radius: 4px}.ant-table-tbody>tr.ant-table-row-selected td {  color: inherit;  background: #fafafa}.ant-table-thead>tr>th.ant-table-column-sort {  background: #f5f5f5}.ant-table-tbody>tr>td.ant-table-column-sort {  background: rgba(0,0,0,.01)}.ant-table-tbody>tr>td,.ant-table-thead>tr>th {  padding: 16px;  overflow-wrap: break-word}.ant-table-expand-icon-th,.ant-table-row-expand-icon-cell {  width: 50px;  min-width: 50px;  text-align: center}.ant-table-header {  overflow: hidden;  background: #fafafa}.ant-table-header table {  border-radius: 4px 4px 0 0}.ant-table-loading {  position: relative}.ant-table-loading .ant-table-body {  background: #fff;  opacity: .5}.ant-table-bordered .ant-table-body>table,.ant-table-bordered .ant-table-fixed-left table,.ant-table-bordered .ant-table-fixed-right table,.ant-table-bordered .ant-table-header>table {  border: 1px solid #e8e8e8;  border-right: 0;  border-bottom: 0}.ant-table-bordered.ant-table-empty .ant-table-placeholder {  border-right: 1px solid #e8e8e8;  border-left: 1px solid #e8e8e8}.ant-table-bordered.ant-table-fixed-header .ant-table-header>table {  border-bottom: 0}.ant-table-bordered.ant-table-fixed-header .ant-table-body>table {  border-top-left-radius: 0;  border-top-right-radius: 0}.ant-table-bordered.ant-table-fixed-header .ant-table-body-inner>table,.ant-table-bordered.ant-table-fixed-header .ant-table-header+.ant-table-body>table {  border-top: 0}.ant-table-bordered .ant-table-thead>tr:not(:last-child)>th {  border-bottom: 1px solid #e8e8e8}.ant-table-bordered .ant-table-tbody>tr>td,.ant-table-bordered .ant-table-thead>tr>th {  border-right: 1px solid #e8e8e8}.ant-table-thead {    font-size: 14px;    color: rgba(0,0,0,.85);}.ant-table-tbody {    font-size: 14px;    color: rgba(0,0,0,.65);}</style>
+
+<div class="ant-table ant-table-default ant-table-bordered">
+   <div class="ant-table-content">
+       <div class="ant-table-body">
+           <table>
+               <thead class="ant-table-thead">
+                   <tr>
+                       <th>
+                           <span class="ant-table-header-column">
+                               <div>
+                                   <span class="ant-table-column-title">查询项目</span>
+                                   <span class="ant-table-column-sorter"></span>
+                               </div>
+                           </span>
+                       </th>
+                       <th>
+                           <span class="ant-table-header-column">
+                               <div>
+                                   <span class="ant-table-column-title">查询结果</span>
+                                   <span class="ant-table-column-sorter"></span>
+                               </div>
+                           </span>
+                       </th>
+                   </tr>
+               </thead>
+               <tbody class="ant-table-tbody">
+               {{each action_results as action_result}}
+               {{if action_result.data}}
+                   <tr class="ant-table-row">
+                       <td>威胁评分（满分100）</td>
+                       <td>{{action_result.data.score}}</td>
+                   </tr>
+                   <tr class="ant-table-row">
+                       <td>风险级别</td>
+                       <td>{{action_result.data.risk}}</td>
+                   </tr>
+                   <tr class="ant-table-row">
+                       <td>匿名VPN</td>
+                       <td>{{action_result.data.anonymizing_vpn}}</td>
+                   </tr>
+                   <tr class="ant-table-row">
+                       <td>TOR</td>
+                       <td>{{action_result.data.tor}}</td>
+                   </tr>
+                   <tr class="ant-table-row">
+                       <td>服务器</td>
+                       <td>{{action_result.data.server}}</td>
+                   </tr>
+                   <tr class="ant-table-row">
+                       <td>公共代理</td>
+                       <td>{{action_result.data.public_proxy}}</td>
+                   </tr>
+                   <tr class="ant-table-row">
+                       <td>web代理服务器</td>
+                       <td>{{action_result.data.web_proxy}}</td>
+                   </tr>
+                   <tr class="ant-table-row">
+                       <td>搜索引擎机器人</td>
+                       <td>{{action_result.data.search_engine_robot}}</td>
+                   </tr>
+               {{/if}}
+               {{/each}}
+               </tbody>
+           </table>
+       </div>
+   </div>
+</div>
