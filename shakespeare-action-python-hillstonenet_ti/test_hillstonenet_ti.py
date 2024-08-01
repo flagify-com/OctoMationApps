@@ -8,7 +8,7 @@ class TestHillstonenetTi(unittest.TestCase):
     def __init__(self, methodName: str = "runTest") -> None:
         super().__init__(methodName)
         self.assets = {
-            "api_key": "7d419c77d0539109cc9fc4ec3fc92993e6f41babd0685929c0c449b321ad5a68", 
+            "api_key": "6d419c77d0539109cc9fc4ec3fc92993e6f41babd0685929c0c449b321ad5a68", 
             "api_domain": "ti.hillstonenet.com.cn"
         }
         self.params = {
