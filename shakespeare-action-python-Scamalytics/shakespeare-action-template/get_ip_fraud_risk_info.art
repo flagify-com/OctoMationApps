@@ -1,0 +1,85 @@
+<div class="ant-table ant-table-default ant-table-bordered">
+    <div class="ant-table-content">
+        <div class="ant-table-body">
+            <table>
+                <thead class="ant-table-thead">
+                    <tr>
+                        <th>
+                            <span class="ant-table-header-column">
+                                <div>
+                                    <span class="ant-table-column-title">描述</span>
+                                    <span class="ant-table-column-sorter"></span>
+                                </div>
+                            </span>
+                        </th>
+                        <th>
+                            <span class="ant-table-header-column">
+                                <div>
+                                    <span class="ant-table-column-title">值</span>
+                                    <span class="ant-table-column-sorter"></span>
+                                </div>
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="ant-table-tbody">
+                    {{each action_results action_result}}
+
+                    <tr class="ant-table-row">
+                        <td>IP</td>
+                        <td>{{action_result.data.ip}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>威胁分值（最高100）</td>
+                        <td>{{action_result.data.score}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>风险信息</td>
+                        <td>{{action_result.data.risk}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>国家编码</td>
+                        <td>{{action_result.data.ip_country_code}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>国家名称</td>
+                        <td>{{action_result.data.ip_country_name}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>省/州</td>
+                        <td>{{action_result.data.ip_state_name}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>城市</td>
+                        <td>{{action_result.data.ip_city}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>市区</td>
+                        <td>{{action_result.data.ip_district}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>IP位置经度</td>
+                        <td>{{action_result.data.ip_geolocation_longtitude}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>IP位置纬度</td>
+                        <td>{{action_result.data.ip_geolocation_latitude}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>ISP信息</td>
+                        <td>{{action_result.data.isp_name}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>代理类型</td>
+                        <td>{{action_result.data.proxy_type}}（DCH/WEB/PUB/TOR/VPN/SES/0）</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>在线查询URL</td>
+                      <td><a href="{{action_result.data.url}}" target="_blank">点击查询scamalytics.com</a></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
