@@ -1,0 +1,335 @@
+{
+    "name": "Scamalytics",
+    "description": "Scamalytics IP欺诈风险检测",
+    "app_version": "2.0.2",
+    "min_shakespeare_version": "1.0",
+    "app_supplier": "scamalytics.com",
+    "product_name": "IP Address Fraud Check",
+    "logo": "resources/Scamalytics.jpg",
+    "read_me": "resources/readme.md",
+    "jar": "scamalytics.py",
+    "logic_language": "PYTHON",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {
+        "api_user": {
+            "data_type": "string",
+            "description": "API 用户ID",
+            "required": false,
+            "options": "",
+            "order": 0
+        },
+        "api_key": {
+            "data_type": "password",
+            "description": "API KEY，如果没有填写，系统将通过解析Web页面方式获取数据",
+            "required": false,
+            "options": "",
+            "order": 1
+        }
+    },
+    "actions": [
+        {
+            "action": "get_ip_fraud_risk_info",
+            "description": "查询IP欺诈风险信息，默认使用API，无API走Web方式",
+            "class_name": "get_ip_fraud_risk_info",
+            "result_display_tmpt": "shakespeare-action-template/get_ip_fraud_risk_info.art",
+            "result_display_tmpt_type": "js",
+            "classify": "query",
+            "parameters": {
+                "ip": {
+                    "order": 0,
+                    "data_type": "string",
+                    "description": "待查询的IP地址",
+                    "required": true
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.ip",
+                    "data_type": "integer",
+                    "description": "IP"
+                },
+                {
+                    "data_path": "action_result.data.score",
+                    "data_type": "integer",
+                    "description": "风险评分"
+                },
+                {
+                    "data_path": "action_result.data.risk",
+                    "data_type": "string",
+                    "description": "风险级别， 威胁等级：very high/high/medium/low"
+                },
+                {
+                    "data_path": "action_result.data.ip_country_code",
+                    "data_type": "string",
+                    "description": "国家编码"
+                },
+                {
+                    "data_path": "action_result.data.ip_country_name",
+                    "data_type": "string",
+                    "description": "国家"
+                },
+                {
+                    "data_path": "action_result.data.ip_state_name",
+                    "data_type": "string",
+                    "description": "省/州"
+                },
+                {
+                    "data_path": "action_result.data.ip_city",
+                    "data_type": "string",
+                    "description": "城市"
+                },
+                {
+                    "data_path": "action_result.data.ip_district",
+                    "data_type": "string",
+                    "description": "市区"
+                },
+                {
+                    "data_path": "action_result.data.ip_geolocation_longtitude",
+                    "data_type": "double",
+                    "description": "经度"
+                },
+                {
+                    "data_path": "action_result.data.ip_geolocation_latitude",
+                    "data_type": "double",
+                    "description": "纬度"
+                },
+                {
+                    "data_path": "action_result.data.ip_geolocation",
+                    "data_type": "string",
+                    "description": "经纬度"
+                },
+                {
+                    "data_path": "action_result.data.isp_name",
+                    "data_type": "double",
+                    "description": "ISP名称"
+                },
+                {
+                    "data_path": "action_result.data.isp_fraud_score",
+                    "data_type": "integer",
+                    "description": "ISP欺诈分值"
+                },
+                {
+                    "data_path": "action_result.data.organization_name",
+                    "data_type": "string",
+                    "description": "组织信息"
+                },
+                {
+                    "data_path": "action_result.data.as_number",
+                    "data_type": "string",
+                    "description": "AS编号"
+                },
+                {
+                    "data_path": "action_result.data.proxy_type",
+                    "data_type": "string",
+                    "description": "代理类型（DCH/WEB/PUB/TOR/VPN/SES/0），默认为：0"
+                },
+                {
+                    "data_path": "action_result.data.anonymizing_vpn",
+                    "data_type": "boolean",
+                    "description": "是否VPN"
+                },
+                {
+                    "data_path": "action_result.data.tor",
+                    "data_type": "boolean",
+                    "description": "是否Tor"
+                },
+                {
+                    "data_path": "action_result.data.server",
+                    "data_type": "boolean",
+                    "description": "是否IDC服务器"
+                },
+                {
+                    "data_path": "action_result.data.public_proxy",
+                    "data_type": "boolean",
+                    "description": "是否公共代理服务器"
+                },
+                {
+                    "data_path": "action_result.data.web_proxy",
+                    "data_type": "boolean",
+                    "description": "是否WEB代理服务器"
+                },
+                {
+                    "data_path": "action_result.data.search_engine_robot",
+                    "data_type": "boolean",
+                    "description": "是否搜索引擎爬虫"
+                },
+                {
+                    "data_path": "action_result.data.url",
+                    "data_type": "string",
+                    "description": "在线查询URL"
+                }
+            ]
+        },
+        {
+            "action": "search_ip",
+            "description": "查询IP",
+            "class_name": "search_ip",
+            "result_display_tmpt": "shakespeare-action-template/get_ip_fraud_risk_info.art",
+            "result_display_tmpt_type": "js",
+            "classify": "query",
+            "parameters": {
+                "ip": {
+                    "order": 1,
+                    "data_type": "string",
+                    "description": "查询的IP地址",
+                    "required": true
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.ip",
+                    "data_type": "integer",
+                    "description": "IP"
+                },
+                {
+                    "data_path": "action_result.data.score",
+                    "data_type": "integer",
+                    "description": "风险评分"
+                },
+                {
+                    "data_path": "action_result.data.risk",
+                    "data_type": "string",
+                    "description": "风险级别， 威胁等级：very high/high/medium/low"
+                },
+                {
+                    "data_path": "action_result.data.ip_country_code",
+                    "data_type": "string",
+                    "description": "国家编码"
+                },
+                {
+                    "data_path": "action_result.data.ip_country_name",
+                    "data_type": "string",
+                    "description": "国家"
+                },
+                {
+                    "data_path": "action_result.data.ip_state_name",
+                    "data_type": "string",
+                    "description": "省/州"
+                },
+                {
+                    "data_path": "action_result.data.ip_city",
+                    "data_type": "string",
+                    "description": "城市"
+                },
+                {
+                    "data_path": "action_result.data.ip_district",
+                    "data_type": "string",
+                    "description": "市区"
+                },
+                {
+                    "data_path": "action_result.data.ip_geolocation_longtitude",
+                    "data_type": "double",
+                    "description": "经度"
+                },
+                {
+                    "data_path": "action_result.data.ip_geolocation_latitude",
+                    "data_type": "double",
+                    "description": "纬度"
+                },
+                {
+                    "data_path": "action_result.data.ip_geolocation",
+                    "data_type": "string",
+                    "description": "经纬度"
+                },
+                {
+                    "data_path": "action_result.data.isp_name",
+                    "data_type": "double",
+                    "description": "ISP名称"
+                },
+                {
+                    "data_path": "action_result.data.isp_fraud_score",
+                    "data_type": "integer",
+                    "description": "ISP欺诈分值"
+                },
+                {
+                    "data_path": "action_result.data.organization_name",
+                    "data_type": "string",
+                    "description": "组织信息"
+                },
+                {
+                    "data_path": "action_result.data.as_number",
+                    "data_type": "string",
+                    "description": "AS编号"
+                },
+                {
+                    "data_path": "action_result.data.proxy_type",
+                    "data_type": "string",
+                    "description": "代理类型（DCH/WEB/PUB/TOR/VPN/SES/0），默认为：0"
+                },
+                {
+                    "data_path": "action_result.data.anonymizing_vpn",
+                    "data_type": "boolean",
+                    "description": "是否VPN"
+                },
+                {
+                    "data_path": "action_result.data.tor",
+                    "data_type": "boolean",
+                    "description": "是否Tor"
+                },
+                {
+                    "data_path": "action_result.data.server",
+                    "data_type": "boolean",
+                    "description": "是否IDC服务器"
+                },
+                {
+                    "data_path": "action_result.data.public_proxy",
+                    "data_type": "boolean",
+                    "description": "是否公共代理服务器"
+                },
+                {
+                    "data_path": "action_result.data.web_proxy",
+                    "data_type": "boolean",
+                    "description": "是否WEB代理服务器"
+                },
+                {
+                    "data_path": "action_result.data.search_engine_robot",
+                    "data_type": "boolean",
+                    "description": "是否搜索引擎爬虫"
+                },
+                {
+                    "data_path": "action_result.data.url",
+                    "data_type": "string",
+                    "description": "在线查询URL"
+                }
+            ]
+        },
+        {
+            "action": "health_check",
+            "description": "健康检查，支持API和Web方式",
+            "class_name": "health_check",
+            "result_display_tmpt": "shakespeare-action-template/health_check.art",
+            "result_display_tmpt_type": "js",
+            "safe_mode": false,
+            "is_test": true,
+            "classify": "query",
+            "parameters": {
+                
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.err_code",
+                    "data_type": "integer",
+                    "description": "返回错误码，默认：0"
+                },
+                {
+                    "data_path": "action_result.data.err_msg",
+                    "data_type": "string",
+                    "description": "返回错误信息，默认：空"
+                },
+                {
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "健康检查返回码，默认：200"
+                },
+                {
+                    "data_path": "action_result.summary.msg",
+                    "data_type": "string",
+                    "description": "健康检查返回信息，默认：空"
+                }
+            ]
+        }
+    ]
+}

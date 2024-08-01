@@ -1,0 +1,501 @@
+{
+    "name": "activelist_manager",
+    "description": "活动列表管理器",
+    "app_version": "1.1.4",
+    "jar": "activelist_manager.py",
+    "readme": "resources/readme.md",
+    "logo": "resources/activelist.jpeg",
+    "category": "数据统计",
+    "product_name": "活动列表管理器",
+    "app_supplier": "雾帜智能",
+    "logic_language": "PYTHON",
+    "min_shakespeare_version": "1.0",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {},
+    "actions": [
+        {
+            "action": "initialize_active_list_table",
+            "class_name": "initialize_active_list_table",
+            "description": "初始化活动列表的数据库表",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/initialize_active_list_table.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "activelist_name": {
+                    "data_type": "string",
+                    "description": "活动列表的名称。不同的应用场景，请务必区分。格式：数字、字母、下划线、中划线，最长512字符",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0,
+                    "multi-selected": false
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.err_code",
+                    "data_type": "integer",
+                    "description": "返回码，默认为：0"
+                },
+                {
+                    "data_path": "action_result.data.err_msg",
+                    "data_type": "string",
+                    "description": "返回消息"
+                }
+            ]
+        },
+        {
+            "action": "add_record_to_active_list",
+            "class_name": "add_record_to_active_list",
+            "description": "添加记录到活动列表",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/add_record_to_active_list.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "activelist_name": {
+                    "data_type": "string",
+                    "description": "活动列表的名称",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0,
+                    "multi-selected": false
+                },
+                "item_key": {
+                    "data_type": "string",
+                    "description": "活动列表元素的key名称",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1,
+                    "multi-selected": false
+                },
+                "item_value": {
+                    "data_type": "string",
+                    "description": "活动列表元素的value值",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 2,
+                    "multi-selected": false
+                },
+                "item_remark": {
+                    "data_type": "string",
+                    "description": "活动列表元素的备注信息",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 3,
+                    "multi-selected": false
+                },
+                "replace_if_exists": {
+                    "data_type": "boolean",
+                    "description": "相同key是否覆盖原有记录（默认：不覆盖，追加模式）",
+                    "default_value": false,
+                    "options": "",
+                    "required": false,
+                    "order": 4
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.err_code",
+                    "data_type": "integer",
+                    "description": "返回码，默认为：0"
+                },
+                {
+                    "data_path": "action_result.data.err_msg",
+                    "data_type": "string",
+                    "description": "返回消息"
+                }
+            ]
+        },
+        {
+            "action": "count_records_within_time_window",
+            "class_name": "count_records_within_time_window",
+            "description": "统计时间窗口内记录行数",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/count_records_within_time_window.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "activelist_name": {
+                    "data_type": "string",
+                    "description": "活动列表的名称",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0,
+                    "multi-selected": false
+                },
+                "item_key": {
+                    "data_type": "string",
+                    "description": "活动列表元素的key值，如果为*，则统计所有key的记录行数。",
+                    "default_value": "*",
+                    "options": "",
+                    "required": true,
+                    "order": 1,
+                    "multi-selected": false
+                },
+                "end_time": {
+                    "data_type": "datetime",
+                    "description": "活动列表时间窗口的截止时间，默认为当前时间。",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 2,
+                    "format": "年年年年-月月-日日 时时:分分:秒秒"
+                },
+                "time_delta_minute": {
+                    "data_type": "integer",
+                    "description": "时间窗口长度，单位是分钟，即：从end_time开始，向前追溯N分钟，查询该时间段内的记录总行数。",
+                    "default_value": "120",
+                    "options": [
+                        {
+                            "30分钟": 30
+                        },
+                        {
+                            "1小时": 60
+                        },
+                        {
+                            "4小时": 240
+                        },
+                        {
+                            "24小时": 1440
+                        }
+                    ],
+                    "required": true,
+                    "order": 3
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.err_code",
+                    "data_type": "integer",
+                    "description": "返回码，默认为：0"
+                },
+                {
+                    "data_path": "action_result.data.err_msg",
+                    "data_type": "string",
+                    "description": "返回信息"
+                },
+                {
+                    "data_path": "action_result.data.record_count",
+                    "data_type": "integer",
+                    "description": "记录行数，默认为：0"
+                }
+            ]
+        },
+        {
+            "action": "remove_record_from_active_list",
+            "class_name": "remove_record_from_active_list",
+            "description": "从活动列表中移除记录",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/remove_record_from_active_list.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "activelist_name": {
+                    "data_type": "string",
+                    "description": "活动列表名称",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0,
+                    "multi-selected": false
+                },
+                "item_key": {
+                    "data_type": "string",
+                    "description": "活动列表元素的key值",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1,
+                    "multi-selected": false
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.err_code",
+                    "data_type": "integer",
+                    "description": "返回码，默认为：0"
+                },
+                {
+                    "data_path": "action_result.data.err_msg",
+                    "data_type": "string",
+                    "description": "返回信息"
+                }
+            ]
+        },
+        {
+            "action": "get_records_time_trend",
+            "class_name": "get_records_time_trend",
+            "description": "统计活动列表记录行的时间趋势，支持按天、小时、分钟统计",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/get_records_time_trend.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "activelist_name": {
+                    "data_type": "string",
+                    "description": "活动列表名称",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0,
+                    "multi-selected": false
+                },
+                "item_key": {
+                    "data_type": "string",
+                    "description": "活动列表元素的key名称，如果留空，则统计所有key的记录时间趋势。",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 1,
+                    "multi-selected": false
+                },
+                "time_unit": {
+                    "data_type": "string",
+                    "description": "统计单位（天/时/分），下拉选择",
+                    "default_value": "DAY",
+                    "options": [
+                        {
+                            "天": "DAY"
+                        },
+                        {
+                            "时": "HOUR"
+                        },
+                        {
+                            "分": "MINUTE"
+                        }
+                    ],
+                    "required": true,
+                    "order": 2,
+                    "multi-selected": false
+                },
+                "unit_amount": {
+                    "data_type": "integer",
+                    "description": "统计周期，和单位组合生效，如：7天，24小时，60分钟",
+                    "default_value": 7,
+                    "options": [
+                        {
+                            "7（适用于天）": 7
+                        },
+                        {
+                            "24（适用时）": 24
+                        },
+                        {
+                            "60（适用于分钟）": 60
+                        }
+                    ],
+                    "required": false,
+                    "order": 3,
+                    "multi-selected": false
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.err_code",
+                    "data_type": "integer",
+                    "description": "返回码，默认为：0"
+                },
+                {
+                    "data_path": "action_result.data.err_msg",
+                    "data_type": "string",
+                    "description": "返回信息"
+                },
+                {
+                    "data_path": "action_result.data.records",
+                    "data_type": "jsonarray",
+                    "description": "统计记录"
+                },
+                {
+                    "data_path": "action_result.data.records.*.xTime",
+                    "data_type": "string",
+                    "description": "xTime"
+                },
+                {
+                    "data_path": "action_result.data.records.*.xCount",
+                    "data_type": "integer",
+                    "description": "xCount"
+                }
+            ]
+        },
+        {
+            "action": "quick_view_active_list",
+            "class_name": "quick_view_active_list",
+            "description": "快速查看活动列表数据",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/quick_view_active_list.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "activelist_name": {
+                    "data_type": "string",
+                    "description": "活动列表名称",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0,
+                    "multi-selected": false
+                },
+                "item_key": {
+                    "data_type": "string",
+                    "description": "活动列表元素的key值，如果为*，则无差别查看所有key的记录。",
+                    "default_value": "*",
+                    "options": "",
+                    "required": false,
+                    "order": 1,
+                    "multi-selected": false
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.err_code",
+                    "data_type": "integer",
+                    "description": "返回码，默认为：0"
+                },
+                {
+                    "data_path": "action_result.data.err_msg",
+                    "data_type": "string",
+                    "description": "返回信息"
+                },
+                {
+                    "data_path": "action_result.data.records",
+                    "data_type": "jsonarray",
+                    "description": "活动列表记录数"
+                }
+            ]
+        },
+        {
+            "action": "clear_active_list",
+            "class_name": "clear_active_list",
+            "description": "清空指定活动列表的所有记录",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/clear_active_list.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "activelist_name": {
+                    "data_type": "string",
+                    "description": "活动列表名称",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0,
+                    "multi-selected": false
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.err_code",
+                    "data_type": "integer",
+                    "description": "返回码，默认为：0"
+                },
+                {
+                    "data_path": "action_result.data.err_msg",
+                    "data_type": "string",
+                    "description": "返回信息"
+                }
+            ]
+        },
+        {
+            "action": "delete_active_list",
+            "class_name": "delete_active_list",
+            "description": "删除活动列表⚠️⚠️⚠️（谨慎操作，这不是清空，会导致依赖该列表的剧本无法使用！）",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/delete_active_list.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "activelist_name": {
+                    "data_type": "string",
+                    "description": "要删除的活动列表名称",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0,
+                    "multi-selected": false
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.err_code",
+                    "data_type": "integer",
+                    "description": "返回码，默认为：0"
+                },
+                {
+                    "data_path": "action_result.data.err_msg",
+                    "data_type": "string",
+                    "description": "返回信息"
+                }
+            ]
+        },
+        {
+            "action": "list_all_active_lists",
+            "class_name": "list_all_active_lists",
+            "description": "列举出所有活动列表",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/list_all_active_lists.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.err_code",
+                    "data_type": "integer",
+                    "description": "返回码，默认为：0"
+                },
+                {
+                    "data_path": "action_result.data.err_msg",
+                    "data_type": "string",
+                    "description": "返回信息"
+                },
+                {
+                    "data_path": "action_result.data.activelists",
+                    "data_type": "jsonarray",
+                    "description": "活动列表名称的数组"
+                }
+            ]
+        },
+        {
+            "action": "health_check",
+            "class_name": "health_check",
+            "description": "健康检查",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/health_check.art",
+            "safe_mode": false,
+            "is_test": true,
+            "classify": "query",
+            "parameters": {},
+            "output": [
+                {
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回码，默认为：200"
+                },
+                {
+                    "data_path": "action_result.summary.msg",
+                    "data_type": "string",
+                    "description": "返回消息"
+                }
+            ]
+        }
+    ]
+}
