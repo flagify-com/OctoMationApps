@@ -1,0 +1,94 @@
+<div class="ant-table ant-table-default ant-table-bordered">
+    <div class="ant-table-content">
+        <div class="ant-table-body">
+            <table>
+                <thead class="ant-table-thead">
+                    <tr>
+                        <th>
+                            <span class="ant-table-header-column">
+                                <div>
+                                    <span class="ant-table-column-title">描述</span>
+                                    <span class="ant-table-column-sorter"></span>
+                                </div>
+                            </span>
+                        </th>
+                        <th>
+                            <span class="ant-table-header-column">
+                                <div>
+                                    <span class="ant-table-column-title">值</span>
+                                    <span class="ant-table-column-sorter"></span>
+                                </div>
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="ant-table-tbody">
+                    {{each action_results action_result}}
+
+                    <tr class="ant-table-row">
+                        <td>错误码</td>
+                        <td>{{action_result.data.err_code}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>错误消息</td>
+                        <td>{{action_result.data.err_msg}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>md5</td>
+                        <td>{{action_result.data.raw_data.data.md5}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>sha1</td>
+                        <td>{{action_result.data.raw_data.data.sha1}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>sha256</td>
+                        <td>{{action_result.data.raw_data.data.sha256}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>风险查询结果</td>
+                        <td>{{action_result.data.risk_level}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>威胁类型</td>
+                        <td>{{action_result.data.threat_type}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>文件类型</td>
+                        <td>{{action_result.data.raw_data.data.basic_info.file_type}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>文件大小的数值</td>
+                        <td>{{action_result.data.raw_data.data.basic_info.file_size}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>first_seen时间戳</td>
+                        <td>{{action_result.data.raw_data.data.basic_info.first_seen}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>last_seen时间戳</td>
+                        <td>{{action_result.data.raw_data.data.basic_info.last_seen}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>scan_date时间戳</td>
+                        <td>{{action_result.data.raw_data.data.basic_info.scan_date}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>download_domains数组</td>
+                        <td>{{action_result.data.raw_data.data.download_domains}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>connect_domains数组</td>
+                        <td>{{action_result.data.raw_data.data.connect_domains}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>connect_ips数组</td>
+                        <td>{{action_result.data.raw_data.data.connect_ips}}</td>
+                    </tr>
+                 
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

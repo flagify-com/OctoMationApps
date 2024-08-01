@@ -1,0 +1,463 @@
+{
+    "name": "hillstonenet_ti",
+    "description": "山石云瞻-威胁情报",
+    "app_version": "1.0.0",
+    "jar": "hillstonenet_ti.py",
+    "readme": "resources/readme.md",
+    "logo": "resources/hillstonenet-ti.jpg",
+    "category": "威胁情报",
+    "product_name": "山石云瞻威胁情报",
+    "app_supplier": "山石网科",
+    "logic_language": "PYTHON",
+    "min_shakespeare_version": "1.0",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {
+        "api_domain": {
+            "data_type": "string",
+            "description": "API域名，默认：ti.hillstonenet.com.cn",
+            "default_value": "ti.hillstonenet.com.cn",
+            "required": true,
+            "options": "",
+            "order": 0
+        },
+        "api_key": {
+            "data_type": "string",
+            "description": "调用API的密钥，客通过官方网站后台获取",
+            "required": true,
+            "options": "",
+            "order": 1
+        }
+    },
+    "actions": [
+        {
+            "order": 0,
+            "action": "detail_ip",
+            "class_name": "detail_ip",
+            "description": "高级威胁查询：IP",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/detail_ip.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "ip": {
+                    "data_type": "string",
+                    "description": "待查询的IP地址，例如：199.19.224.129",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0,
+                    "multi-selected": false
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.err_code",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "data_path": "action_result.data.err_msg",
+                    "data_type": "string",
+                    "description": "返回.错误消息，默认：空"
+                },
+                {
+                    "data_path": "action_result.data.ip_address",
+                    "data_type": "string",
+                    "description": "IP地址"
+                },
+                {
+                    "data_path": "action_result.data.risk_level",
+                    "data_type": "string",
+                    "description": "结果等级字符（malicious/normal/suspicious/unknown/unreported）"
+                },
+                {
+                    "data_path": "action_result.data.threat_type",
+                    "data_type": "jsonarray",
+                    "description": "威胁类型（数组）"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.basic_info.location.country",
+                    "data_type": "string",
+                    "description": "位置：国家"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.basic_info.location.province",
+                    "data_type": "string",
+                    "description": "位置：省份"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.basic_info.location.city",
+                    "data_type": "string",
+                    "description": "位置：城市"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.basic_info.location.country_code",
+                    "data_type": "string",
+                    "description": "位置：国家编码"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.basic_info.location.longitude",
+                    "data_type": "double",
+                    "description": "位置：精度"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.basic_info.location.latitude",
+                    "data_type": "double",
+                    "description": "位置：纬度"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.basic_info.carrier",
+                    "data_type": "string",
+                    "description": "运营商"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.basic_info.network",
+                    "data_type": "string",
+                    "description": "网络"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.current_domains",
+                    "data_type": "jsonarray",
+                    "description": "当前域名数组"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.rdns_list.*.domain_name",
+                    "data_type": "jsonarray",
+                    "description": "rdns数组"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.tags",
+                    "data_type": "jsonarray",
+                    "description": "标签数组"
+                },
+                {
+                    "data_path": "action_result.data.raw_data",
+                    "data_type": "jsonobject",
+                    "description": "API原始返回结果（JSON）"
+                }
+            ]
+        },
+        {
+            "order": 1,
+            "action": "detail_domain",
+            "class_name": "detail_domain",
+            "description": "高级威胁查询：Domain",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/detail_domain.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "domain": {
+                    "data_type": "string",
+                    "description": "待查询的域名，例如：github.com",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0,
+                    "multi-selected": false
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.err_code",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "data_path": "action_result.data.err_msg",
+                    "data_type": "string",
+                    "description": "返回.错误消息，默认：空"
+                },
+                {
+                    "data_path": "action_result.data.domain_name",
+                    "data_type": "string",
+                    "description": "域名"
+                },
+                {
+                    "data_path": "action_result.data.risk_level",
+                    "data_type": "string",
+                    "description": "结果等级字符（malicious/normal/suspicious/unknown/unreported）"
+                },
+                {
+                    "data_path": "action_result.data.threat_type",
+                    "data_type": "jsonarray",
+                    "description": "威胁类型（数组）"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.current_whois",
+                    "data_type": "string",
+                    "description": "当前Whois信息"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.dns_records",
+                    "data_type": "jsonarray",
+                    "description": "DNS记录数组"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.current_ips",
+                    "data_type": "jsonarray",
+                    "description": "当前IP信息数组"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.history_ips.*.ip_address",
+                    "data_type": "jsonarray",
+                    "description": "历史IP信息数组"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.sub_domains",
+                    "data_type": "jsonarray",
+                    "description": "子域名数组"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.domain_siblings",
+                    "data_type": "jsonarray",
+                    "description": "domain_siblings数组"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.download_files",
+                    "data_type": "jsonarray",
+                    "description": "download_files数组"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.referer_files",
+                    "data_type": "jsonarray",
+                    "description": "referer_files数组"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.connect_files",
+                    "data_type": "jsonarray",
+                    "description": "connect_files数组"
+                },
+                {
+                    "data_path": "action_result.data.raw_data",
+                    "data_type": "jsonobject",
+                    "description": "API原始返回结果（JSON）"
+                }
+            ]
+        },
+        {
+            "order": 2,
+            "action": "detail_url",
+            "class_name": "detail_url",
+            "description": "高级威胁查询：Url",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/detail_url.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "url": {
+                    "data_type": "string",
+                    "description": "待查询的Url，格式：http://www.example.com",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0,
+                    "multi-selected": false
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.err_code",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "data_path": "action_result.data.err_msg",
+                    "data_type": "string",
+                    "description": "返回.错误消息，默认：空"
+                },
+                {
+                    "data_path": "action_result.data.risk_level",
+                    "data_type": "string",
+                    "description": "结果等级字符（malicious/normal/suspicious/unknown/unreported）"
+                },
+                {
+                    "data_path": "action_result.data.threat_type",
+                    "data_type": "jsonarray",
+                    "description": "威胁类型（数组）"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.url",
+                    "data_type": "string",
+                    "description": "URL"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.hash_sha256",
+                    "data_type": "string",
+                    "description": "URL的SHA256哈希值"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.related_ips",
+                    "data_type": "jsonarray",
+                    "description": "关联IP地址的数组"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.related_domains",
+                    "data_type": "jsonarray",
+                    "description": "关联域名的数组"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.related_files",
+                    "data_type": "jsonarray",
+                    "description": "related_files数组"
+                },
+                {
+                    "data_path": "action_result.data.raw_data",
+                    "data_type": "jsonobject",
+                    "description": "API原始返回结果（JSON）"
+                }
+            ]
+        },
+        {
+            "order": 3,
+            "action": "detail_file",
+            "class_name": "detail_file",
+            "description": "高级威胁查询：File",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/detail_file.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "file_hash": {
+                    "data_type": "string",
+                    "description": "待查询的文件hash值，支持MD5、SHA1、SHA256，例如：30abc67b8797791b806a30e86e0e8466",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0,
+                    "multi-selected": false
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.err_code",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "data_path": "action_result.data.err_msg",
+                    "data_type": "string",
+                    "description": "返回.错误消息，默认：空"
+                },
+                {
+                    "data_path": "action_result.data.risk_level",
+                    "data_type": "string",
+                    "description": "结果等级字符（malicious/normal/suspicious/unknown/unreported）"
+                },
+                {
+                    "data_path": "action_result.data.threat_type",
+                    "data_type": "jsonarray",
+                    "description": "威胁类型（数组）"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.sha256",
+                    "data_type": "string",
+                    "description": "文件HASH：sha256"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.sha1",
+                    "data_type": "string",
+                    "description": "文件HASH：sha1"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.md5",
+                    "data_type": "string",
+                    "description": "文件HASH：md5"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.hash_sha256",
+                    "data_type": "string",
+                    "description": "URL的SHA256哈希值"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.basic_info.file_type",
+                    "data_type": "string",
+                    "description": "文件类型"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.basic_info.file_size",
+                    "data_type": "long",
+                    "description": "文件大小的数值"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.basic_info.first_seen",
+                    "data_type": "long",
+                    "description": "first_seen时间戳"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.basic_info.last_seen",
+                    "data_type": "long",
+                    "description": "last_seen时间戳"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.basic_info.scan_date",
+                    "data_type": "long",
+                    "description": "scan_date时间戳"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.download_domains",
+                    "data_type": "jsonarray",
+                    "description": "download_domains数组"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.connect_domains",
+                    "data_type": "jsonarray",
+                    "description": "connect_domains数组"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.connect_ips",
+                    "data_type": "jsonarray",
+                    "description": "connect_ips数组"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.download_ips",
+                    "data_type": "jsonarray",
+                    "description": "download_ips数组"
+                },
+                {
+                    "data_path": "action_result.data.raw_data.data.referer_ips",
+                    "data_type": "jsonarray",
+                    "description": "referer_ips数组"
+                },
+                {
+                    "data_path": "action_result.data.raw_data",
+                    "data_type": "jsonobject",
+                    "description": "API原始返回结果（JSON）"
+                }
+            ]
+        },
+        {   
+            "order": 8,
+            "action": "health_check",
+            "class_name": "health_check",
+            "description": "Health Check，健康检查",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/health_check.art",
+            "safe_mode": false,
+            "is_test": true,
+            "classify": "query",
+            "parameters": {},
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "string",
+                    "description": "健康检查状态码，默认：200"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.data.err_msg",
+                    "data_type": "string",
+                    "description": "健康检查信息，默认：空"
+                }
+            ]
+        }
+    ]
+}
