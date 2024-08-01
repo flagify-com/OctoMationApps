@@ -447,25 +447,12 @@
             "output": [
                 {
                     "order": 0,
-                    "data_path": "action_result.data.err_code",
-                    "data_type": "integer",
-                    "description": "返回.错误码，默认：0"
-                    
-                },
-                {
-                    "order": 1,
-                    "data_path": "action_result.data.err_msg",
-                    "data_type": "string",
-                    "description": "返回.错误消息，默认：空"
-                },
-                {
-                    "order": 2,
                     "data_path": "action_result.summary.statusCode",
                     "data_type": "string",
                     "description": "健康检查状态码，默认：200"
                 },
                 {
-                    "order": 3,
+                    "order": 1,
                     "data_path": "action_result.data.err_msg",
                     "data_type": "string",
                     "description": "健康检查信息，默认：空"
