@@ -2,10 +2,12 @@
 import json
 import requests
 import urllib.parse
+from action_sdk_for_cache.action_cache_sdk import HoneyGuide
 
 def health_check(params, assets, context_info):
     """健康检查：Domain"""
 
+    hg_client = HoneyGuide(context_info=context_info)
     # API域名，默认：ti.hillstonenet.com.cn
     api_domain = "ti.hillstonenet.com.cn" if "api_domain" not in assets.keys() or assets["api_domain"] == "" else assets["api_domain"]
     # 调用API的密钥，客通过官方网站后台获取
@@ -29,12 +31,14 @@ def health_check(params, assets, context_info):
     }
     try:
         response = requests.get(url, headers=headers)
-        report = response.text.encode('utf-8')
+        report = response.text
+        hg_client.actionLog.info(report)
         report_json = json.loads(report)
         response_code = report_json.get("response_code", 100)
         if response_code in (1, 0, -1, -2, -3, -4, -5):
-            json_ret["data"]["err_code"] = response_code
-            json_ret["data"]["err_msg"] = report_json.get("response_msg", "")
+            pass
+        json_ret["data"]["err_code"] = response_code
+        json_ret["data"]["err_msg"] = report_json.get("response_msg", "")
         if response_code == 0 and "data" in report_json.keys():
             if "result" in report_json["data"].keys():
                 json_ret["data"]["risk_level"] = report_json["data"]["result"]
@@ -60,8 +64,10 @@ def detail_file(params, assets, context_info):
     api_domain = "ti.hillstonenet.com.cn" if "api_domain" not in assets.keys() or assets["api_domain"] == "" else assets["api_domain"]
     # 调用API的密钥，客通过官方网站后台获取
     api_key = assets["api_key"]
-
+    # 文件哈希值
     file_hash = params["file_hash"]
+
+    hg_client = HoneyGuide(context_info=context_info)
 
     # 返回值
     json_ret = {
@@ -72,30 +78,26 @@ def detail_file(params, assets, context_info):
             "err_msg": "", 
             "risk_level": "", 
             "threat_type": [], 
-            "raw_data": {
-                "data": {
-                    "result": "noreported",
-                    "sha256": "",
-                    "sha1": "",
-                    "md5": "",
-                    "tags": [],
-                    "threat_type": [],
-                    "basic_info": {
-                        "file_size": 0,
-                        "file_type": "",
-                        "first_seen": 0,
-                        "last_seen": 0,
-                        "scan_date": 0
-                    },
-                    "connect_ips": [],
-                    "download_ips": [],
-                    "referer_ips": [],
-                    "connect_domains": [],
-                    "download_domains": [],
-                    "referer_domains": []
+            "detail": {
+                "result": "unreported",
+                "sha256": "",
+                "sha1": "",
+                "md5": "",
+                "tags": [],
+                "threat_type": [],
+                "basic_info": {
+                    "file_size": 0,
+                    "file_type": "",
+                    "first_seen": 0,
+                    "last_seen": 0,
+                    "scan_date": 0
                 },
-                "response_code": 0,
-                "response_msg": ""
+                "connect_ips": [],
+                "download_ips": [],
+                "referer_ips": [],
+                "connect_domains": [],
+                "download_domains": [],
+                "referer_domains": []
             }
         }
     }
@@ -109,18 +111,23 @@ def detail_file(params, assets, context_info):
     }
     try:
         response = requests.get(url, headers=headers)
-        report = response.text.encode('utf-8')
+        report = response.text
+        hg_client.actionLog.info(report)
         report_json = json.loads(report)
         response_code = report_json.get("response_code", 100)
         if response_code in (1, 0, -1, -2, -3, -4, -5):
-            json_ret["data"]["err_code"] = response_code
-            json_ret["data"]["err_msg"] = report_json.get("response_msg", "")
+            pass
+        json_ret["data"]["err_code"] = response_code
+        json_ret["data"]["err_msg"] = report_json.get("response_msg", "")
         if response_code == 0 and "data" in report_json.keys():
             if "result" in report_json["data"].keys():
                 json_ret["data"]["risk_level"] = report_json["data"]["result"]
             if "threat_type" in report_json["data"].keys():
                 json_ret["data"]["threat_type"] = report_json["data"]["threat_type"]
-        json_ret["data"]["raw_data"] = report_json
+            # 根据返回结果中有的信息，给detail字典逐个字段赋值
+            for key_name in json_ret["data"]["detail"].keys():
+                if key_name in report_json["data"].keys():
+                    json_ret["data"]["detail"][key_name] = report_json["data"][key_name]
     except Exception as e:
         json_ret["data"]["err_code"] = 500
         json_ret["data"]["err_msg"] = str(e)
@@ -139,6 +146,8 @@ def detail_url(params, assets, context_info):
     parsed_url = urllib.parse.urlparse(url)
     url = f"{parsed_url.scheme}://{parsed_url.netloc}"
 
+    hg_client = HoneyGuide(context_info=context_info)
+
     # 返回值
     json_ret = {
         "code": 200, 
@@ -148,17 +157,13 @@ def detail_url(params, assets, context_info):
             "err_msg": "", 
             "risk_level": "", 
             "threat_type": [], 
-            "raw_data": {
-                "data": {
-                    "result": "noreported",
-                    "url": "",
-                    "hash_sha256": "",
-                    "related_ips": [],
-                    "related_domains": [],
-                    "related_files": []
-                },
-                "response_code": 0,
-                "response_msg": "OK"
+            "detail": {
+                "result": "unreported",
+                "url": "",
+                "hash_sha256": "",
+                "related_ips": [],
+                "related_domains": [],
+                "related_files": []
             }
         }
     }
@@ -172,18 +177,23 @@ def detail_url(params, assets, context_info):
     }
     try:
         response = requests.get(url, headers=headers)
-        report = response.text.encode('utf-8')
+        report = response.text
+        hg_client.actionLog.info(report)
         report_json = json.loads(report)
         response_code = report_json.get("response_code", 100)
         if response_code in (1, 0, -1, -2, -3, -4, -5):
-            json_ret["data"]["err_code"] = response_code
-            json_ret["data"]["err_msg"] = report_json.get("response_msg", "")
+            pass
+        json_ret["data"]["err_code"] = response_code
+        json_ret["data"]["err_msg"] = report_json.get("response_msg", "")
         if response_code == 0 and "data" in report_json.keys():
             if "result" in report_json["data"].keys():
                 json_ret["data"]["risk_level"] = report_json["data"]["result"]
             if "threat_type" in report_json["data"].keys():
                 json_ret["data"]["threat_type"] = report_json["data"]["threat_type"]
-        json_ret["data"]["raw_data"] = report_json
+            # 根据返回结果中有的信息，给detail字典逐个字段赋值
+            for key_name in json_ret["data"]["detail"].keys():
+                if key_name in report_json["data"].keys():
+                    json_ret["data"]["detail"][key_name] = report_json["data"][key_name]
     except Exception as e:
         json_ret["data"]["err_code"] = 500
         json_ret["data"]["err_msg"] = str(e)
@@ -197,9 +207,9 @@ def detail_domain(params, assets, context_info):
     api_domain = "ti.hillstonenet.com.cn" if "api_domain" not in assets.keys() or assets["api_domain"] == "" else assets["api_domain"]
     # 调用API的密钥，客通过官方网站后台获取
     api_key = assets["api_key"]
-
+    # 待查询的域名
     domain = params["domain"]
-
+    hg_client = HoneyGuide(context_info=context_info)
     # 返回值
     json_ret = {
         "code": 200, 
@@ -209,22 +219,18 @@ def detail_domain(params, assets, context_info):
             "err_msg": "", 
             "risk_level": "", 
             "threat_type": [], 
-            "raw_data": {
-                "data": {
-                    "result": "unreported",
-                    "domain_name": "",
-                    "current_whois": "",
-                    "dns_records": [],
-                    "current_ips": [],
-                    "history_ips": [],
-                    "sub_domains": [],
-                    "domain_siblings": [],
-                    "download_files": [],
-                    "referer_files": [],
-                    "connect_files": []
-                },
-                "response_code": 0,
-                "response_msg": ""
+            "detail": {
+                "result": "unreported",
+                "domain_name": "",
+                "current_whois": "",
+                "dns_records": [],
+                "current_ips": [],
+                "history_ips": [],
+                "sub_domains": [],
+                "domain_siblings": [],
+                "download_files": [],
+                "referer_files": [],
+                "connect_files": []
             }
         }
     }
@@ -241,18 +247,23 @@ def detail_domain(params, assets, context_info):
     }
     try:
         response = requests.get(url, headers=headers, params=params)
-        report = response.text.encode('utf-8')
+        report = response.text
+        hg_client.actionLog.info(report)
         report_json = json.loads(report)
         response_code = report_json.get("response_code", 100)
         if response_code in (1, 0, -1, -2, -3, -4, -5):
-            json_ret["data"]["err_code"] = response_code
-            json_ret["data"]["err_msg"] = report_json.get("response_msg", "")
+            pass
+        json_ret["data"]["err_code"] = response_code
+        json_ret["data"]["err_msg"] = report_json.get("response_msg", "")
         if response_code == 0 and "data" in report_json.keys():
             if "result" in report_json["data"].keys():
                 json_ret["data"]["risk_level"] = report_json["data"]["result"]
             if "threat_type" in report_json["data"].keys():
                 json_ret["data"]["threat_type"] = report_json["data"]["threat_type"]
-        json_ret["data"]["raw_data"] = report_json
+            # 根据返回结果中有的信息，给detail字典逐个字段赋值
+            for key_name in json_ret["data"]["detail"].keys():
+                if key_name in report_json["data"].keys():
+                    json_ret["data"]["detail"][key_name] = report_json["data"][key_name]
     except Exception as e:
         json_ret["data"]["err_code"] = 500
         json_ret["data"]["err_msg"] = str(e)
@@ -266,9 +277,10 @@ def detail_ip(params, assets, context_info):
     api_domain = "ti.hillstonenet.com.cn" if "api_domain" not in assets.keys() or assets["api_domain"] == "" else assets["api_domain"]
     # 调用API的密钥，客通过官方网站后台获取
     api_key = assets["api_key"]
-
     # 待查询的IP地址
     ip = params["ip"]
+
+    hg_client = HoneyGuide(context_info=context_info)
 
     # 返回值
     json_ret = {
@@ -279,34 +291,30 @@ def detail_ip(params, assets, context_info):
             "err_msg": "", 
             "risk_level": "", 
             "threat_type": [], 
-            "raw_data": {
-                "data": {
-                    "result": "unreported",
-                    "tags": [],
-                    "ports": [],
-                    "threat_type": [],
-                    "ip_address": "",
-                    "basic_info": {
-                        "network": "",
-                        "carrier": "",
-                        "location": {
-                            "country": "",
-                            "province": "",
-                            "city": "",
-                            "longitude": 0,
-                            "latitude": 0,
-                            "country_code": ""
-                        }
-                    },
-                    "rdns_list": [],
-                    "current_domains": [],
-                    "history_domains": [],
-                    "download_files": [],
-                    "referer_files": [],
-                    "connect_files": []
+            "detail": {
+                "result": "unreported",
+                "tags": [],
+                "ports": [],
+                "threat_type": [],
+                "ip_address": "",
+                "basic_info": {
+                    "network": "",
+                    "carrier": "",
+                    "location": {
+                        "country": "",
+                        "province": "",
+                        "city": "",
+                        "longitude": 0,
+                        "latitude": 0,
+                        "country_code": ""
+                    }
                 },
-                "response_code": 0,
-                "response_msg": ""
+                "rdns_list": [],
+                "current_domains": [],
+                "history_domains": [],
+                "download_files": [],
+                "referer_files": [],
+                "connect_files": []
             }
         }
     }
@@ -320,18 +328,22 @@ def detail_ip(params, assets, context_info):
     }
     try:
         response = requests.get(url, headers=headers)
-        report = response.text.encode('utf-8')
+        report = response.text
+        hg_client.actionLog.info(report)
         report_json = json.loads(report)
         response_code = report_json.get("response_code", 100)
         if response_code in (1, 0, -1, -2, -3, -4, -5):
-            json_ret["data"]["err_code"] = response_code
-            json_ret["data"]["err_msg"] = report_json.get("response_msg", "")
+            pass
+        json_ret["data"]["err_code"] = response_code
+        json_ret["data"]["err_msg"] = report_json.get("response_msg", "")
         if response_code == 0 and "data" in report_json.keys():
             if "result" in report_json["data"].keys():
                 json_ret["data"]["risk_level"] = report_json["data"]["result"]
             if "threat_type" in report_json["data"].keys():
                 json_ret["data"]["threat_type"] = report_json["data"]["threat_type"]
-        json_ret["data"]["raw_data"] = report_json
+            for key_name in json_ret["data"]["detail"].keys():
+                if key_name in report_json["data"].keys():
+                    json_ret["data"]["detail"][key_name] = report_json["data"][key_name]
     except Exception as e:
         json_ret["data"]["err_code"] = 500
         json_ret["data"]["err_msg"] = str(e)

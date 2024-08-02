@@ -1,10 +1,10 @@
 # 山石云瞻.威胁情报应用（基于API）
 
 ## 介绍
-- 版本：v 1.0.0
+- 版本：v 1.1.0
 - 作者：[wzfukui](https://github.com/wzfukui)
 - 发布：2024-07-30
-- 更新：2024-07-30
+- 更新：2024-08-02
 - 编程语言：Python 3.6+
 - 依赖库：requests
 
@@ -15,6 +15,7 @@
 *注意1：免费版API有使用限制：6次/分钟，1500次/天*
 *注意2：部分数组类型的返回数据可能为空，取值时需要注意，可能取不到数据，例如:rdns_list*
 *注意3: 风险等级包括malicious， normal，suspicious，unknown，以及unreported（山石中没有查到数据，人工赋予）
+*注意4: 支持作战室中以日志模式执行，查看原始数据返回结果。
 
 ## API KEY获取方式
 
@@ -94,9 +95,7 @@
     "threat_type": [
       
     ],
-    "raw_data": {
-      "response_code": 0,
-      "data": {
+    "detail": {
         "result": "suspicious",
         "rdns_list": [
           {
@@ -142,9 +141,7 @@
         "download_files": [
           
         ]
-      },
-      "response_msg": "OK"
-    }
+      }
   }
 }
 ```
@@ -155,8 +152,6 @@
 {
   "msg": "",
   "code": 200,
-  "startTime": "2024-07-30 17:23:45",
-  "finishTime": "2024-07-30 17:23:46",
   "data": {
     "risk_level": "normal",
     "err_msg": "",
@@ -164,9 +159,7 @@
     "threat_type": [
       
     ],
-    "raw_data": {
-      "response_code": 0,
-      "data": {
+    "detail": {
         "result": "normal",
         "history_ips": [
           {
@@ -239,9 +232,7 @@
           "2064a3b61ffb6841f930cad9e9cac665",
           "93e69c2ad0af362c07acc9b7533afe87"
         ]
-      },
-      "response_msg": "OK"
-    }
+      }
   }
 }
 ```
@@ -259,9 +250,7 @@
     "threat_type": [
       
     ],
-    "raw_data": {
-      "response_code": 0,
-      "data": {
+    "detail": {
         "result": "normal",
         "hash_sha256": "996e1f714b08e971ec79e3bea686287e66441f043177999a13dbc546d8fe402a",
         "related_files": [
@@ -275,9 +264,7 @@
           
         ],
         "url": "https://github.com"
-      },
-      "response_msg": "OK"
-    }
+      }
   }
 }
 ```
@@ -294,9 +281,7 @@
     "threat_type": [
       "Miner"
     ],
-    "raw_data": {
-      "response_code": 0,
-      "data": {
+    "detail": {
         "basic_info": {
           "first_seen": 1590605043000,
           "last_seen": 1590605043000,
@@ -338,9 +323,7 @@
           "schemas.xmlsoap.org"
         ],
         "md5": "30abc67b8797791b806a30e86e0e8466"
-      },
-      "response_msg": "OK"
-    }
+      }
   }
 }
 ```
@@ -348,3 +331,4 @@
 ## 更新记录
 
 - 2024-07-30: v 1.0.0 发布
+- 2024-08-02: v 1.1.0 修改查询结果的输出数据格式，增加日志模式支持
