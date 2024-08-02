@@ -24,6 +24,18 @@
                 </thead>
                 <tbody class="ant-table-tbody">
                     {{each action_results action_result}}
+                    <tr class="ant-table-row">
+                        <td>返回.错误码</td>
+                        <td>{{action_result.data.err_code}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>返回.错误信息</td>
+                        <td>{{action_result.data.err_msg}}</td>
+                    </tr>
+                    <tr class="ant-table-row">
+                        <td>查询方式（API/Web）</td>
+                        <td>{{action_result.data.method}}</td>
+                    </tr>
 
                     <tr class="ant-table-row">
                         <td>IP</td>
@@ -35,7 +47,7 @@
                     </tr>
                     <tr class="ant-table-row">
                         <td>风险信息</td>
-                        <td>{{action_result.data.risk}}</td>
+                        <td>{{action_result.data.risk}}（very high/high/medium/low）</td>
                     </tr>
                     <tr class="ant-table-row">
                         <td>国家编码</td>

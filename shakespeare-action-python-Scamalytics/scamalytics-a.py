@@ -2,12 +2,14 @@
 import json
 import bs4
 import requests
+from action_sdk_for_cache.action_cache_sdk import HoneyGuide
 
 def get_ip_fraud_risk_info(params, assets, context_info):
     """获取IP威胁信息"""
     api_user = assets.get("api_user", "")
     api_key = assets.get("api_key", "")
     ip = params.get("ip", "")
+    hg_client = HoneyGuide(context_info=context_info)
     #/very high/high/medium/low
     json_ret = {
         "code": 200,
@@ -49,8 +51,7 @@ def get_ip_fraud_risk_info(params, assets, context_info):
                 "last_sync_timestamp_utc": "",
                 "seconds_elapsed_since_last_sync": 0,
                 "note": ""
-            },
-            "raw_data": {}
+            }
         }
     }
     if ip == "":
@@ -58,13 +59,13 @@ def get_ip_fraud_risk_info(params, assets, context_info):
         json_ret["data"]["err_msg"] = "IP不能为空"
         return json_ret
     if api_key and api_user:
-        json_ret["data"]["method"] = "api"
+        json_ret["data"]["method"] = "API"
         url = f"https://api11.scamalytics.com/{api_user}/?key={api_key}&ip={ip}"
         try:
             response = requests.get(url, timeout=30)
             if response.status_code == 200:
                 json_response= response.json()
-                json_ret["data"]["raw_data"] = json_response
+                hg_client.actionLog.info(response.text)
                 if 'status' in json_response.keys() and json_response['status'] == 'ok':
                     json_ret["data"]["ip"] = json_response.get('ip', ip)
                     json_ret["data"]["score"] = json_response.get('score', -1)
@@ -124,35 +125,6 @@ def get_ip_fraud_risk_info(params, assets, context_info):
     else:
         return get_ip_fraud_risk_info_from_web(params, assets, None)
     return json_ret
-    x = {
-        "status": "ok",
-        "mode": "live",
-        "ip": "216.58.194.174",
-        "score": 5,
-        "risk": "low",
-        "url": "https://scamalytics.com/ip/216.58.194.174",
-        "exec": "3.54 ms",
-        "credits": {
-            "used": 1,
-            "remaining": 49999,
-            "last_sync_timestamp_utc": "2024-07-30 11:58:04",
-            "seconds_elapsed_since_last_sync": 32,
-            "note": "Credits used and remaining are approximate values."
-        },
-        "ISP Name": "Google LLC",
-        "ISP Fraud Score": "8",
-        "Organization Name": "Google LLC",
-        "ip_country_code": "US",
-        "ip_state_name": "Arizona",
-        "ip_city": "Phoenix",
-        "ip_postcode": "85001",
-        "ip_geolocation": "33.4484,-112.074",
-        "ip_country_name": "United States",
-        "proxy_type": "PUB",
-        "connection_type": "",
-        "as_number": "15169"
-    }
-
 
 def search_ip(params, assets, contex_info):
     """保留老函数，兼容旧版本"""
@@ -165,7 +137,7 @@ def get_ip_fraud_risk_info_from_web(params, assets, context_info):
         "code": 200,
         "msg": "",
         "data": {
-            "method": "web",
+            "method": "Web",
             "err_code": 0,
             "err_msg": "",
             "ip": "",
@@ -200,8 +172,7 @@ def get_ip_fraud_risk_info_from_web(params, assets, context_info):
                 "last_sync_timestamp_utc": "",
                 "seconds_elapsed_since_last_sync": 0,
                 "note": ""
-            },
-            "raw_data": {}
+            }
         }
     }
 
@@ -325,19 +296,18 @@ def get_ip_fraud_risk_info_from_web(params, assets, context_info):
         json_ret["data"]["err_msg"] = str(e)
     return json_ret
 
-
 def health_check(params, assets, context_info):
     """健康检查"""
     api_user = assets.get("api_user", "")
     api_key = assets.get("api_key", "")
+    hg_client = HoneyGuide(context_info=context_info)
     json_ret = {
         "code": 200,
         "msg": "",
         "data": {
             "err_code": 0,
             "err_msg": "",
-            "method": "",
-            "raw_data": {}
+            "method": ""
         },
         "summary":{
             "statusCode": 200,
@@ -345,14 +315,14 @@ def health_check(params, assets, context_info):
         }
     }
     if api_user and api_key:
-        json_ret["data"]["method"] = "api"
+        json_ret["data"]["method"] = "API"
         url = f"https://api11.scamalytics.com/{api_user}/?key={api_key}&ip=8.8.8.8&test=1"
         try:
             response = requests.get(url, timeout=30)
             if response.status_code == 200:
                 json_response = response.json()
+                hg_client.actionLog.info(response.text)
                 if "status" in json_response.keys() and json_response['status'] == 'ok':
-                    json_ret["data"]["raw_data"] = json_response
                     json_ret["summary"]["msg"] = "API方式查询，健康检查成功"
                 else:
                     json_ret["data"]["err_code"] = 500
@@ -370,7 +340,7 @@ def health_check(params, assets, context_info):
             json_ret["summary"]["statusCode"] = 523
             json_ret["summary"]["msg"] = "API方式查询，健康检查失败"
     else:
-        json_ret["data"]["method"] = "web"
+        json_ret["data"]["method"] = "Web"
         url = 'https://scamalytics.com/ip/8.8.8.8'
         user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 Edg/87.0.664.66'
         try:
@@ -407,11 +377,3 @@ def health_check(params, assets, context_info):
             json_ret["summary"]["statusCode"] = 514
             json_ret["summary"]["msg"] = "Web方式查询，发现异常，健康检查失败"
     return json_ret
-
-if __name__ == '__main__':
-    params = {
-        "ip": "104.21.76.129"
-    }
-    assets = {}
-    result = get_ip_fraud_risk_info_from_web(params, assets, None)
-    print(json.dumps(result, indent=4))
