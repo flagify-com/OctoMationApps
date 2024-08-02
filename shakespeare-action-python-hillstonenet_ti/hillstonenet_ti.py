@@ -7,7 +7,6 @@ from action_sdk_for_cache.action_cache_sdk import HoneyGuide
 def health_check(params, assets, context_info):
     """健康检查：Domain"""
 
-    hg_client = HoneyGuide(context_info=context_info)
     # API域名，默认：ti.hillstonenet.com.cn
     api_domain = "ti.hillstonenet.com.cn" if "api_domain" not in assets.keys() or assets["api_domain"] == "" else assets["api_domain"]
     # 调用API的密钥，客通过官方网站后台获取
@@ -32,7 +31,6 @@ def health_check(params, assets, context_info):
     try:
         response = requests.get(url, headers=headers)
         report = response.text
-        hg_client.actionLog.info(report)
         report_json = json.loads(report)
         response_code = report_json.get("response_code", 100)
         if response_code in (1, 0, -1, -2, -3, -4, -5):
