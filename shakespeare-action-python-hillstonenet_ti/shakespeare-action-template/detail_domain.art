@@ -35,7 +35,7 @@
                     </tr>
                     <tr class="ant-table-row">
                         <td>域名</td>
-                        <td>{{action_result.data.raw_data.data.domain_name}}</td>
+                        <td>{{action_result.data.detail.domain_name}}</td>
                     </tr>
                     <tr class="ant-table-row">
                         <td>风险查询结果</td>
@@ -47,23 +47,23 @@
                     </tr>
                     <tr class="ant-table-row">
                         <td>Whois信息</td>
-                        <td>{{action_result.data.raw_data.data.current_whois}}</td>
+                        <td>{{action_result.data.detail.current_whois}}</td>
                     </tr>
                     <tr class="ant-table-row">
                         <td>DNS记录数组</td>
-                        <td>{{action_result.data.raw_data.data.dns_records}}</td>
+                        <td>{{action_result.data.detail.dns_records}}</td>
                     </tr>
                     <tr class="ant-table-row">
                         <td>子域名数组</td>
-                        <td>{{action_result.data.raw_data.data.sub_domains}}</td>
+                        <td>{{action_result.data.detail.sub_domains}}</td>
                     </tr>
                     <tr class="ant-table-row">
                         <td>当前IP信息数组</td>
-                        <td>{{action_result.data.raw_data.data.current_ips}}</td>
+                        <td>{{action_result.data.detail.current_ips}}</td>
                     </tr>
                     <tr class="ant-table-row">
                         <td>历史IP信息数组</td>
-                        <td>{{action_result.data.raw_data.data.history_ips}}</td>
+                        <td>{{action_result.data.detail.history_ips}}</td>
                     </tr>
                     {{/each}}
                 </tbody>

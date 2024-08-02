@@ -35,7 +35,7 @@
                     </tr>
                     <tr class="ant-table-row">
                         <td>IP地址</td>
-                        <td>{{action_result.data.raw_data.data.ip_address}}</td>
+                        <td>{{action_result.data.detail.ip_address}}</td>
                     </tr>
                   <tr class="ant-table-row">
                         <td>风险查询结果</td>
@@ -47,47 +47,47 @@
                     </tr>
                   <tr class="ant-table-row">
                         <td>位置：国家</td>
-                        <td>{{action_result.data.raw_data.data.basic_info.location.country}}</td>
+                        <td>{{action_result.data.detail.basic_info.location.country}}</td>
                     </tr>
                   <tr class="ant-table-row">
                         <td>位置：省份</td>
-                        <td>{{action_result.data.raw_data.data.basic_info.location.province}}</td>
+                        <td>{{action_result.data.detail.basic_info.location.province}}</td>
                     </tr>
                   <tr class="ant-table-row">
                         <td>位置：城市</td>
-                        <td>{{action_result.data.raw_data.data.basic_info.location.city}}</td>
+                        <td>{{action_result.data.detail.basic_info.location.city}}</td>
                     </tr>
                   <tr class="ant-table-row">
                         <td>位置：国家编码</td>
-                        <td>{{action_result.data.raw_data.data.basic_info.location.country_code}}</td>
+                        <td>{{action_result.data.detail.basic_info.location.country_code}}</td>
                     </tr>
                     <tr class="ant-table-row">
                         <td>位置：精度</td>
-                        <td>{{action_result.data.raw_data.data.basic_info.location.longitude}}</td>
+                        <td>{{action_result.data.detail.basic_info.location.longitude}}</td>
                     </tr>
                     <tr class="ant-table-row">
                         <td>位置：纬度</td>
-                        <td>{{action_result.data.raw_data.data.basic_info.location.latitude}}</td>
+                        <td>{{action_result.data.detail.basic_info.location.latitude}}</td>
                     </tr>
                     <tr class="ant-table-row">
                         <td>网络</td>
-                        <td>{{action_result.data.raw_data.data.basic_info.network}}</td>
+                        <td>{{action_result.data.detail.basic_info.network}}</td>
                     </tr>
                     <tr class="ant-table-row">
                         <td>运营商</td>
-                        <td>{{action_result.data.raw_data.data.basic_info.carrier}}</td>
+                        <td>{{action_result.data.detail.basic_info.carrier}}</td>
                     </tr>
                       <tr class="ant-table-row">
                           <td>当前域名数组</td>
-                          <td>{{action_result.data.raw_data.data.current_domains}}</td>
+                          <td>{{action_result.data.detail.current_domains}}</td>
                       </tr>
                       <tr class="ant-table-row">
                           <td>rdns数组</td>
-                          <td>{{action_result.data.raw_data.data.rdns_list}}</td>
+                          <td>{{action_result.data.detail.rdns_list}}</td>
                       </tr>
                       <tr class="ant-table-row">
                           <td>标签数组</td>
-                          <td>{{action_result.data.raw_data.data.tags}}</td>
+                          <td>{{action_result.data.detail.tags}}</td>
                       </tr>
                     {{/each}}
                 </tbody>

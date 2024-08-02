@@ -1,7 +1,7 @@
 {
     "name": "Scamalytics",
     "description": "Scamalytics IP欺诈风险检测",
-    "app_version": "2.0.2",
+    "app_version": "2.0.4",
     "min_shakespeare_version": "1.0",
     "app_supplier": "scamalytics.com",
     "product_name": "IP Address Fraud Check",
@@ -32,7 +32,7 @@
     "actions": [
         {
             "action": "get_ip_fraud_risk_info",
-            "description": "查询IP欺诈风险信息，默认使用API，无API走Web方式",
+            "description": "查询IP欺诈风险信息，默认使用API，无API KEY时走Web方式",
             "class_name": "get_ip_fraud_risk_info",
             "result_display_tmpt": "shakespeare-action-template/get_ip_fraud_risk_info.art",
             "result_display_tmpt_type": "js",
@@ -47,16 +47,37 @@
             },
             "output": [
                 {
+                    "order": 0,
+                    "data_path": "action_result.data.err_code",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.data.err_msg",
+                    "data_type": "integer",
+                    "description": "返回.错误信息，默认：空"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.method",
+                    "data_type": "string",
+                    "description": "查询方式（API/Web）"
+                },
+                {
+                    "order": 3,
                     "data_path": "action_result.data.ip",
                     "data_type": "integer",
                     "description": "IP"
                 },
                 {
+                    "order": 4,
                     "data_path": "action_result.data.score",
                     "data_type": "integer",
                     "description": "风险评分"
                 },
                 {
+                    "order": 5,
                     "data_path": "action_result.data.risk",
                     "data_type": "string",
                     "description": "风险级别， 威胁等级：very high/high/medium/low"
@@ -165,7 +186,7 @@
         },
         {
             "action": "search_ip",
-            "description": "查询IP",
+            "description": "查询IP（兼容，但未来版本将废弃）",
             "class_name": "search_ip",
             "result_display_tmpt": "shakespeare-action-template/get_ip_fraud_risk_info.art",
             "result_display_tmpt_type": "js",
@@ -180,16 +201,37 @@
             },
             "output": [
                 {
+                    "order": 0,
+                    "data_path": "action_result.data.err_code",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.data.err_msg",
+                    "data_type": "integer",
+                    "description": "返回.错误信息，默认：空"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.method",
+                    "data_type": "string",
+                    "description": "查询方式（API/Web）"
+                },
+                {
+                    "order": 3,
                     "data_path": "action_result.data.ip",
                     "data_type": "integer",
                     "description": "IP"
                 },
                 {
+                    "order": 4,
                     "data_path": "action_result.data.score",
                     "data_type": "integer",
                     "description": "风险评分"
                 },
                 {
+                    "order": 5,
                     "data_path": "action_result.data.risk",
                     "data_type": "string",
                     "description": "风险级别， 威胁等级：very high/high/medium/low"
@@ -309,16 +351,6 @@
                 
             },
             "output": [
-                {
-                    "data_path": "action_result.data.err_code",
-                    "data_type": "integer",
-                    "description": "返回错误码，默认：0"
-                },
-                {
-                    "data_path": "action_result.data.err_msg",
-                    "data_type": "string",
-                    "description": "返回错误信息，默认：空"
-                },
                 {
                     "data_path": "action_result.summary.statusCode",
                     "data_type": "integer",

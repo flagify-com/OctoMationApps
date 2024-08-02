@@ -35,15 +35,15 @@
                     </tr>
                     <tr class="ant-table-row">
                         <td>md5</td>
-                        <td>{{action_result.data.raw_data.data.md5}}</td>
+                        <td>{{action_result.data.detail.md5}}</td>
                     </tr>
                     <tr class="ant-table-row">
                         <td>sha1</td>
-                        <td>{{action_result.data.raw_data.data.sha1}}</td>
+                        <td>{{action_result.data.detail.sha1}}</td>
                     </tr>
                     <tr class="ant-table-row">
                         <td>sha256</td>
-                        <td>{{action_result.data.raw_data.data.sha256}}</td>
+                        <td>{{action_result.data.detail.sha256}}</td>
                     </tr>
                     <tr class="ant-table-row">
                         <td>风险查询结果</td>
@@ -55,35 +55,35 @@
                     </tr>
                     <tr class="ant-table-row">
                         <td>文件类型</td>
-                        <td>{{action_result.data.raw_data.data.basic_info.file_type}}</td>
+                        <td>{{action_result.data.detail.basic_info.file_type}}</td>
                     </tr>
                     <tr class="ant-table-row">
                         <td>文件大小的数值</td>
-                        <td>{{action_result.data.raw_data.data.basic_info.file_size}}</td>
+                        <td>{{action_result.data.detail.basic_info.file_size}}</td>
                     </tr>
                     <tr class="ant-table-row">
                         <td>first_seen时间戳</td>
-                        <td>{{action_result.data.raw_data.data.basic_info.first_seen}}</td>
+                        <td>{{action_result.data.detail.basic_info.first_seen}}</td>
                     </tr>
                     <tr class="ant-table-row">
                         <td>last_seen时间戳</td>
-                        <td>{{action_result.data.raw_data.data.basic_info.last_seen}}</td>
+                        <td>{{action_result.data.detail.basic_info.last_seen}}</td>
                     </tr>
                     <tr class="ant-table-row">
                         <td>scan_date时间戳</td>
-                        <td>{{action_result.data.raw_data.data.basic_info.scan_date}}</td>
+                        <td>{{action_result.data.detail.basic_info.scan_date}}</td>
                     </tr>
                     <tr class="ant-table-row">
                         <td>download_domains数组</td>
-                        <td>{{action_result.data.raw_data.data.download_domains}}</td>
+                        <td>{{action_result.data.detail.download_domains}}</td>
                     </tr>
                     <tr class="ant-table-row">
                         <td>connect_domains数组</td>
-                        <td>{{action_result.data.raw_data.data.connect_domains}}</td>
+                        <td>{{action_result.data.detail.connect_domains}}</td>
                     </tr>
                     <tr class="ant-table-row">
                         <td>connect_ips数组</td>
-                        <td>{{action_result.data.raw_data.data.connect_ips}}</td>
+                        <td>{{action_result.data.detail.connect_ips}}</td>
                     </tr>
                  
                     {{/each}}

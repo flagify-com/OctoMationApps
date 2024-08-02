@@ -35,7 +35,7 @@
                     </tr>
                     <tr class="ant-table-row">
                         <td>Url</td>
-                        <td>{{action_result.data.raw_data.data.url}}</td>
+                        <td>{{action_result.data.detail.url}}</td>
                     </tr>
                     <tr class="ant-table-row">
                         <td>风险查询结果</td>
@@ -47,15 +47,15 @@
                     </tr>
                     <tr class="ant-table-row">
                         <td>URL的SHA256哈希值</td>
-                        <td>{{action_result.data.raw_data.data.hash_sha256}}</td>
+                        <td>{{action_result.data.detail.hash_sha256}}</td>
                     </tr>
                     <tr class="ant-table-row">
                         <td>关联IP地址的数组</td>
-                        <td>{{action_result.data.raw_data.data.related_ips}}</td>
+                        <td>{{action_result.data.detail.related_ips}}</td>
                     </tr>
                     <tr class="ant-table-row">
                         <td>关联域名的数组</td>
-                        <td>{{action_result.data.raw_data.data.related_domains}}</td>
+                        <td>{{action_result.data.detail.related_domains}}</td>
                     </tr>
                  
                     {{/each}}
