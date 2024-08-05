@@ -24,7 +24,7 @@
             "order": 0
         },
         "api_key": {
-            "data_type": "string",
+            "data_type": "password",
             "description": "调用API的密钥，客通过官方网站后台获取",
             "required": true,
             "options": "",
