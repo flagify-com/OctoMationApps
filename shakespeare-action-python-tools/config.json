@@ -1,7 +1,7 @@
 {
     "name": "wzTools",
     "description": "工具箱",
-    "app_version": "1.0.0",
+    "app_version": "1.0.1",
     "jar": "py_tools.py",
     "readme": "resources/readme.md",
     "logo": "resources/fif.PNG",
@@ -817,6 +817,37 @@
                     "data_path": "action_result.data.status",
                     "data_type": "boolean",
                     "description": "操作是否成功"
+                }
+            ]
+        },
+        {
+            "action": "get_file_download_url",
+            "class_name": "get_file_download_url",
+            "description": "获取文件下载地址",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/get_file_download_url.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "file_path": {
+                    "data_type": "string",
+                    "description": "本地文件路径",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.download_url",
+                    "data_type": "string",
+                    "description": "下载地址"
+                },
+                {
+                    "data_path": "action_result.data.uuid",
+                    "data_type": "string",
+                    "description": "SDK中文件uuid"
                 }
             ]
         }

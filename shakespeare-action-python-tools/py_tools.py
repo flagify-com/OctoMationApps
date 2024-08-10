@@ -8,7 +8,7 @@ import ipaddress
 import shelve
 from difflib import SequenceMatcher
 import os
-
+from action_sdk_for_cache.action_cache_sdk import HoneyGuide
 
 def is_valid_ip(ip):
     try:
@@ -351,4 +351,29 @@ def cache_mgmt(params, assets, context_info):
         # 关闭缓存对象
         cache.close()
 
+    return json_ret
+
+def get_file_download_url(params, assets, context_info):
+    # 获取文件路径
+    json_ret = {
+        "code": 200, 
+        "msg": "",
+        "data":{
+            "download_url": "",
+            "uuid": ""},
+        "summary":{
+            "statusCode":0,
+            "msg": ""
+        }}
+    file_path = params.get('file_path', "")
+    if not os.path.exists(file_path):
+        json_ret["code"] = 400
+        json_ret["msg"] = "File not found"
+        return json_ret
+    hg_client = HoneyGuide(context_info=context_info)
+    file_uuid = hg_client.fileCache.save(file_path, keepDays=1)
+    # hg_client.actionLog.info(f"File {file_path} is cached with uuid {file_uuid}")
+    download_url = hg_client.fileCache.downloadUrl(file_uuid)
+    json_ret['data']['uuid'] = file_uuid
+    json_ret['data']['download_url'] = download_url
     return json_ret
