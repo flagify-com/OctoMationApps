@@ -832,7 +832,7 @@
             "parameters": {
                 "file_path": {
                     "data_type": "string",
-                    "description": "本地文件路径",
+                    "description": "文件相对路径，/opt/shakespeare/data/app_files/action_local/下的相对路径，如：test/test.txt",
                     "options": "",
                     "required": true,
                     "order": 0
