@@ -2,7 +2,9 @@
 
 import re
 import datetime
+import time
 import hashlib
+import hmac
 import base64
 import urllib.parse
 import ipaddress
@@ -74,6 +76,29 @@ def str_split(params, assets, context_info):
     json_ret["data"]["str_to_split"] = params.get("str_to_split", "")
     json_ret["data"]["split_symbol"] = params.get("split_symbol", ",")
     str_splitted = json_ret["data"]["str_to_split"].split(json_ret["data"]["split_symbol"])
+    json_ret["data"]["str_splitted"] = str_splitted
+
+    return json_ret
+
+def str_splitlines(params, assets, context_info):
+    """
+    按行拆分字符串，返回拆分后的字符串数组。#2024-08-18
+    :param params: 参数字典，包含以下参数：
+        - str_to_split: 待拆分的字符串
+    """
+    json_ret = {
+        "code": 200,
+        "msg": "",
+        "data": {
+            "str_splitted": []
+        },
+        "summary": {
+            "statusCode": 0,
+            "msg": ""
+        }
+    }
+    json_ret["data"]["str_to_split"] = params.get("str_to_split", "")
+    str_splitted = json_ret["data"]["str_to_split"].splitlines()
     json_ret["data"]["str_splitted"] = str_splitted
 
     return json_ret
@@ -669,12 +694,255 @@ def encode_urldecode(params, assets, context_info):
     json_ret["data"]["str_url_decoded"] = urllib.parse.unquote(json_ret["data"]["str_url_encoded"])
     return json_ret
 
+def encrypt_hash(params, assets, context_info):
+    """
+    字符串加密为hash。 # 2024-08-19
+    :param params: 参数字典，包含以下参数：
+        - str: 待加密的字符串        
+        - hash_method: 加密方法，默认md5
+        - encode: 编码方式，默认utf-8
+    """
+    json_ret = {
+        "code": 200,
+        "msg": "",
+        "data": {
+            "str_hashed": ""
+        },
+        "summary": {
+            "statusCode": 0,
+            "msg": ""
+        }
+    }
+    json_ret["data"]["str"] = params.get("str", "")
+    encode = params.get("encode", "utf-8").lower()
+    if encode == "":
+        encode = "utf-8"
+    if json_ret["data"]["str"] == "":
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = "Empty string"
+        return json_ret
+    hash_method = params.get("hash_method", "md5").lower()
+    if  hash_method == "md5":
+        m = hashlib.md5()
+    elif  hash_method == "sha1":
+        m = hashlib.sha1()
+    elif hash_method == "sha224":
+        m = hashlib.sha224()
+    elif hash_method == "sha256":
+        m = hashlib.sha256()
+    elif hash_method == "sha384":
+        m = hashlib.sha256()
+    elif hash_method == "sha512":
+        m = hashlib.sha512()
+    elif hash_method == "sha3_224":
+        m = hashlib.sha3_224()
+    elif hash_method == "sha3_256":
+        m = hashlib.sha3_256()
+    elif hash_method == "sha3_384":
+        m = hashlib.sha3_384()
+    elif hash_method == "sha3_512":
+        m = hashlib.sha3_512()
+    elif hash_method == "blake2b":
+        m = hashlib.blake2b()
+    elif hash_method == "blake2s":
+        m = hashlib.blake2s()
+    elif hash_method == "shake_128":
+        m = hashlib.shake_128()
+    elif hash_method == "shake_256":
+        m = hashlib.shake_256()
+    else:
+        m = hashlib.md5()
+    m.update(json_ret["data"]["str"].encode(encode))
+    json_ret["data"]["str_hashed"] = m.hexdigest()
+    return json_ret
+
+def encrypt_hmac(params, assets, context_info):
+    """
+    字符串加密为hmac。 # 2024-08-19
+    :param params: 参数字典，包含以下参数：
+        - str: 待加密的字符串
+        - key: 密钥
+        - digest_method: 加密方法，默认sha256
+        - encode: 编码方式，默认utf-8
+    """
+    json_ret = {
+        "code": 200,
+        "msg": "",
+        "data": {
+            "str_hmaced": ""
+        },
+        "summary": {
+            "statusCode": 0,
+            "msg": ""
+        }
+    }
+    json_ret["data"]["str"] = params.get("str", "")
+    encode = params.get("encode", "utf-8").lower()
+    if encode == "":
+        encode = "utf-8"
+    if json_ret["data"]["str"] == "":
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = "Empty string"
+        return json_ret
+    key = params.get("key", "")
+    if key == "":
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = "Empty key"
+        return json_ret
+    hash_method = params.get("hash_method", "md5").lower()
+    if  hash_method == "md5":
+        m = hmac.new(key.encode(encode), json_ret["data"]["str"].encode(encode), hashlib.md5)
+    elif hash_method == "sha1":
+        m = hmac.new(key.encode(encode), json_ret["data"]["str"].encode(encode), hashlib.sha1)
+    elif hash_method == "sha224":
+        m = hmac.new(key.encode(encode), json_ret["data"]["str"].encode(encode), hashlib.sha224)
+    elif hash_method == "sha256":
+        m = hmac.new(key.encode(encode), json_ret["data"]["str"].encode(encode), hashlib.sha256)
+    elif hash_method == "sha384":
+        m = hmac.new(key.encode(encode), json_ret["data"]["str"].encode(encode), hashlib.sha384)
+    elif hash_method == "sha512":
+        m = hmac.new(key.encode(encode), json_ret["data"]["str"].encode(encode), hashlib.sha512)
+    elif hash_method == "sha3_224":
+        m = hmac.new(key.encode(encode), json_ret["data"]["str"].encode(encode), hashlib.sha3_224)
+    elif hash_method == "sha3_256":
+        m = hmac.new(key.encode(encode), json_ret["data"]["str"].encode(encode), hashlib.sha3_256)
+    elif hash_method == "sha3_384":
+        m = hmac.new(key.encode(encode), json_ret["data"]["str"].encode(encode), hashlib.sha3_384)
+    elif hash_method == "sha3_512":
+        m = hmac.new(key.encode(encode), json_ret["data"]["str"].encode(encode), hashlib.sha3_512)
+    elif hash_method == "blake2b":
+        m = hmac.new(key.encode(encode), json_ret["data"]["str"].encode(encode), hashlib.blake2b)
+    elif hash_method == "blake2s":
+        m = hmac.new(key.encode(encode), json_ret["data"]["str"].encode(encode), hashlib.blake2s)
+    elif hash_method == "shake_128":
+        m = hmac.new(key.encode(encode), json_ret["data"]["str"].encode(encode), hashlib.shake_128)
+    elif hash_method == "shake_256":
+        m = hmac.new(key.encode(encode), json_ret["data"]["str"].encode(encode), hashlib.shake_256)
+    else:
+        m = hmac.new(key.encode(encode), json_ret["data"]["str"].encode(encode), hashlib.md5)
+    json_ret["data"]["str_hmaced"] = m.hexdigest()
+    return json_ret
+
 def is_valid_ip(ip):
     try:
         ipaddress.ip_address(ip)
         return True
     except ValueError:
         return False
+
+def file_info(params, assets, context_info):
+    """
+    获取文件信息。 # 2024-08-19
+    :param params: 参数字典，包含以下参数：
+        - file_path: 文件路径
+    """
+    json_ret = {
+        "code": 200,
+        "msg": "",
+        "data": {
+            "isdir": False,
+            "isfile": False,
+            "islink": False,
+            "file_name": "",
+            "file_realpath": "",
+            "file_relativepath": "",
+            "file_dirname": "",
+            "file_size": 0,
+            "file_ctime": 0,
+            "file_ctime_str": "",
+            "file_mtime": 0,
+            "file_mtime_str": "",
+            "file_atime": 0,
+            "file_atime_str": "",
+            "file_exists": True
+        },
+        "summary": {
+            "statusCode": 0,
+            "msg": ""
+        }
+    }
+    file_path = params.get("file_path", "")
+    json_ret["data"]["file_name"] = os.path.basename(file_path)
+    json_ret["data"]["file_dirname"] = os.path.dirname(file_path)
+    json_ret["data"]["file_realpath"] = os.path.realpath(file_path)
+    json_ret["data"]["file_relativepath"] = os.path.relpath(file_path)
+
+    if not os.path.exists(file_path):
+        json_ret["data"]["file_exists"] = False
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = "File or Path does not exist"
+        return json_ret
+    
+    if os.path.isdir(file_path):
+        json_ret["data"]["isdir"] = True
+    elif os.path.isfile(file_path):
+        json_ret["data"]["isfile"] = True
+    elif os.path.islink(file_path):
+        json_ret["data"]["islink"] = True
+
+    if json_ret["data"]["isfile"]:
+        try:
+            json_ret["data"]["file_size"] = int(os.path.getsize(file_path))
+            json_ret["data"]["file_ctime"] = int(os.path.getctime(file_path))
+            json_ret["data"]["file_ctime_str"] = datetime.datetime.fromtimestamp(json_ret["data"]["file_ctime"]).strftime('%Y-%m-%d %H:%M:%S')
+            json_ret["data"]["file_mtime"] = int(os.path.getmtime(file_path))
+            json_ret["data"]["file_mtime_str"] = datetime.datetime.fromtimestamp(json_ret["data"]["file_mtime"]).strftime('%Y-%m-%d %H:%M:%S')
+            json_ret["data"]["file_atime"] = int(os.path.getatime(file_path))
+            json_ret["data"]["file_atime_str"] = datetime.datetime.fromtimestamp(json_ret["data"]["file_atime"]).strftime('%Y-%m-%d %H:%M:%S')
+        except Exception as e:
+            json_ret["summary"]["statusCode"] = 500
+            json_ret["summary"]["msg"] = str(e)
+    return json_ret
+
+
+def file_read(params, assets, context_info):
+    """
+    读取文件内容。 # 2024-08-19
+    :param params: 参数字典，包含以下参数：
+        - file_path: 文件路径
+        - encode: 编码方式，默认utf-8
+        - file_size_limit: 文件大小限制，单位KB，默认512KB
+    """
+    json_ret = {
+        "code": 200,
+        "msg": "",
+        "data": {
+            "file_content_text": ""
+        },
+        "summary": {
+            "statusCode": 0,
+            "msg": ""
+        }
+    }
+    file_path = params.get("file_path", "")
+    if not os.path.exists(file_path):
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = "File or Path does not exist"
+        return json_ret
+    
+    encode = params.get("encode", "utf-8").lower()
+    if encode == "":
+        encode = "utf-8"
+    file_size_limit = params.get("file_size_limit", 512)
+    try:
+        file_size_limit = int(file_size_limit)
+    except Exception as e:
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = "Invalid file_size_limit number"
+        return json_ret
+    
+    # 判断文件大小是否超过限制
+    if os.path.getsize(file_path) > file_size_limit * 1024:
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = "File size exceeds limit"
+        return json_ret
+    try:
+        with open(file_path, "r", encoding=encode) as f:
+            json_ret["data"]["file_content_text"] = f.read()
+    except Exception as e:
+        json_ret["summary"]["statusCode"] = 500
+        json_ret["summary"]["msg"] = str(e)
+    return json_ret
 
 
 # 判断ip地址是否在某个段内
@@ -829,34 +1097,6 @@ def regex_match(params, assets, context_info):
     json_ret = {"code": 200, "msg": "","data":{"findall": re.findall(pattern, str_data)}}
     return json_ret
 
-# 计算md5
-def md5(params, assets, context_info):
-    s = params.get('str_data', "")
-    m = hashlib.md5()
-    m.update(s.encode('utf-8'))
-    json_ret = {"code": 200, "msg": "","data":{"md5": m.hexdigest()}}
-    return json_ret
-
-# b64 en
-def base64_encode(params, assets, context_info):
-    s = params.get('str_data', "")
-    json_ret = {"code": 200, "msg": "","data":{"b64": base64.b64encode(s.encode('utf-8')).decode('utf-8')}}
-    return json_ret
-
-# b64 de
-def base64_decode(params, assets, context_info):
-    s = params.get('b64_data', "")
-    json_ret = {"code": 200, "msg": "","data":{"str": base64.b64decode(s).decode('utf-8')}}
-    return json_ret   
-
-# 字符串切割
-def split(params, assets, context_info):
-    s = params.get('str_data', "")
-    sep = params.get('sep', "")
-    json_ret = {"code": 200, "msg": "","data":{"str_list": []}}
-    if s.find(sep) > -1:
-        json_ret['data']['str_list'] = s.split(sep)
-    return json_ret
 
 # 字符串链接
 def join(params, assets, context_info):
