@@ -632,6 +632,57 @@ def datetime_timestr_to_timestamp(params, assets, context_info):
         json_ret["summary"]["msg"] = str(e)
     return json_ret
 
+def datetime_timestamp_days_before(params, assets, context_info):
+    """
+    时间戳前n天的时间戳。 # 2024-08-19
+    :param params: 参数字典，包含以下参数：
+        - timestamp: 时间戳（秒）
+        - days_before: 前n天
+    """
+    json_ret = {
+        "code": 200,
+        "msg": "",
+        "data": {
+            "datetime_timestamp": 0,
+            "datetime_str": ""
+        },
+        "summary": {
+            "statusCode": 0,
+            "msg": ""
+        }
+    }
+    timestamp = params.get("timestamp", "")
+    if timestamp == "":
+        timestamp = int(time.time())
+    if len(str(timestamp)) != 10:
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = "Invalid timestamp length"
+        return json_ret
+    try:
+        timestamp = int(timestamp)
+    except Exception as e:
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = str(e)
+        return json_ret
+    days_before = params.get("days_before", 0)
+    if days_before == "":
+        days_before = 0
+    try:
+        days_before = int(days_before)
+    except Exception as e:
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = str(e)
+        return json_ret
+    json_ret["data"]["datetime_timestamp"] = timestamp - days_before * 24 * 60 * 60
+    format = "%Y-%m-%d %H:%M:%S"
+    try:
+        json_ret["data"]["datetime_str"]  = time.strftime(format, time.localtime(json_ret["data"]["datetime_timestamp"]))
+    except Exception as e:
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = str(e)
+    return json_ret
+
+
 def encode_base64encode(params, assets, context_info):
     """
     字符串编码为base64。 # 2024-08-18

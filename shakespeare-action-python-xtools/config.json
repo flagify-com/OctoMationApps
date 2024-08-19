@@ -1,7 +1,7 @@
 {
     "name": "XTools",
     "description": "X工具箱",
-    "app_version": "2.0.0",
+    "app_version": "2.0.1",
     "jar": "om-python-xtools.py",
     "readme": "resources/readme.md",
     "logo": "resources/xtools.png",
@@ -1582,14 +1582,15 @@
                 "format": {
                     "data_type": "string",
                     "description": "日期输出的格式化字符串，按需输入，如：%Y-%m-%d %H:%M:%S",
-                    "default_value": "%Y-%m-%d %H:%M:%S",
+                    "default_value": "",
                     "options": [
                         {"2024-12-01 11:13:09": "%Y-%m-%d %H:%M:%S"},
                         {"2024-12-01": "%Y%m%d"},
                         {"11:13:09": " %H:%M:%S"},
                         {"9/26/2008 15:09:11": "%-m/%-d/%Y %H:%M:%S"},
                         {"Aug 19 2024 18:00:43": "%b %d %Y %H:%M:%S"},
-                        {"2024-08-19 18:00:43 CST+0800": "%Y-%m-%d %H:%M:%S %Z%z"}
+                        {"2024-08-19 18:00:43 CST+0800": "%Y-%m-%d %H:%M:%S %Z%z"},
+                        {"自定义，手工输入": "%Y-%m-%d %H:%M:%S"}
                     ],
                     "required": false,
                     "order": 1
@@ -1644,7 +1645,7 @@
                 "format": {
                     "data_type": "string",
                     "description": "日期时间格式化字符串，按需输入，如：%Y-%m-%d %H:%M:%S",
-                    "default_value": "%Y-%m-%d %H:%M:%S",
+                    "default_value": "",
                     "options": [
                         {"2024-12-01 11:13:09": "%Y-%m-%d %H:%M:%S"},
                         {"2024-12-01": "%Y%m%d"},
@@ -1652,7 +1653,8 @@
                         {"9/26/2008 15:09:11": "%m/%d/%Y %H:%M:%S"},
                         {"2024/8/19 06:47 PM": "%Y/%m/%d %I:%M %p"},
                         {"Aug 19 2024 18:00:43": "%b %d %Y %H:%M:%S"},
-                        {"2024-08-19 18:00:43 CST+0800": "%Y-%m-%d %H:%M:%S %Z%z"}
+                        {"2024-08-19 18:00:43 CST+0800": "%Y-%m-%d %H:%M:%S %Z%z"},
+                        {"自定义，手工输入": "%Y-%m-%d %H:%M:%S"}
                     ],
                     "required": true,
                     "order": 1
@@ -1670,6 +1672,71 @@
                     "data_path": "action_result.data.datetime_timestamp",
                     "data_type": "integer",
                     "description": "日期时间timestamp（秒）"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 3,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 73,
+            "action": "datetime_timestamp_days_before",
+            "class_name": "datetime_timestamp_days_before",
+            "description": "日期时间_根据timestamp返回N天前（后）的日期时间",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "timestamp": {
+                    "data_type": "string",
+                    "description": "日期时间戳（秒），如果为空，则为当前时间",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "days_before": {
+                    "data_type": "integer",
+                    "description": "N天前，或N天后，正数表示N天前，负数表示N天后",
+                    "default_value": "",
+                    "options": [
+                        {"1天前": 1},
+                        {"7天前": 7},
+                        {"30天前": 30},
+                        {"180天前": 180},
+                        {"1天后": -1},
+                        {"7天后": -7},
+                        {"30天后": -30},
+                        {"180天后": -180},
+                        {"手工输入，自定义": 1}
+                    ],
+                    "required": true,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.datetime_str",
+                    "data_type": "string",
+                    "description": "N天前.日期时间字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.data.datetime_timestamp",
+                    "data_type": "integer",
+                    "description": "N天前的.日期时间timestamp（秒）"
                 },
                 {
                     "order": 2,
