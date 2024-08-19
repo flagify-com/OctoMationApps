@@ -559,7 +559,7 @@ def type_to_type(params, assets, context_info):
 
 def datetime_timestamp_to_timestr(params, assets, context_info):
     """
-    时间戳转时间字符串。 # 2024-08-18
+    时间戳转时间字符串。 # 2024-08-19
     :param params: 参数字典，包含以下参数：
         - timestamp: 时间戳（秒）
         - format: 时间格式，默认%Y-%m-%d %H:%M:%S
@@ -568,6 +568,7 @@ def datetime_timestamp_to_timestr(params, assets, context_info):
         "code": 200,
         "msg": "",
         "data": {
+            "datetime_timestamp": 0,
             "datetime_str": ""
         },
         "summary": {
@@ -575,18 +576,59 @@ def datetime_timestamp_to_timestr(params, assets, context_info):
             "msg": ""
         }
     }
-    timestamp = params.get("timestamp", time.localtime())
+    timestamp = params.get("timestamp", "")
+    if timestamp == "":
+        timestamp = int(time.time())
+    if len(str(timestamp)) != 10:
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = "Invalid timestamp length"
+        return json_ret
     try:
         timestamp = int(timestamp)
     except Exception as e:
         json_ret["summary"]["statusCode"] = 400
         json_ret["summary"]["msg"] = str(e)
         return json_ret
+    json_ret["data"]["datetime_timestamp"] = timestamp
     format = params.get("format", "%Y-%m-%d %H:%M:%S")
     try:
         json_ret["data"]["datetime_str"]  = time.strftime(format, time.localtime(timestamp))
     except Exception as e:
         json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = str(e)
+    return json_ret
+
+
+def datetime_timestr_to_timestamp(params, assets, context_info):
+    """
+    时间字符串转时间戳。 # 2024-08-19
+    :param params: 参数字典，包含以下参数：
+        - timestr: 时间字符串
+        - format: 时间格式，默认%Y-%m-%d %H:%M:%S
+    """
+    json_ret = {
+        "code": 200,
+        "msg": "",
+        "data": {
+            "datetime_timestamp": 0,
+            "datetime_str": ""
+        },
+        "summary": {
+            "statusCode": 0,
+            "msg": ""
+        }
+    }
+    timestr = params.get("timestr", "")
+    if timestr == "":
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = "Empty time string"
+        return json_ret
+    json_ret["data"]["datetime_str"] = timestr
+    format = params.get("format", "%Y-%m-%d %H:%M:%S")
+    try:
+        json_ret["data"]["datetime_timestamp"]  = int(time.mktime(time.strptime(timestr, format)))
+    except Exception as e:
+        json_ret["summary"]["statusCode"] = 500
         json_ret["summary"]["msg"] = str(e)
     return json_ret
 
