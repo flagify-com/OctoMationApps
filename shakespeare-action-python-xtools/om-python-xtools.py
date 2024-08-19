@@ -854,6 +854,7 @@ def file_info(params, assets, context_info):
             "file_mtime_str": "",
             "file_atime": 0,
             "file_atime_str": "",
+            "file_md5sum": "",
             "file_exists": True
         },
         "summary": {
@@ -889,10 +890,13 @@ def file_info(params, assets, context_info):
             json_ret["data"]["file_mtime_str"] = datetime.datetime.fromtimestamp(json_ret["data"]["file_mtime"]).strftime('%Y-%m-%d %H:%M:%S')
             json_ret["data"]["file_atime"] = int(os.path.getatime(file_path))
             json_ret["data"]["file_atime_str"] = datetime.datetime.fromtimestamp(json_ret["data"]["file_atime"]).strftime('%Y-%m-%d %H:%M:%S')
+            with open(file_path, "rb") as f:
+                json_ret["data"]["file_md5sum"] = hashlib.md5(f.read()).hexdigest()
         except Exception as e:
             json_ret["summary"]["statusCode"] = 500
             json_ret["summary"]["msg"] = str(e)
     return json_ret
+
 
 
 def file_read(params, assets, context_info):
@@ -939,6 +943,78 @@ def file_read(params, assets, context_info):
     try:
         with open(file_path, "r", encoding=encode) as f:
             json_ret["data"]["file_content_text"] = f.read()
+    except Exception as e:
+        json_ret["summary"]["statusCode"] = 500
+        json_ret["summary"]["msg"] = str(e)
+    return json_ret
+
+def int_to_str(params, assets, context_info):
+    """
+    整数转字符串。 # 2024-08-19
+    :param params: 参数字典，包含以下参数：
+        - int_data: 整数数据
+    """
+    json_ret = {
+        "code": 200,
+        "msg": "",
+        "data": {
+            "int_str": ""
+        },
+        "summary": {
+            "statusCode": 0,
+            "msg": ""
+        }
+    }
+    int_data = params.get("int_data", 0)
+    if not int_data:
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = "Empty integer"
+        return json_ret
+    json_ret["data"]["int_str"] = str(int_data)
+    return json_ret
+
+
+def math_expression(params, assets, context_info):
+    """
+    数学计算，根据表达式返回结算结果 # 2024-08-19
+    :param params: 参数字典，包含以下参数：
+        - expression: 数学表达式，支持加减乘除、括号、常量、变量
+    """
+    json_ret = {
+        "code": 200,
+        "msg": "",
+        "data": {
+            "int_value": 0,
+            "long_value": 0,
+            "double_value": 0.0,
+            "string_value": "0"
+        },
+        "summary": {
+            "statusCode": 0,
+            "msg": ""
+        }
+    }
+    expression = params.get("expression", "1+1")
+    if not expression:
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = "Empty expression"
+        return json_ret
+    if 'import' in expression or 'eval' in expression:
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = "Forbidden expression"
+        return json_ret
+    # 正则表达式，判断字符串为数学计算表达式，包含：加、减、乘、除、括号、取余、科学计数等...
+    pattern = re.compile(r'^[-+*/()0-9.eE^%\s]+$')
+    if not pattern.match(expression):
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = "Invalid expression"
+        return json_ret
+    try:
+        result = eval(expression)
+        json_ret["data"]["int_value"] = int(result)
+        json_ret["data"]["long_value"] = int(result)
+        json_ret["data"]["double_value"] = float(result)
+        json_ret["data"]["string_value"] = str(result)
     except Exception as e:
         json_ret["summary"]["statusCode"] = 500
         json_ret["summary"]["msg"] = str(e)
@@ -993,51 +1069,6 @@ def date_comp(params, assets, context_info):
     
     return json_ret
 
-# 加法
-def add(params, assets, context_info):
-    a = params.get("one", 0)
-    b = params.get("two", 0)
-    #def add(a, b):
-    json_ret = {"code": 200, "msg": "","data":{"result": a + b}}
-    return json_ret
-
-# 减法
-def subtract(params, assets, context_info):
-    #def subtract(a, b):
-    a = params.get("one", 0)
-    b = params.get("two", 0)
-    json_ret = {"code": 200, "msg": "","data":{"result": a - b}}
-    return json_ret
-
-# 乘法
-def multiply(params, assets, context_info):
-    #def multiply(a, b):
-    a = params.get("one", 0)
-    b = params.get("two", 0)
-    json_ret = {"code": 200, "msg": "","data":{"result": a * b}}
-
-    return json_ret
-
-# 除法
-def divide(params, assets, context_info):
-    #def divide(a, b):
-    a = params.get("one", 0)
-    b = params.get("two", 0)
-    json_ret = {"code": 200, "msg": "","data":{"result": 0}}
-    
-    if b == 0:
-        json_ret['code'] = 400
-        json_ret['msg'] = "Divisor can't be 0"
-        return json_ret
-    
-    try:
-        json_ret['data']["result"] = a / b
-    except Exception as e:
-        json_ret['code'] = 500
-        json_ret['msg'] = str(e)
-
-    return json_ret
-
 # 字符串输出
 def input_output(params, assets, context_info):
     str_data = params.get("str_data","")
@@ -1067,12 +1098,7 @@ def input_output(params, assets, context_info):
 
     return json_ret
 
-# 整型转字符串
-def int_to_str(params, assets, context_info):
-    #def int_to_str(i):
-    int_data = params.get("int_data",0)
-    json_ret = {"code": 200, "msg": "","data":{"str": str(int_data)}}
-    return json_ret
+
 
 # 浮点型转字符串
 def float_to_str(params, assets, context_info):

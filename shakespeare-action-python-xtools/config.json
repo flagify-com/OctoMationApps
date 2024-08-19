@@ -903,6 +903,47 @@
             ]
         },
         {
+            "order": 21,
+            "action": "int_to_str",
+            "class_name": "int_to_str",
+            "description": "整型_转字符串",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "int_data": {
+                    "data_type": "integer",
+                    "description": "整型数字，默认为：0",
+                    "default_value": 0,
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.int_str",
+                    "data_type": "string",
+                    "description": "整型数字的字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
             "order": 31,
             "action": "encode_base64encode",
             "class_name": "encode_base64encode",
@@ -1347,12 +1388,18 @@
                 },
                 {
                     "order": 15,
+                    "data_path": "action_result.data.file_md5sum",
+                    "data_type": "string",
+                    "description": "文件MD5摘要"
+                },
+                {
+                    "order": 16,
                     "data_path": "action_result.summary.statusCode",
                     "data_type": "integer",
                     "description": "返回.错误码，默认：0"
                 },
                 {
-                    "order": 16,
+                    "order": 17,
                     "data_path": "action_result.data.msg",
                     "data_type": "string",
                     "description": "返回.消息，默认：空"
@@ -1410,6 +1457,65 @@
                 },
                 {
                     "order": 3,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 61,
+            "action": "math_expression",
+            "class_name": "math_expression",
+            "description": "数学_表达式运算",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "expression": {
+                    "data_type": "string",
+                    "description": "数学运算表达式，支持：^[-+*/()0-9.eE%\\s]+$",
+                    "default_value": "1+1",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.int_value",
+                    "data_type": "integer",
+                    "description": "数学计算结果.整数"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.data.long_value",
+                    "data_type": "long",
+                    "description": "数学计算结果.长整数"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.double_value",
+                    "data_type": "double",
+                    "description": "数学计算结果.双精度"
+                },
+                {
+                    "order": 3,
+                    "data_path": "action_result.data.string_value",
+                    "data_type": "string",
+                    "description": "数学计算结果.字符串"
+                },
+                {
+                    "order": 4,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 5,
                     "data_path": "action_result.data.msg",
                     "data_type": "string",
                     "description": "返回.消息，默认：空"
@@ -1530,146 +1636,6 @@
             ]
         },
         {
-            "action": "add",
-            "class_name": "add",
-            "description": "两个数相加",
-            "result_display_tmpt_type": "js",
-            "result_display_tmpt": "shakespeare-action-template/add.art",
-            "safe_mode": false,
-            "is_test": false,
-            "classify": "query",
-            "parameters": {
-                "one": {
-                    "data_type": "integer",
-                    "description": "数字1",
-                    "default_value": "",
-                    "options": "",
-                    "required": true,
-                    "order": 0
-                },
-                "two": {
-                    "data_type": "integer",
-                    "description": "数字2",
-                    "default_value": "",
-                    "options": "",
-                    "required": true,
-                    "order": 1
-                }
-            },
-            "output": [
-                {
-                    "data_path": "action_result.data.result",
-                    "data_type": "integer",
-                    "description": "相加后的结果"
-                }
-            ]
-        },
-        {
-            "action": "subtract",
-            "class_name": "subtract",
-            "description": "两个数相减",
-            "result_display_tmpt_type": "js",
-            "result_display_tmpt": "shakespeare-action-template/subtract.art",
-            "safe_mode": false,
-            "is_test": false,
-            "classify": "query",
-            "parameters": {
-                "one": {
-                    "data_type": "integer",
-                    "description": "数字1",
-                    "default_value": "",
-                    "options": "",
-                    "required": true,
-                    "order": 0
-                },
-                "two": {
-                    "data_type": "integer",
-                    "description": "数字2",
-                    "default_value": "",
-                    "options": "",
-                    "required": true,
-                    "order": 1
-                }
-            },
-            "output": [
-                {
-                    "data_path": "action_result.data.result",
-                    "data_type": "integer",
-                    "description": "相减后的结果"
-                }
-            ]
-        },
-        {
-            "action": "multiply",
-            "class_name": "multiply",
-            "description": "两个数相乘",
-            "result_display_tmpt_type": "js",
-            "result_display_tmpt": "shakespeare-action-template/multiply.art",
-            "safe_mode": false,
-            "is_test": false,
-            "classify": "query",
-            "parameters": {
-                "one": {
-                    "data_type": "integer",
-                    "description": "数字1",
-                    "default_value": "",
-                    "options": "",
-                    "required": true,
-                    "order": 0
-                },
-                "two": {
-                    "data_type": "integer",
-                    "description": "数字2",
-                    "default_value": "",
-                    "options": "",
-                    "required": true,
-                    "order": 1
-                }
-            },
-            "output": [
-                {
-                    "data_path": "action_result.data.result",
-                    "data_type": "long",
-                    "description": "相乘后的结果"
-                }
-            ]
-        },
-        {
-            "action": "divide",
-            "class_name": "divide",
-            "description": "两个数相除",
-            "result_display_tmpt_type": "js",
-            "result_display_tmpt": "shakespeare-action-template/divide.art",
-            "safe_mode": false,
-            "is_test": false,
-            "classify": "query",
-            "parameters": {
-                "one": {
-                    "data_type": "integer",
-                    "description": "数字1",
-                    "default_value": "",
-                    "options": "",
-                    "required": true,
-                    "order": 0
-                },
-                "two": {
-                    "data_type": "integer",
-                    "description": "数字2",
-                    "default_value": "",
-                    "options": "",
-                    "required": true,
-                    "order": 1
-                }
-            },
-            "output": [
-                {
-                    "data_path": "action_result.data.result",
-                    "data_type": "double",
-                    "description": "相除后的结果"
-                }
-            ]
-        },
-        {
             "action": "input_output",
             "class_name": "input_output",
             "description": "格式化各种输出",
@@ -1721,33 +1687,6 @@
                     "data_path": "action_result.data.float",
                     "data_type": "double",
                     "description": "返回的浮点型"
-                }
-            ]
-        },
-        {
-            "action": "int_to_str",
-            "class_name": "int_to_str",
-            "description": "整型转字符串",
-            "result_display_tmpt_type": "js",
-            "result_display_tmpt": "shakespeare-action-template/int_to_str.art",
-            "safe_mode": false,
-            "is_test": false,
-            "classify": "query",
-            "parameters": {
-                "int_data": {
-                    "data_type": "integer",
-                    "description": "整型数据",
-                    "default_value": "",
-                    "options": "",
-                    "required": true,
-                    "order": 0
-                }
-            },
-            "output": [
-                {
-                    "data_path": "action_result.data.str",
-                    "data_type": "string",
-                    "description": "转换后的字符串"
                 }
             ]
         },
