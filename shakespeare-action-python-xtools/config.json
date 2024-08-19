@@ -1796,77 +1796,6 @@
             ]
         },
         {
-            "action": "str_similar",
-            "class_name": "str_similar",
-            "description": "计算两个字符串的相似度",
-            "result_display_tmpt_type": "js",
-            "result_display_tmpt": "shakespeare-action-template/str_similar.art",
-            "safe_mode": false,
-            "is_test": false,
-            "classify": "query",
-            "parameters": {
-                "one": {
-                    "data_type": "string",
-                    "description": "字符串1",
-                    "default_value": "",
-                    "options": "",
-                    "required": true,
-                    "order": 0
-                },
-                "two": {
-                    "data_type": "string",
-                    "description": "字符串2",
-                    "default_value": "",
-                    "options": "",
-                    "required": true,
-                    "order": 1
-                }
-            },
-            "output": [
-                {
-                    "data_path": "action_result.data.ratio",
-                    "data_type": "double",
-                    "description": "相似度"
-                }
-            ]
-        },
-        {
-            "action": "date_comp",
-            "class_name": "date_comp",
-            "description": "两个时间戳返回比较，如果时间1比时间2大，则返回1，小则返回-1，相等返回0",
-            "result_display_tmpt_type": "js",
-            "result_display_tmpt": "shakespeare-action-template/date_comp.art",
-            "safe_mode": false,
-            "is_test": false,
-            "classify": "query",
-            "parameters": {
-                "one": {
-                    "data_type": "long",
-                    "description": "时间1",
-                    "default_value": "",
-                    "options": "",
-                    "required": true,
-                    "order": 0
-                },
-                "two": {
-                    "data_type": "long",
-                    "description": "时间2",
-                    "default_value": "",
-                    "options": "",
-                    "required": true,
-                    "order": 1
-                }
-            },
-            "output": [
-                {
-                    "data_path": "action_result.data.result",
-                    "data_type": "integer",
-                    "description": "如果时间1比时间2大，则返回1，小则返回-1，相等返回0"
-                }
-            ]
-        },
-        
-        {
             "action": "search",
             "class_name": "search",
             "description": "字符串搜索",
@@ -1933,60 +1862,6 @@
                     "data_path": "action_result.data.findall.*",
                     "data_type": "string",
                     "description": "匹配到的字符串列表"
-                }
-            ]
-        },
-        {
-            "action": "date_to_timestamp",
-            "class_name": "date_to_timestamp",
-            "description": "时间字符串转换时间戳（秒）",
-            "result_display_tmpt_type": "js",
-            "result_display_tmpt": "shakespeare-action-template/date_to_timestamp.art",
-            "safe_mode": false,
-            "is_test": false,
-            "classify": "query",
-            "parameters": {
-                "date": {
-                    "data_type": "string",
-                    "description": "时间字符串,格式%Y-%m-%d %H:%M:%S Demo: 2023-10-01 12:12:12",
-                    "default_value": "",
-                    "options": "",
-                    "required": true,
-                    "order": 0
-                }
-            },
-            "output": [
-                {
-                    "data_path": "action_result.data.timestamp",
-                    "data_type": "long",
-                    "description": "转换后的时间戳"
-                }
-            ]
-        },
-        {
-            "action": "timestamp_to_date",
-            "class_name": "timestamp_to_date",
-            "description": "时间戳（秒）转时间字符串",
-            "result_display_tmpt_type": "js",
-            "result_display_tmpt": "shakespeare-action-template/timestamp_to_date.art",
-            "safe_mode": false,
-            "is_test": false,
-            "classify": "query",
-            "parameters": {
-                "timestamp": {
-                    "data_type": "long",
-                    "description": "时间字符串（秒）",
-                    "default_value": "",
-                    "options": "",
-                    "required": true,
-                    "order": 0
-                }
-            },
-            "output": [
-                {
-                    "data_path": "action_result.data.date",
-                    "data_type": "string",
-                    "description": "转换后的时间字符串"
                 }
             ]
         },

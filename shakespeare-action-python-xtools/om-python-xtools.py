@@ -10,7 +10,6 @@ import urllib.parse
 import ipaddress
 import random
 import shelve
-from difflib import SequenceMatcher
 import os
 from action_sdk_for_cache.action_cache_sdk import HoneyGuide
 
@@ -1134,61 +1133,6 @@ def ip_in_range(params, assets, context_info):
     json_ret['data']['is_range'] = ip >= start and ip <= end
     return json_ret
 
-# 文本相似度
-def str_similar(params, assets, context_info):
-    s1 = params.get("one", "")
-    s2 = params.get("two", "")
-    #def str_similar(s1, s2):
-    json_ret = {"code": 200, "msg": "","data":{"ratio": 0}}
-    json_ret['data']['ratio'] = SequenceMatcher(None, s1, s2).ratio()
-    return json_ret
-
-# 时间比较（时间簇）
-def date_comp(params, assets, context_info):
-    date1 = params.get("one", 0)
-    date2 = params.get("two", 0)
-
-    json_ret = {"code": 200, "msg": "","data":{"result": 0}}
-    #def date_comp(date1, date2):
-    d1 = datetime.datetime.strptime(date1, '%Y-%m-%d')
-    d2 = datetime.datetime.strptime(date2, '%Y-%m-%d')
-    if d1 > d2:
-        json_ret['data']['result'] = 1
-    elif d1 < d2:
-        json_ret['data']['result'] = -1
-    
-    return json_ret
-
-# 字符串输出
-def input_output(params, assets, context_info):
-    str_data = params.get("str_data","")
-    out_type = params.get("out_type","str")
-
-    json_ret = {"code": 200, "msg": "","data":{"str": "", "int": 0, "float": 0.0}}
-    #def str_to_int(s):
-    if out_type == "str":
-        json_ret['data']['str'] = str_data
-    elif out_type == "int":
-        _int = 0
-        try:
-            _int = int(str_data)
-            json_ret['data']['int'] = _int
-        except Exception as e:
-            json_ret['code'] = 500
-            json_ret['msg'] = str(e)
-
-    elif out_type == "float":
-        _float = 0.0
-        try:
-            _float = float(str_data)
-            json_ret['data']['float'] = _float
-        except Exception as e:
-            json_ret['code'] = 500
-            json_ret['msg'] = str(e)
-
-    return json_ret
-
-
 # 字符串搜索
 def search(params, assets, context_info):
     str_data = params.get("str_data","")
@@ -1203,32 +1147,6 @@ def regex_match(params, assets, context_info):
     str_data = params.get("str_data","")
     pattern = params.get("pattern","")
     json_ret = {"code": 200, "msg": "","data":{"findall": re.findall(pattern, str_data)}}
-    return json_ret
-
-
-# 时间字符串转时间簇
-def date_to_timestamp(params, assets, context_info):
-    date = params.get("date", "")
-    json_ret = {"code": 200, "msg": "","data":{"timestamp": 0}}
-    try:
-        _t = int(datetime.datetime.strptime(date, '%Y-%m-%d %H:%M:%S').timestamp())
-        json_ret['data']['timestamp'] = _t
-    except Exception as e:
-        json_ret['code'] = 500
-        json_ret['msg'] = str(e)
-    return json_ret
-
-# 时间簇转时间字符串
-def timestamp_to_date(params, assets, context_info):
-    timestamp = params.get("timestamp", 0)
-    json_ret = {"code": 200, "msg": "","data":{"date": ""}}
-    try:
-        _d = str(datetime.datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S'))
-        json_ret['data']['date'] = _d
-    except Exception as e:
-        json_ret['code'] = 500
-        json_ret['msg'] = str(e)
-
     return json_ret
 
 # 缓存管理
