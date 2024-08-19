@@ -506,91 +506,54 @@ def str_random_string(params, assets, context_info):
 
 # def regex_match
 
-def int_to_str(params, assets, context_info):
+def type_to_type(params, assets, context_info):
     """
-    整数转字符串。 # 2024-08-18
+    通用类型转换。 # 2024-08-18
     :param params: 参数字典，包含以下参数：
-        - int: 待转换的整数
+        - input_value: 待转换的值
+        - type_to: 目标类型
     """
     json_ret = {
         "code": 200,
         "msg": "",
         "data": {
-            "int_str": ""
+            "converted_value_int": 0,
+            "converted_value_double": 0.0,
+            "converted_value_long": 0,
+            "converted_value_boolean": False,
+            "converted_value_string": ""
         },
         "summary": {
             "statusCode": 0,
             "msg": ""
         }
     }
-    json_ret["data"]["int"] = params.get("int", 0)
-    json_ret["data"]["int_str"] = str(json_ret["data"]["int"])
-    return json_ret
+    input_value = params.get("input_value", "")
+    type_to = params.get("type_to", "string").lower()
+    try:
+        if type_to == "string" or type_to == "str":
+            json_ret["data"]["converted_value_string"] = str(input_value)
+        elif type_to == "integer" or type_to == "int":
+            json_ret["data"]["converted_value_int"] = int(input_value)
+        elif type_to == "double":
+            json_ret["data"]["converted_value_double"] = float(input_value)
+        elif type_to == "long":
+            json_ret["data"]["converted_value_long"] = int(input_value)
+        elif type_to == "boolean" or type_to == "bool":
+            if input_value.lower() in ["true", "1", "t", "y", "yes", "success"]:
+                json_ret["data"]["converted_value_boolean"] = True
+            elif input_value.lower() in ["false", "0", "f", "n", "no", "failure"]:
+                json_ret["data"]["converted_value_boolean"] = False
+            else:
+                json_ret["summary"]["statusCode"] = 400
+                json_ret["summary"]["msg"] = "Invalid boolean string"
+        else:
+            json_ret["summary"]["statusCode"] = 400
+            json_ret["summary"]["msg"] = "Invalid type_to"
+    except Exception as e:
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = str(e)
 
-def long_to_str(params, assets, context_info):
-    """
-    长整型转字符串。 # 2024-08-18
-    :param params: 参数字典，包含以下参数：
-        - long: 待转换的长整型
-    """
-    json_ret = {
-        "code": 200,
-        "msg": "",
-        "data": {
-            "long_str": ""
-        },
-        "summary": {
-            "statusCode": 0,
-            "msg": ""
-        }
-    }
-    json_ret["data"]["long"] = params.get("long", 0)
-    json_ret["data"]["long_str"] = str(json_ret["data"]["long"])
-    return json_ret
-
-def double_to_str(params, assets, context_info):
-    """
-    浮点数转字符串。 # 2024-08-18
-    :param params: 参数字典，包含以下参数：
-        - double: 待转换的浮点数
-    """
-    json_ret = {
-        "code": 200,
-        "msg": "",
-        "data": {
-            "double_str": ""
-        },
-        "summary": {
-            "statusCode": 0,
-            "msg": ""
-        }
-    }
-    json_ret["data"]["double"] = params.get("double", 0.0)
-    json_ret["data"]["double_str"] = str(json_ret["data"]["double"])
-    return json_ret
-
-def bool_to_str(params, assets, context_info):
-    """
-    布尔值转字符串，小写。 # 2024-08-18
-    :param params: 参数字典，包含以下参数：
-        - bool: 待转换的布尔值
-    """
-    json_ret = {
-        "code": 200,
-        "msg": "",
-        "data": {
-            "bool_str": ""
-        },
-        "summary": {            
-            "statusCode": 0,
-            "msg": ""
-        }
-    }
-    json_ret["data"]["bool"] = params.get("bool", False)
-    if json_ret["data"]["bool"]:
-        json_ret["data"]["bool_str"] = "true"
-    else:
-        json_ret["data"]["bool_str"] = "false"
     return json_ret
 
 def encode_base64encode(params, assets, context_info):
@@ -1099,14 +1062,6 @@ def input_output(params, assets, context_info):
     return json_ret
 
 
-
-# 浮点型转字符串
-def float_to_str(params, assets, context_info):
-    float_data = params.get("float_data",0)
-    json_ret = {"code": 200, "msg": "","data":{"str": str(float_data)}}
-    #def float_to_str(f):
-    return json_ret
-
 # 字符串搜索
 def search(params, assets, context_info):
     str_data = params.get("str_data","")
@@ -1123,42 +1078,6 @@ def regex_match(params, assets, context_info):
     json_ret = {"code": 200, "msg": "","data":{"findall": re.findall(pattern, str_data)}}
     return json_ret
 
-
-# 字符串链接
-def join(params, assets, context_info):
-    str1 = params.get('one', "")
-    str2 = params.get('two', "")
-    json_ret = {"code": 200, "msg": "","data":{"str_data": f"{str1}{str2}"}}
-    return json_ret
-
-# 读取文件
-def read_file(params, assets, context_info):
-    filename = params.get("filename","")
-    json_ret = {"code": 200, "msg": "","data":{"str_data": ""}}
-    
-    # 获取文件大小（以字节为单位）
-    file_size_bytes = os.path.getsize(filename)
-
-    # 定义0.5MB的字节数
-    half_megabyte = 0.5 * 1024 * 1024  # 1 MB = 1024 KB, 1 KB = 1024 bytes
-
-    # 检查文件大小是否小于0.5MB
-    if file_size_bytes < half_megabyte:
-        # 读取文件内容
-        with open(filename, 'r', encoding='utf-8') as f:
-            json_ret["data"]["str_data"] = f.read()
-    else:
-        json_ret["data"]["msg"] = "The file is 0.5MB or larger."     
-        json_ret["code"] = 400
-    return json_ret
-
-# 字符串替换
-def replace(params, assets, context_info):
-    str_data = params.get('str_data', "")
-    old_str = params.get('old_str',"")
-    new_str = params.get('new_str',"")
-    json_ret = {"code": 200, "msg": "","data":{"str_data": str_data.replace(old_str, new_str)}}
-    return json_ret
 
 # 时间字符串转时间簇
 def date_to_timestamp(params, assets, context_info):
@@ -1184,14 +1103,6 @@ def timestamp_to_date(params, assets, context_info):
         json_ret['msg'] = str(e)
 
     return json_ret
-
-# 字符串长度
-def str_len(params, assets, context_info):
-    str_data = params.get("srt_data", "")
-    json_ret = {"code": 200, "msg": "","data":{"str_len": len(str_data)}}
-    return json_ret
-
-
 
 # 缓存管理
 # def cache_mgmt(params, assets, context_info):
