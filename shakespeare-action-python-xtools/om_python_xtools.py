@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import re
 import datetime
 import time
@@ -10,16 +9,11 @@ import urllib.parse
 import ipaddress
 import random
 import os
-import rsa
-from Crypto.Cipher import AES
-from Crypto.Util.Padding import pad, unpad
-# from cryptography.hazmat.primitives.serialization import load_pem_private_key
 from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives import padding as symmetric_padding
 from cryptography.hazmat.primitives.asymmetric import padding as asymmetric_padding
-from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
-from cryptography.hazmat.backends import default_backend
 
 from action_sdk_for_cache.action_cache_sdk import HoneyGuide
 
@@ -922,71 +916,6 @@ def encrypt_hmac(params, assets, context_info):
     json_ret["data"]["str_hmaced"] = m.hexdigest()
     return json_ret
 
-# def encrypt_aes_encrypt(params, assets, context_info):
-#     """
-#     字符串加密为aes。 # 2024-08-20
-#     :param params: 参数字典，包含以下参数：
-#         - str: 待加密的字符串
-#         - key: 密钥
-#         - mode: 加密模式，默认CBC
-#         - encode: 编码方式，默认utf-8
-#         - cbc_iv: 初始化向量（仅在CBC模式下需要）
-#     """
-#     json_ret = {
-#         "code": 200,
-#         "msg": "",
-#         "data": {
-#             "str_aes_crypted": ""
-#         },
-#         "summary": {
-#             "statusCode": 0,
-#             "msg": ""
-#         }
-#     }
-#     json_ret["data"]["str"] = params.get("str", "")
-#     if json_ret["data"]["str"] == "":
-#         json_ret["summary"]["statusCode"] = 400
-#         json_ret["summary"]["msg"] = "Empty string"
-#         return json_ret
-    
-#     encode = params.get("encode", "utf-8").lower()
-#     if encode == "":
-#         encode = "utf-8"
-    
-#     key = params.get("key", "")
-#     if key == "":
-#         json_ret["summary"]["statusCode"] = 400
-#         json_ret["summary"]["msg"] = "Empty key"
-#         return json_ret
-    
-#     key_length = len(key.encode(encode))
-#     if key_length not in [16, 24, 32]:
-#         json_ret["summary"]["statusCode"] = 400
-#         json_ret["summary"]["msg"] = "Invalid key length"
-#         return json_ret
-    
-#     padded_str = pad(json_ret["data"]["str"].encode(encode), AES.block_size)
-
-#     mode = params.get("mode", "CBC").upper()
-#     if mode not in ["CBC", "ECB"]:
-#         json_ret["summary"]["statusCode"] = 400
-#         json_ret["summary"]["msg"] = "Invalid mode"
-#         return json_ret
-
-#     if mode == "CBC":
-#         mode = AES.MODE_CBC
-#         cbc_iv = params.get("cbc_iv", "")
-#         if cbc_iv == "":
-#             cbc_iv = key[:16]
-#         aes = AES.new(key.encode(encode), mode, cbc_iv.encode(encode))
-#         json_ret["data"]["str_aes_crypted"] = base64.b64encode(aes.encrypt(padded_str)).decode(encode)
-#     elif mode == "ECB":
-#         mode = AES.MODE_ECB
-#         aes = AES.new(key.encode(encode), mode)
-#         json_ret["data"]["str_aes_crypted"] = base64.b64encode(aes.encrypt(padded_str)).decode(encode)
-#     key = None
-#     return json_ret
-
 def encrypt_aes_encrypt(params, assets, context_info):
     """
     字符串加密为aes。 # 2024-08-20
@@ -1135,70 +1064,6 @@ def encrypt_aes_decrypt(params, assets, context_info):
         json_ret["summary"]["msg"] = f"Decryption error: {str(e)}"
 
     return json_ret
-# def encrypt_aes_decrypt(params, assets, context_info):
-#     """
-#     aes解密为字符串。 # 2024-08-20
-#     :param params: 参数字典，包含以下参数：
-#         - str_aes_encrypted: 待解密的aes加密字符串
-#         - key: 密钥
-#         - mode: 加密模式，默认CBC
-#         - encode: 编码方式，默认utf-8
-#         - cbc_iv: 初始化向量（仅在CBC模式下需要）
-#     """
-#     json_ret = {
-#         "code": 200,
-#         "msg": "",
-#         "data": {
-#             "str_aes_decrypted": ""
-#         },
-#         "summary": {
-#             "statusCode": 0,
-#             "msg": ""
-#         }
-#     }
-#     str_aes_encrypted = params.get("str_aes_encrypted", "")
-#     if str_aes_encrypted == "":
-#         json_ret["summary"]["statusCode"] = 400
-#         json_ret["summary"]["msg"] = "Empty aes encrypted string"
-#         return json_ret
-    
-#     encode = params.get("encode", "utf-8").lower()
-#     if encode == "":
-#         encode = "utf-8"
-    
-#     key = params.get("key", "")
-#     if key == "":
-#         json_ret["summary"]["statusCode"] = 400
-#         json_ret["summary"]["msg"] = "Empty key"
-#         return json_ret
-    
-#     key_length = len(key.encode(encode))
-#     if key_length not in [16, 24, 32]:
-#         json_ret["summary"]["statusCode"] = 400
-#         json_ret["summary"]["msg"] = "Invalid key length"
-#         return json_ret
-    
-#     mode = params.get("mode", "CBC").upper()
-#     if mode not in ["CBC", "ECB"]:
-#         json_ret["summary"]["statusCode"] = 400
-#         json_ret["summary"]["msg"] = "Invalid mode"
-#         return json_ret
-
-#     if mode == "CBC":
-#         mode = AES.MODE_CBC
-#         cbc_iv = params.get("cbc_iv", "")
-#         if cbc_iv == "":
-#             cbc_iv = key[:16]
-#         aes = AES.new(key.encode(encode), mode, cbc_iv.encode(encode))
-#         padded_str = aes.decrypt(base64.b64decode(str_aes_encrypted))
-#     elif mode == "ECB":
-#         mode = AES.MODE_ECB
-#         aes = AES.new(key.encode(encode), mode)
-#         padded_str = aes.decrypt(base64.b64decode(str_aes_encrypted))
-#     json_ret["data"]["str_aes_decrypted"] = unpad(padded_str, AES.block_size).decode(encode)
-#     key = None
-#     return json_ret
-
 
 def encrypt_rsa_encrypt(params, assets, context_info):
     """
