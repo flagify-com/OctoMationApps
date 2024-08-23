@@ -1065,6 +1065,7 @@ def encrypt_aes_decrypt(params, assets, context_info):
 
     return json_ret
 
+# 参考 https://tool.lvtao.net/rsa
 def encrypt_rsa_encrypt(params, assets, context_info):
     """
     字符串加密为rsa。 # 2024-08-20
@@ -1099,6 +1100,8 @@ def encrypt_rsa_encrypt(params, assets, context_info):
         json_ret["summary"]["statusCode"] = 400
         json_ret["summary"]["msg"] = "Empty public key"
         return json_ret
+    
+    ### 代码看起来丑，但似乎也没有比这个更高明的办法
     
     if '-----BEGIN PUBLIC KEY-----' in public_key_str and '-----END PUBLIC KEY-----' in public_key_str:
         public_key_str = public_key_str.replace('-----BEGIN PUBLIC KEY-----', '-----AAAAAAAA-----')
@@ -1576,45 +1579,6 @@ def regex_match(params, assets, context_info):
     pattern = params.get("pattern","")
     json_ret = {"code": 200, "msg": "","data":{"findall": re.findall(pattern, str_data)}}
     return json_ret
-
-# 缓存管理
-# def cache_mgmt(params, assets, context_info):
-#     _key = params.get('key', "")
-#     _value = params.get('value',None)
-#     _ttl = params.get("tll",0)
-#     _operate = params.get("operate", "get")
-
-#     json_ret = {"code": 200, "msg": "","key": _key, "value": "", "status": False}
-#     def open_cache(filename):
-#         if not os.path.exists(filename):
-#             db = shelve.open(filename) 
-#             db.close()
-#         return shelve.open(filename)
-
-#     cache_file = open_cache("/tmp/cache_file")
-#     if _operate == "get":
-#         if key in cache_file:
-#             value, expiration = cache_file[key]
-#             if expiration is None or datetime.datetime.now() < expiration:
-#                 json_ret['value'] = value
-#                 json_ret['status'] = True
-#     elif _options == "set":
-#         if _ttl is None:
-#             expiration = None
-#         else:
-#             expiration = datetime.datetime.now() + datetime.timedelta(seconds=_ttl)
-#         cache_file[key] = (value, expiration)
-#         json_ret['value'] = value
-#         json_ret['status'] = True
-
-#     elif _options == "del":
-#         if key in cache_file:
-#             del cache_file[key]
-#             json_ret['value'] = value
-#             json_ret['status'] = True
-
-#     return json_ret
-
 
 import diskcache as dc
 def cache_mgmt(params, assets, context_info):
