@@ -1,0 +1,2278 @@
+{
+    "name": "XTools",
+    "description": "X工具箱",
+    "app_version": "2.0.3",
+    "jar": "om_python_xtools.py",
+    "readme": "resources/readme.md",
+    "logo": "resources/xtools.png",
+    "category": "工具",
+    "product_name": "XTools",
+    "app_supplier": "OctoMation",
+    "logic_language": "PYTHON",
+    "min_shakespeare_version": "1.0",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {
+    },
+    "actions": [
+        {
+            "order": 0,
+            "action": "str_concat",
+            "class_name": "str_concat",
+            "description": "字符串_拼接多个字符串（支持拼接符）",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str1": {
+                    "data_type": "string",
+                    "description": "第一个字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "str2": {
+                    "data_type": "string",
+                    "description": "第二个字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                },
+                "str3": {
+                    "data_type": "string",
+                    "description": "第三个字符串（如有）",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 2
+                },
+                "str4": {
+                    "data_type": "string",
+                    "description": "第四个字符串（如有）",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 3
+                },
+                "str5": {
+                    "data_type": "string",
+                    "description": "第五个字符串（如有）",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 4
+                },
+                "str6": {
+                    "data_type": "string",
+                    "description": "第六个字符串（如有）",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 5
+                },
+                "concat_symbol": {
+                    "data_type": "string",
+                    "description": "拼接符，默认为：空，字符串直接连接",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 6
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_concated",
+                    "data_type": "string",
+                    "description": "拼接后的字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 1,
+            "action": "str_split",
+            "class_name": "str_split",
+            "description": "字符串_分割字符串（支持分隔符，默认为空格）",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str_to_split": {
+                    "data_type": "string",
+                    "description": "待分割的字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "split_symbol": {
+                    "data_type": "string",
+                    "description": "字符串分隔符，默认为：英文逗号",
+                    "default_value": ",",
+                    "options": [
+                        {
+                            "空格": " "
+                        },
+                        {
+                            "逗号": ","
+                        },
+                        {
+                            "分号": ";"
+                        },
+                        {
+                            "竖线": "|"
+                        },
+                        {
+                            "减号": "-"
+                        },
+                        {
+                            "井号": "#"
+                        }
+                    ],
+                    "required": false,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_array.*",
+                    "data_type": "string",
+                    "description": "分割后的字符串(数组循环输出）"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.data.str_array",
+                    "data_type": "jsonArray",
+                    "description": "分割后的字符串数组"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 3,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 2,
+            "action": "str_splitlines",
+            "class_name": "str_splitlines",
+            "description": "字符串_分割字符串（按行分割）",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str_to_split": {
+                    "data_type": "string",
+                    "description": "待分割的字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_array.*",
+                    "data_type": "string",
+                    "description": "分割后的字符串（数组循环输出）"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.data.str_array",
+                    "data_type": "jsonArray",
+                    "description": "分割后的字符串数组"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 3,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 3,
+            "action": "str_replace",
+            "class_name": "str_replace",
+            "description": "字符串_字符串替换",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str_original": {
+                    "data_type": "string",
+                    "description": "待处理的原始字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "str_old": {
+                    "data_type": "string",
+                    "description": "字符串_替换前的字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                },
+                "str_new": {
+                    "data_type": "string",
+                    "description": "字符串_替换后的字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 2
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_replaced",
+                    "data_type": "string",
+                    "description": "替换处理后的字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 4,
+            "action": "str_length",
+            "class_name": "str_length",
+            "description": "字符串_计算字符串长度",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str": {
+                    "data_type": "string",
+                    "description": "字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_length",
+                    "data_type": "integer",
+                    "description": "字符串长度"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 5,
+            "action": "str_reverse",
+            "class_name": "str_reverse",
+            "description": "字符串_字符串反转",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str": {
+                    "data_type": "string",
+                    "description": "待反转的字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_reversed",
+                    "data_type": "string",
+                    "description": "反转后的字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 6,
+            "action": "str_substring_with_index",
+            "class_name": "str_substring_with_index",
+            "description": "字符串_截取子字符串，根据start和end位置[开始，结束)",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str_original": {
+                    "data_type": "string",
+                    "description": "待处理的原始字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "start": {
+                    "data_type": "integer",
+                    "description": "开始位置（会被保留）",
+                    "default_value": 0,
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                },
+                "end": {
+                    "data_type": "integer",
+                    "description": "结束位置（保留到前一位）",
+                    "default_value": 0,
+                    "options": "",
+                    "required": true,
+                    "order": 2
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_substring",
+                    "data_type": "string",
+                    "description": "截取后的子字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 7,
+            "action": "str_substring_with_start_and_length",
+            "class_name": "str_substring_with_start_and_length",
+            "description": "字符串_截取子字符串，根据start和length长度",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str_original": {
+                    "data_type": "string",
+                    "description": "待处理的原始字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "start": {
+                    "data_type": "integer",
+                    "description": "开始位置（会被保留）",
+                    "default_value": 0,
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                },
+                "length": {
+                    "data_type": "integer",
+                    "description": "截取子字符串的长度",
+                    "default_value": 0,
+                    "options": "",
+                    "required": true,
+                    "order": 2
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_substring",
+                    "data_type": "string",
+                    "description": "截取后的子字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 8,
+            "action": "str_to_int",
+            "class_name": "str_to_int",
+            "description": "字符串_转整型",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str": {
+                    "data_type": "string",
+                    "description": "字符串，默认：0",
+                    "default_value": "0",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_int",
+                    "data_type": "integer",
+                    "description": "截取后的子字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 9,
+            "action": "str_to_double",
+            "class_name": "str_to_double",
+            "description": "字符串_转Double型(Java)",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str": {
+                    "data_type": "string",
+                    "description": "字符串，默认：0.0",
+                    "default_value": "0.0",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_double",
+                    "data_type": "double",
+                    "description": "截取后的子字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 10,
+            "action": "str_to_long",
+            "class_name": "str_to_long",
+            "description": "字符串_转Long型(Java)",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str": {
+                    "data_type": "string",
+                    "description": "字符串，默认：0",
+                    "default_value": "0",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_long",
+                    "data_type": "integer",
+                    "description": "截取后的子字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 11,
+            "action": "str_to_bool",
+            "class_name": "str_to_bool",
+            "description": "字符串_转布尔型",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str": {
+                    "data_type": "string",
+                    "description": "字符串（不区分大小写），默认：True，支持：true、false、yes、no、1、0、T、F、Y、N、success、failure",
+                    "default_value": "True",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_bool",
+                    "data_type": "integer",
+                    "description": "转换后的布尔值"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 12,
+            "action": "str_to_upper",
+            "class_name": "str_to_upper",
+            "description": "字符串_转大写",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str": {
+                    "data_type": "string",
+                    "description": "字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_upper",
+                    "data_type": "integer",
+                    "description": "转换后的布尔值"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 13,
+            "action": "str_to_lower",
+            "class_name": "str_to_lower",
+            "description": "字符串_转小写",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str": {
+                    "data_type": "string",
+                    "description": "字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_lower",
+                    "data_type": "integer",
+                    "description": "转换后的布尔值"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 14,
+            "action": "str_strip",
+            "class_name": "str_strip",
+            "description": "字符串_修剪字符串首尾（空格、换行等）",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str_original": {
+                    "data_type": "string",
+                    "description": "原始字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "strip_method": {
+                    "data_type": "string",
+                    "description": "修剪方式，默认：两端都修剪，支持：BOTH、LEFT、RIGHT",
+                    "default_value": "BOTH",
+                    "options": [
+                        {
+                            "两端": "BOTH"
+                        },
+                        {
+                            "串首": "LEFT"
+                        },
+                        {
+                            "串尾": "RIGHT"
+                        }
+                    ],
+                    "required": false,
+                    "order": 1
+                },
+                "strip_symbol": {
+                    "data_type": "string",
+                    "description": "修剪字符串，不填写则默认修剪空格、换行符",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 2
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_stripped",
+                    "data_type": "integer",
+                    "description": "修剪后的字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 15,
+            "action": "str_escape",
+            "class_name": "str_escape",
+            "description": "字符串_转义字符串中的特殊字符",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str_original": {
+                    "data_type": "string",
+                    "description": "原始字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "escape_string_array": {
+                    "data_type": "jsonArray",
+                    "description": "需要转义的方式，默认：反斜线方式转义：反斜线、双引号",
+                    "default_value": [
+                        "\\",
+                        "\""
+                    ],
+                    "options": "",
+                    "required": false,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_escaped",
+                    "data_type": "integer",
+                    "description": "修剪后的字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 16,
+            "action": "str_random_string",
+            "class_name": "str_random_string",
+            "description": "字符串_随机产生字符串",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "min_length": {
+                    "data_type": "integer",
+                    "description": "字符串最小长度",
+                    "default_value": 1,
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "max_length": {
+                    "data_type": "integer",
+                    "description": "字符串最大长度",
+                    "default_value": 10,
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                },
+                "avaliable_chars": {
+                    "data_type": "string",
+                    "description": "可供随机选择的字符",
+                    "default_value": "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+                    "options": "",
+                    "required": false,
+                    "order": 2
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_random",
+                    "data_type": "integer",
+                    "description": "随机字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 30,
+            "action": "type_to_type",
+            "class_name": "type_to_type",
+            "description": "类型_通用类型转换，支持：int、long、double、str、boolean",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "input_value": {
+                    "data_type": "string",
+                    "description": "输入值，支持各种类型，默认：0",
+                    "default_value": "0",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "type_to": {
+                    "data_type": "string",
+                    "description": "要转换的目标类型，支持：integer、long、double、string、boolean",
+                    "default_value": "string",
+                    "options": [
+                        {"整数型": "integer"},
+                        {"长整型": "long"},
+                        {"双精度型": "double"},
+                        {"字符串型": "string"},
+                        {"布尔型": "boolean"}
+                    ],
+                    "required": false,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.converted_value_int",
+                    "data_type": "integer",
+                    "description": "转换后的整数型值"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.data.converted_value_long",
+                    "data_type": "double",
+                    "description": "转换后的长整型值"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.converted_value_double",
+                    "data_type": "long",
+                    "description": "转换后的双精度型值"
+                },
+                {
+                    "order": 3,
+                    "data_path": "action_result.data.converted_value_string",
+                    "data_type": "string",
+                    "description": "转换后的字符串型值"
+                },
+                {
+                    "order": 4,
+                    "data_path": "action_result.data.converted_value_boolean",
+                    "data_type": "boolean",
+                    "description": "转换后的布尔型值"
+                },
+                {
+                    "order": 5,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 6,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 31,
+            "action": "encode_base64encode",
+            "class_name": "encode_base64encode",
+            "description": "编码_Base64编码",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str": {
+                    "data_type": "string",
+                    "description": "待编码的字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "encode": {
+                    "data_type": "string",
+                    "description": "字符编码，默认：UTF-8",
+                    "default_value": "utf-8",
+                    "options": "",
+                    "required": false,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_base64_encode",
+                    "data_type": "string",
+                    "description": "Base64编码后的字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 32,
+            "action": "encode_base64decode",
+            "class_name": "encode_base64decode",
+            "description": "编码_Base64解码",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str_base64": {
+                    "data_type": "string",
+                    "description": "待解码的base64字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "encode": {
+                    "data_type": "string",
+                    "description": "字符编码，默认：UTF-8",
+                    "default_value": "utf-8",
+                    "options": "",
+                    "required": false,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_base64_decode",
+                    "data_type": "string",
+                    "description": "Base64解码后字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 33,
+            "action": "encode_urlencode",
+            "class_name": "encode_urlencode",
+            "description": "编码_UrlEncode编码",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str": {
+                    "data_type": "string",
+                    "description": "待编码的字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_url_encode",
+                    "data_type": "string",
+                    "description": "UrlEncode编码后的字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 34,
+            "action": "encode_urldecode",
+            "class_name": "encode_urldecode",
+            "description": "编码_UrlDecode解码",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str_url_encoded": {
+                    "data_type": "string",
+                    "description": "待解码的字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_url_decoded",
+                    "data_type": "string",
+                    "description": "UrlDecode解码后的字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 41,
+            "action": "encrypt_hash",
+            "class_name": "encrypt_hash",
+            "description": "加密_哈希摘要(支持：MD5、SHA1、SHA256、SHA512等)",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str": {
+                    "data_type": "string",
+                    "description": "原始字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "hash_method": {
+                    "data_type": "string",
+                    "description": "摘要算法，默认：MD5",
+                    "default_value": "MD5",
+                    "options": [
+                        {"MD5": "MD5"},
+                        {"SHA1": "SHA1"},
+                        {"SHA224": "SHA224"},
+                        {"SHA256": "SHA256"},
+                        {"SHA384": "SHA384"},
+                        {"SHA512": "SHA512"},
+                        {"SHA3_224": "SHA3_224"},
+                        {"SHA3_256": "SHA3_256"},
+                        {"SHA3_384": "SHA3_384"},
+                        {"SHA3_512": "SHA3_512"},
+                        {"SHAKE128": "SHAKE128"},
+                        {"SHAKE256": "SHAKE256"},
+                        {"BLAKE2s": "BLAKE2s"},
+                        {"BLAKE2b": "BLAKE2b"}
+                    ],
+                    "required": false,
+                    "order": 1
+                },
+                "encode": {
+                    "data_type": "string",
+                    "description": "字符编码方式，默认：UTF-8",
+                    "default_value": "utf-8",
+                    "options": "",
+                    "required": false,
+                    "order": 2
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_hashed",
+                    "data_type": "string",
+                    "description": "HASH摘要字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 42,
+            "action": "encrypt_hmac",
+            "class_name": "encrypt_hmac",
+            "description": "加密_HMAC摘要(支持：MD5、SHA1、SHA256、SHA512等)",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str": {
+                    "data_type": "string",
+                    "description": "原始字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "key": {
+                    "data_type": "password",
+                    "description": "HMAC密钥",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                },
+                "digest_method": {
+                    "data_type": "string",
+                    "description": "摘要算法，默认：MD5",
+                    "default_value": "MD5",
+                    "options": [
+                        {"MD5": "MD5"},
+                        {"SHA1": "SHA1"},
+                        {"SHA224": "SHA224"},
+                        {"SHA256": "SHA256"},
+                        {"SHA384": "SHA384"},
+                        {"SHA512": "SHA512"},
+                        {"SHA3_224": "SHA3_224"},
+                        {"SHA3_256": "SHA3_256"},
+                        {"SHA3_384": "SHA3_384"},
+                        {"SHA3_512": "SHA3_512"},
+                        {"SHAKE128": "SHAKE128"},
+                        {"SHAKE256": "SHAKE256"},
+                        {"BLAKE2s": "BLAKE2s"},
+                        {"BLAKE2b": "BLAKE2b"}
+                    ],
+                    "required": false,
+                    "order": 2
+                },
+                "encode": {
+                    "data_type": "string",
+                    "description": "字符编码方式，默认：UTF-8",
+                    "default_value": "utf-8",
+                    "options": "",
+                    "required": false,
+                    "order": 3
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_hmaced",
+                    "data_type": "string",
+                    "description": "HMAC摘要字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 45,
+            "action": "encrypt_aes_encrypt",
+            "class_name": "encrypt_aes_encrypt",
+            "description": "加密_AES加密",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str": {
+                    "data_type": "string",
+                    "description": "原始字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "mode": {
+                    "data_type": "string",
+                    "description": "加密方式，默认：ECB",
+                    "default_value": "ECB",
+                    "options": [
+                        {"ECB": "ECB"},
+                        {"CBC": "CBC"}
+                    ],
+                    "required": true,
+                    "order": 1
+                },
+                "key": {
+                    "data_type": "password",
+                    "description": "加密密钥，128，192，256位长度，对应：16，24，32个字符",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 2
+                },
+                "cbc_iv": {
+                    "data_type": "string",
+                    "description": "初始化向量（仅在CBC模式下需要） ，不填写则默认为key的前16字符",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 3
+                },
+                "encode": {
+                    "data_type": "string",
+                    "description": "字符编码方式，默认：UTF-8",
+                    "default_value": "utf-8",
+                    "options": "",
+                    "required": false,
+                    "order": 4
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_aes_encrypted",
+                    "data_type": "string",
+                    "description": "AES加密后字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 46,
+            "action": "encrypt_aes_decrypt",
+            "class_name": "encrypt_aes_decrypt",
+            "description": "加密_AES解密",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str_aes_encrypted": {
+                    "data_type": "string",
+                    "description": "待解密的AES加密字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "mode": {
+                    "data_type": "string",
+                    "description": "加密方式，默认：ECB",
+                    "default_value": "ECB",
+                    "options": [
+                        {"ECB": "ECB"},
+                        {"CBC": "CBC"}
+                    ],
+                    "required": true,
+                    "order": 1
+                },
+                "key": {
+                    "data_type": "password",
+                    "description": "加密密钥，128，192，256位长度，对应：16，24，32个字符",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 2
+                },
+                "cbc_iv": {
+                    "data_type": "string",
+                    "description": "初始化向量（仅在CBC模式下需要） ，不填写则默认为key的前16字符",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 3
+                },
+                "encode": {
+                    "data_type": "string",
+                    "description": "字符编码方式，默认：UTF-8",
+                    "default_value": "utf-8",
+                    "options": "",
+                    "required": false,
+                    "order": 4
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_aes_decrypted",
+                    "data_type": "string",
+                    "description": "AES解密后字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 47,
+            "action": "encrypt_rsa_encrypt",
+            "class_name": "encrypt_rsa_encrypt",
+            "description": "加密_RSA加密",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str": {
+                    "data_type": "string",
+                    "description": "原始字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "public_key": {
+                    "data_type": "password",
+                    "description": "RSA公钥字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                },
+                "padding_method": {
+                    "data_type": "string",
+                    "description": "填充模式，默认：PKCS1v15，支持：OAEP_SHA256, OAEP_SHA1, PKCS1v15",
+                    "default_value": "PKCS1v15",
+                    "options": [
+                        {"OAEP_SHA256": "OAEP_SHA256"},
+                        {"OAEP_SHA1": "OAEP_SHA1"},
+                        {"PKCS1v15": "PKCS1v15"}
+                    ],
+                    "required": false,
+                    "order": 2
+                },
+                "encoding": {
+                    "data_type": "string",
+                    "description": "字符编码方式，默认：UTF-8",
+                    "default_value": "utf-8",
+                    "options": "",
+                    "required": false,
+                    "order": 3
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_rsa_encrypted",
+                    "data_type": "string",
+                    "description": "RSA加密后字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 48,
+            "action": "encrypt_rsa_decrypt",
+            "class_name": "encrypt_rsa_decrypt",
+            "description": "加密_RSA解密",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str_rsa_encrypted": {
+                    "data_type": "string",
+                    "description": "待解密的RSA加密字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "private_key": {
+                    "data_type": "password",
+                    "description": "RSA私钥字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                },
+                "padding_method": {
+                    "data_type": "string",
+                    "description": "填充模式，默认：PKCS1v15，支持：OAEP_SHA256, OAEP_SHA1, PKCS1v15",
+                    "default_value": "PKCS1v15",
+                    "options": [
+                        {"OAEP_SHA256": "OAEP_SHA256"},
+                        {"OAEP_SHA1": "OAEP_SHA1"},
+                        {"PKCS1v15": "PKCS1v15"}
+                    ],
+                    "required": false,
+                    "order": 2
+                },
+                "private_key_has_password": {
+                    "data_type": "string",
+                    "description": "Private Key是否有密码保护，默认：False",
+                    "default_value": false,
+                    "options": [
+                        {"True":  true},
+                        {"False": false}
+                    ],
+                    "required": false,
+                    "order": 3
+                },
+                "private_key_password": {
+                    "data_type": "password",
+                    "description": "Private Key的保护密码，默认：空，与private_key_has_password组合使用",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 4
+                },
+                "encoding": {
+                    "data_type": "string",
+                    "description": "字符编码方式，默认：UTF-8",
+                    "default_value": "utf-8",
+                    "options": "",
+                    "required": false,
+                    "order": 5
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.str_rsa_decrypted",
+                    "data_type": "string",
+                    "description": "RSA解密后字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 51,
+            "action": "file_info",
+            "class_name": "file_info",
+            "description": "文件_返回文件信息(根据文件路径)",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "file_path": {
+                    "data_type": "string",
+                    "description": "文件路径，如：/opt/shakespeare/test.txt，不要使用单双引号",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.file_exists",
+                    "data_type": "boolean",
+                    "description": "文件是否存在"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.data.isdir",
+                    "data_type": "boolean",
+                    "description": "是否为目录"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.isfile",
+                    "data_type": "boolean",
+                    "description": "是否为文件"
+                },
+                {
+                    "order": 3,
+                    "data_path": "action_result.data.islink",
+                    "data_type": "boolean",
+                    "description": "是否为链接"
+                },
+                {
+                    "order": 4,
+                    "data_path": "action_result.data.file_name",
+                    "data_type": "string",
+                    "description": "文件名"
+                },
+                {
+                    "order": 5,
+                    "data_path": "action_result.data.file_realpath",
+                    "data_type": "string",
+                    "description": "文件绝对路径"
+                },
+                {
+                    "order": 6,
+                    "data_path": "action_result.data.file_relativepath",
+                    "data_type": "string",
+                    "description": "文件相对路径"
+                },
+                {
+                    "order": 7,
+                    "data_path": "action_result.data.file_dirname",
+                    "data_type": "string",
+                    "description": "文件目录名"
+                },
+                {
+                    "order": 8,
+                    "data_path": "action_result.data.file_size",
+                    "data_type": "integer",
+                    "description": "文件大小，单位：字节"
+                },
+                {
+                    "order": 9,
+                    "data_path": "action_result.data.file_ctime",
+                    "data_type": "integer",
+                    "description": "文件创建时间.时间戳"
+                },
+                {
+                    "order": 10,
+                    "data_path": "action_result.data.file_ctime_str",
+                    "data_type": "string",
+                    "description": "文件创建时间.字符串"
+                },
+                {
+                    "order": 11,
+                    "data_path": "action_result.data.file_mtime",
+                    "data_type": "integer",
+                    "description": "文件修改时间.时间戳"
+                },
+                {
+                    "order": 12,
+                    "data_path": "action_result.data.file_mtime_str",
+                    "data_type": "string",
+                    "description": "文件修改时间.字符串"
+                },
+                {
+                    "order": 13,
+                    "data_path": "action_result.data.file_atime",
+                    "data_type": "integer",
+                    "description": "文件访问时间.时间戳"
+                },
+                {
+                    "order": 14,
+                    "data_path": "action_result.data.file_atime_str",
+                    "data_type": "string",
+                    "description": "文件访问时间.字符串"
+                },
+                {
+                    "order": 15,
+                    "data_path": "action_result.data.file_md5sum",
+                    "data_type": "string",
+                    "description": "文件MD5摘要"
+                },
+                {
+                    "order": 16,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 17,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 52,
+            "action": "file_read",
+            "class_name": "file_read",
+            "description": "文件_返回文件信息(根据文件路径)",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "file_path": {
+                    "data_type": "string",
+                    "description": "文件路径，如：/opt/shakespeare/test.txt，不要使用单双引号",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "encode": {
+                    "data_type": "string",
+                    "description": "文件内容字符编码，默认：UTF-8",
+                    "default_value": "utf-8",
+                    "options": "",
+                    "required": false,
+                    "order": 1
+                },
+                "file_size_limit": {
+                    "data_type": "integer",
+                    "description": "文件大小限制，默认512KB以上文件不读取，不建议太大",
+                    "default_value": 512,
+                    "options": "",
+                    "required": false,
+                    "order": 2
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.file_content_text",
+                    "data_type": "boolean",
+                    "description": "文件内容文本"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 3,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 61,
+            "action": "math_expression",
+            "class_name": "math_expression",
+            "description": "数学_表达式运算",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "expression": {
+                    "data_type": "string",
+                    "description": "数学运算表达式，支持：^[-+*/()0-9.eE%\\s]+$",
+                    "default_value": "1+1",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.int_value",
+                    "data_type": "integer",
+                    "description": "数学计算结果.整数"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.data.long_value",
+                    "data_type": "long",
+                    "description": "数学计算结果.长整数"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.double_value",
+                    "data_type": "double",
+                    "description": "数学计算结果.双精度"
+                },
+                {
+                    "order": 3,
+                    "data_path": "action_result.data.string_value",
+                    "data_type": "string",
+                    "description": "数学计算结果.字符串"
+                },
+                {
+                    "order": 4,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 5,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 71,
+            "action": "datetime_timestamp_to_timestr",
+            "class_name": "datetime_timestamp_to_timestr",
+            "description": "日期时间_时间戳转日期时间字符串",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "timestamp": {
+                    "data_type": "integer",
+                    "description": "timestamp时间戳（秒），如：1616652800，不填则为当前时间",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 0
+                },
+                "format": {
+                    "data_type": "string",
+                    "description": "日期输出的格式化字符串，按需输入，如：%Y-%m-%d %H:%M:%S",
+                    "default_value": "",
+                    "options": [
+                        {"2024-12-01 11:13:09": "%Y-%m-%d %H:%M:%S"},
+                        {"2024-12-01": "%Y%m%d"},
+                        {"11:13:09": " %H:%M:%S"},
+                        {"9/26/2008 15:09:11": "%-m/%-d/%Y %H:%M:%S"},
+                        {"Aug 19 2024 18:00:43": "%b %d %Y %H:%M:%S"},
+                        {"2024-08-19 18:00:43 CST+0800": "%Y-%m-%d %H:%M:%S %Z%z"},
+                        {"自定义，手工输入": "%Y-%m-%d %H:%M:%S"}
+                    ],
+                    "required": false,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.datetime_str",
+                    "data_type": "string",
+                    "description": "日期时间字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.data.datetime_timestamp",
+                    "data_type": "integer",
+                    "description": "日期时间timestamp（秒）"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 3,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 72,
+            "action": "datetime_timestr_to_timestamp",
+            "class_name": "datetime_timestr_to_timestamp",
+            "description": "日期时间_日期时间字符串转时间戳",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "timestr": {
+                    "data_type": "string",
+                    "description": "日期时间字符串，如：2021-03-10 12:00:00",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "format": {
+                    "data_type": "string",
+                    "description": "日期时间格式化字符串，按需输入，如：%Y-%m-%d %H:%M:%S",
+                    "default_value": "",
+                    "options": [
+                        {"2024-12-01 11:13:09": "%Y-%m-%d %H:%M:%S"},
+                        {"2024-12-01": "%Y%m%d"},
+                        {"11:13:09": " %H:%M:%S"},
+                        {"9/26/2008 15:09:11": "%m/%d/%Y %H:%M:%S"},
+                        {"2024/8/19 06:47 PM": "%Y/%m/%d %I:%M %p"},
+                        {"Aug 19 2024 18:00:43": "%b %d %Y %H:%M:%S"},
+                        {"2024-08-19 18:00:43 CST+0800": "%Y-%m-%d %H:%M:%S %Z%z"},
+                        {"自定义，手工输入": "%Y-%m-%d %H:%M:%S"}
+                    ],
+                    "required": true,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.datetime_str",
+                    "data_type": "string",
+                    "description": "日期时间字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.data.datetime_timestamp",
+                    "data_type": "integer",
+                    "description": "日期时间timestamp（秒）"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 3,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 73,
+            "action": "datetime_timestamp_days_before",
+            "class_name": "datetime_timestamp_days_before",
+            "description": "日期时间_根据timestamp返回N天前（后）的日期时间",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "timestamp": {
+                    "data_type": "string",
+                    "description": "日期时间戳（秒），如果为空，则为当前时间",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "days_before": {
+                    "data_type": "integer",
+                    "description": "N天前，或N天后，正数表示N天前，负数表示N天后",
+                    "default_value": "",
+                    "options": [
+                        {"1天前": 1},
+                        {"7天前": 7},
+                        {"30天前": 30},
+                        {"180天前": 180},
+                        {"1天后": -1},
+                        {"7天后": -7},
+                        {"30天后": -30},
+                        {"180天后": -180},
+                        {"手工输入，自定义": 1}
+                    ],
+                    "required": true,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.datetime_str",
+                    "data_type": "string",
+                    "description": "N天前.日期时间字符串"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.data.datetime_timestamp",
+                    "data_type": "integer",
+                    "description": "N天前的.日期时间timestamp（秒）"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 3,
+                    "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "action": "ip_in_range",
+            "class_name": "ip_in_range",
+            "description": "判断IP地址是否在某个段内",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "ip": {
+                    "data_type": "string",
+                    "description": "要判断的IP地址，Demo: 192.168.1.123",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "start": {
+                    "data_type": "string",
+                    "description": "起始IP地址， Demo: 192.168.1.1",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                },
+                "end": {
+                    "data_type": "string",
+                    "description": "结束IP地址， Demo: 192.168.1.254",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 2
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.is_range",
+                    "data_type": "boolean",
+                    "description": "如果在段内则返回真，否则返回假"
+                }
+            ]
+        },
+        {
+            "action": "search",
+            "class_name": "search",
+            "description": "字符串搜索",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str_data": {
+                    "data_type": "string",
+                    "description": "完整字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "sub": {
+                    "data_type": "string",
+                    "description": "要搜索的字符",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.is_find",
+                    "data_type": "boolean",
+                    "description": "是否搜索到"
+                }
+            ]
+        },
+        {
+            "action": "regex_match",
+            "class_name": "regex_match",
+            "description": "字符串正则匹配",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "str_data": {
+                    "data_type": "string",
+                    "description": "完整字符串",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "pattern": {
+                    "data_type": "string",
+                    "description": "正则表达式",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.findall.*",
+                    "data_type": "string",
+                    "description": "匹配到的字符串列表"
+                }
+            ]
+        },
+        {
+            "action": "cache_mgmt",
+            "class_name": "cache_mgmt",
+            "description": "缓存管理",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "key": {
+                    "data_type": "string",
+                    "description": "缓存的key,建议不同业务增加不同的前缀，避免key一样",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "value": {
+                    "data_type": "string",
+                    "description": "缓存的值",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 1
+                },
+                "ttl": {
+                    "data_type": "integer",
+                    "description": "缓存的时效, 不填则不存在失效时间，计量单位为秒",
+                    "options": "",
+                    "required": false,
+                    "order": 2
+                },
+                "operate": {
+                    "data_type": "string",
+                    "description": "缓存操作",
+                    "default_value": "",
+                    "options": [
+                        {
+                            "获取": "get"
+                        },
+                        {
+                            "写入": "set"
+                        },
+                        {
+                            "删除": "del"
+                        }
+                    ],
+                    "required": true,
+                    "order": 3
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.key",
+                    "data_type": "string",
+                    "description": "Key"
+                },
+                {
+                    "data_path": "action_result.data.value",
+                    "data_type": "string",
+                    "description": "值"
+                },
+                {
+                    "data_path": "action_result.data.status",
+                    "data_type": "boolean",
+                    "description": "操作是否成功"
+                }
+            ]
+        },
+        {
+            "action": "get_file_download_url",
+            "class_name": "get_file_download_url",
+            "description": "获取文件下载地址",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "file_path": {
+                    "data_type": "string",
+                    "description": "文件相对路径，/opt/shakespeare/data/app_files/action_local/下的相对路径，如：test/test.txt",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.download_url",
+                    "data_type": "string",
+                    "description": "下载地址"
+                },
+                {
+                    "data_path": "action_result.data.uuid",
+                    "data_type": "string",
+                    "description": "SDK中文件uuid"
+                }
+            ]
+        }
+    ]
+}
