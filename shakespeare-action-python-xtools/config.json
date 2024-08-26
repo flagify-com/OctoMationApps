@@ -1,7 +1,7 @@
 {
     "name": "XTools",
     "description": "X工具箱",
-    "app_version": "2.0.3",
+    "app_version": "2.0.4",
     "jar": "om_python_xtools.py",
     "readme": "resources/readme.md",
     "logo": "resources/xtools.png",
@@ -2056,6 +2056,54 @@
                 {
                     "order": 3,
                     "data_path": "action_result.data.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "action": "random_sleep",
+            "class_name": "random_sleep",
+            "description": "随机Sleep，等待N秒",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "min_seconds": {
+                    "data_type": "integer",
+                    "description": "最小Sleep时间，单位：秒",
+                    "default_value": 1,
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "max_seconds": {
+                    "data_type": "integer",
+                    "description": "最大Sleep时间，单位：秒,超过300秒请选择异步动作",
+                    "default_value": 10,
+                    "options": "",
+                    "required": true,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.sleep_seconds",
+                    "data_type": "integer",
+                    "description": "随机休眠的时间（秒），默认：1"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.summary.msg",
                     "data_type": "string",
                     "description": "返回.消息，默认：空"
                 }

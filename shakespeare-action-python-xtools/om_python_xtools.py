@@ -1541,6 +1541,47 @@ def math_expression(params, assets, context_info):
         json_ret["summary"]["msg"] = str(e)
     return json_ret
 
+def random_sleep(params, assets, context_info):
+    """
+    随机暂停一段时间。 # 2024-08-27
+    :param params: 参数字典，包含以下参数：
+        - min_seconds: 最小暂停时间，单位秒，默认1秒
+        - max_seconds: 最大暂停时间，单位秒，默认10秒
+    """
+    json_ret = {
+        "code": 200,
+        "msg": "",
+        "data": {
+            "sleep_seconds": 1
+        },
+        "summary": {
+            "statusCode": 0,
+            "msg": ""
+        }
+    }
+    min_seconds = params.get("min_seconds", 1)
+    max_seconds = params.get("max_seconds", 10)
+    try:
+        min_seconds = int(min_seconds)
+        max_seconds = int(max_seconds)
+    except Exception as e:
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = "Invalid min_seconds or max_seconds number"
+        return json_ret
+    if min_seconds < 1 or max_seconds < 1:
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = "Invalid min_seconds or max_seconds number"
+        return json_ret
+    if min_seconds > max_seconds:
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = "Invalid min_seconds or max_seconds number"
+        return json_ret
+    sleep_seconds = random.randint(min_seconds, max_seconds)
+    json_ret["data"]["sleep_seconds"] = sleep_seconds
+    time.sleep(sleep_seconds)
+    json_ret["summary"]["msg"] = f"Slept for {sleep_seconds} seconds"
+    return json_ret
+
 # 判断ip地址是否在某个段内
 def ip_in_range(params, assets, context_info):
     #def ip_in_range(ip, start, end):

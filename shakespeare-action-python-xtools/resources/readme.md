@@ -8,13 +8,12 @@
 
 | 内容 | 详细描述 |
 | ---- | ------ |
-| app版本      | 2.0.3 |
+| 上次版本      | 2.0.3 |
+| 当前版本      | 2.0.4 |
 | 发布时间     | 2023-10-05 21:43:53 |
-| 更新时间     | 2024-08-20 16:44:53 |
+| 更新时间     | 2024-08-27 00:28:53 |
 | 更新人员     | [wzfukui](https://github.com/wzfukui) |
-| 应用连接方式  |  |
-| 支持版本     |  |
-| 作者        |  |
+| 更新地址        | [flagify-com/OctoMationApps](https://github.com/flagify-com/OctoMationApps) |
 
 ## 二、app使用注意事项
 
@@ -671,3 +670,4 @@ pip install cryptography
 
 ## 更新说明
 - 2024-08-20 v2.0.3 优化各字符串函数，并增加AES、RSA加解密
+- 2024-08-28 v2.0.4 增加随机Sleep延迟等待动作
