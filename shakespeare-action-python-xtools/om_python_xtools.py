@@ -1582,6 +1582,28 @@ def random_sleep(params, assets, context_info):
     json_ret["summary"]["msg"] = f"Slept for {sleep_seconds} seconds"
     return json_ret
 
+def do_nothing(params, assets, context_info):
+    """
+    什么也不做。 # 2024-08-27
+    :param params: 参数字典，包含以下参数：
+        - input: 任何输入
+    """
+    json_ret = {
+        "code": 200,
+        "msg": "",
+        "data": {
+            "output": ""
+        },
+        "summary": {
+            "statusCode": 0,
+            "msg": ""
+        }
+    }
+    input_data = params.get("input", "")
+    json_ret["data"]["output"] = input_data
+    return json_ret
+
+
 # 判断ip地址是否在某个段内
 def ip_in_range(params, assets, context_info):
     #def ip_in_range(ip, start, end):
