@@ -1,7 +1,7 @@
 {
     "name": "XTools",
     "description": "X工具箱",
-    "app_version": "2.0.4",
+    "app_version": "2.0.5",
     "jar": "om_python_xtools.py",
     "readme": "resources/readme.md",
     "logo": "resources/xtools.png",
@@ -906,7 +906,7 @@
             "order": 30,
             "action": "type_to_type",
             "class_name": "type_to_type",
-            "description": "类型_通用类型转换，支持：int、long、double、str、boolean",
+            "description": "类型_通用类型转换，支持：int、long、double、str、boolean,jsonArray",
             "result_display_tmpt_type": "js",
             "result_display_tmpt": "shakespeare-action-template/common.art",
             "safe_mode": false,
@@ -2292,6 +2292,47 @@
             ]
         },
         {
+            "order": 998,
+            "action": "do_nothing",
+            "class_name": "do_nothing",
+            "description": "啥也不干，你来定标题",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "input": {
+                    "data_type": "string",
+                    "description": "任何输入",
+                    "options": "",
+                    "required": false,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "order":0,
+                    "data_path": "action_result.data.output",
+                    "data_type": "string",
+                    "description": "输出"
+                },
+                {
+                    "order":1,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order":2,
+                    "data_path": "action_result.summary.msg",
+                    "data_type": "string",
+                    "description": "返回.消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 999,
             "action": "get_file_download_url",
             "class_name": "get_file_download_url",
             "description": "获取文件下载地址",
