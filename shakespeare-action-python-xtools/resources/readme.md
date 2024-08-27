@@ -8,10 +8,10 @@
 
 | 内容 | 详细描述 |
 | ---- | ------ |
-| 上次版本      | 2.0.4 |
-| 当前版本      | 2.0.5 |
+| 上次版本      | 2.0.5 |
+| 当前版本      | 2.0.6 |
 | 发布时间     | 2023-10-05 21:43:53 |
-| 更新时间     | 2024-08-27 10:46:00 |
+| 更新时间     | 2024-08-27 12:02:00 |
 | 更新人员     | [wzfukui](https://github.com/wzfukui) |
 | 更新地址        | [flagify-com/OctoMationApps](https://github.com/flagify-com/OctoMationApps) |
 
@@ -300,7 +300,7 @@ pip install cryptography
 | 参数名 | 参数描述 | 参数类型 | 是否必填 | 默认值 |
 |--------|----------|----------|----------|--------|
 | input_value | 输入值，支持各种类型，默认：0 | string | 是 | 0 |
-| type_to | 要转换的目标类型，支持：integer、long、double、string、boolean | string | 否 | string |
+| type_to | 要转换的目标类型，支持：integer、long、double、string、boolean、jsonarray、jsonobject | string | 否 | string |
 
 #### 出参
 
@@ -311,6 +311,8 @@ pip install cryptography
 | action_result.data.converted_value_double | 转换后的双精度型值 | long | |
 | action_result.data.converted_value_string | 转换后的字符串型值 | string | |
 | action_result.data.converted_value_boolean | 转换后的布尔型值 | boolean | |
+| action_result.data.converted_value_jsonarray | 转换后的JSON数组型值 | jsonarrray | |
+| action_result.data.converted_value_jsonobject | 转换后的JSON对象型值 | jsonobject | |
 
 ### encode_base64encode（编码_Base64编码）
 
@@ -713,3 +715,4 @@ pip install cryptography
 - 2024-08-20 v2.0.3 优化各字符串函数，并增加AES、RSA加解密
 - 2024-08-27 v2.0.4 增加随机Sleep延迟等待动作
 - 2024-08-27 v2.0.5 增加一个啥也不干的空动作，输出输入
+- 2024-08-27 v2.0.6 类型转换输出增加：jsonarray和jsonobject

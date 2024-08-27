@@ -1,7 +1,7 @@
 {
     "name": "XTools",
     "description": "X工具箱",
-    "app_version": "2.0.5",
+    "app_version": "2.0.6",
     "jar": "om_python_xtools.py",
     "readme": "resources/readme.md",
     "logo": "resources/xtools.png",
@@ -923,14 +923,16 @@
                 },
                 "type_to": {
                     "data_type": "string",
-                    "description": "要转换的目标类型，支持：integer、long、double、string、boolean",
+                    "description": "要转换的目标类型，支持：integer、long、double、string、boolean等",
                     "default_value": "string",
                     "options": [
                         {"整数型": "integer"},
                         {"长整型": "long"},
                         {"双精度型": "double"},
                         {"字符串型": "string"},
-                        {"布尔型": "boolean"}
+                        {"布尔型": "boolean"},
+                        {"json数组": "jsonarray"},
+                        {"json对象": "jsonobject"}
                     ],
                     "required": false,
                     "order": 1
@@ -939,33 +941,45 @@
             "output": [
                 {
                     "order": 0,
-                    "data_path": "action_result.data.converted_value_int",
+                    "data_path": "action_result.data.converted_value_integer",
                     "data_type": "integer",
-                    "description": "转换后的整数型值"
+                    "description": "转换后的整数型值，默认：0"
                 },
                 {
                     "order": 1,
                     "data_path": "action_result.data.converted_value_long",
                     "data_type": "double",
-                    "description": "转换后的长整型值"
+                    "description": "转换后的长整型值，默认：0"
                 },
                 {
                     "order": 2,
                     "data_path": "action_result.data.converted_value_double",
                     "data_type": "long",
-                    "description": "转换后的双精度型值"
+                    "description": "转换后的双精度型值，，默认：0.0"
                 },
                 {
                     "order": 3,
                     "data_path": "action_result.data.converted_value_string",
                     "data_type": "string",
-                    "description": "转换后的字符串型值"
+                    "description": "转换后的字符串型值，默认：空"
                 },
                 {
                     "order": 4,
                     "data_path": "action_result.data.converted_value_boolean",
                     "data_type": "boolean",
-                    "description": "转换后的布尔型值"
+                    "description": "转换后的布尔型值，默认：false"
+                },
+                {
+                    "order": 4,
+                    "data_path": "action_result.data.converted_value_jsonArray",
+                    "data_type": "jsonarray",
+                    "description": "转换后的json数组值，默认：[]"
+                },
+                {
+                    "order": 4,
+                    "data_path": "action_result.data.converted_value_jsonObject",
+                    "data_type": "jsonobject",
+                    "description": "转换后的json对象值，默认：{}"
                 },
                 {
                     "order": 5,
