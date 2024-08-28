@@ -9,6 +9,7 @@ import urllib.parse
 import ipaddress
 import random
 import os
+import json
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives import padding as symmetric_padding
@@ -524,7 +525,9 @@ def type_to_type(params, assets, context_info):
             "converted_value_double": 0.0,
             "converted_value_long": 0,
             "converted_value_boolean": False,
-            "converted_value_string": ""
+            "converted_value_string": "",
+            "converted_value_jsonarray": [],
+            "converted_value_jsonobject": {}
         },
         "summary": {
             "statusCode": 0,
@@ -532,16 +535,21 @@ def type_to_type(params, assets, context_info):
         }
     }
     input_value = params.get("input_value", "")
+    if input_value == "":
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = "Empty input value"
+        return json_ret
+    
     type_to = params.get("type_to", "string").lower()
     try:
         if type_to == "string" or type_to == "str":
             json_ret["data"]["converted_value_string"] = str(input_value)
         elif type_to == "integer" or type_to == "int":
-            json_ret["data"]["converted_value_int"] = int(input_value)
+            json_ret["data"]["converted_value_integer"] = int(float(input_value))
         elif type_to == "double":
             json_ret["data"]["converted_value_double"] = float(input_value)
         elif type_to == "long":
-            json_ret["data"]["converted_value_long"] = int(input_value)
+            json_ret["data"]["converted_value_long"] = int(float(input_value))
         elif type_to == "boolean" or type_to == "bool":
             if input_value.lower() in ["true", "1", "t", "y", "yes", "success"]:
                 json_ret["data"]["converted_value_boolean"] = True
@@ -550,6 +558,28 @@ def type_to_type(params, assets, context_info):
             else:
                 json_ret["summary"]["statusCode"] = 400
                 json_ret["summary"]["msg"] = "Invalid boolean string"
+        elif type_to.lower() == "jsonarray":
+            try:
+                temp_data = json.loads(input_value)
+                if isinstance(temp_data, list):
+                    json_ret["data"]["converted_value_jsonarray"] = temp_data
+                else:
+                    json_ret["summary"]["statusCode"] = 400
+                    json_ret["summary"]["msg"] = "Invalid jsonarray string"
+            except Exception as e:
+                json_ret["summary"]["statusCode"] = 400
+                json_ret["summary"]["msg"] = str(e)
+        elif type_to.lower() == "jsonobject":
+            try:
+                temp_data = json.loads(input_value)
+                if isinstance(temp_data, dict):
+                    json_ret["data"]["converted_value_jsonobject"] = temp_data
+                else:
+                    json_ret["summary"]["statusCode"] = 400
+                    json_ret["summary"]["msg"] = "Invalid jsonobject string"
+            except Exception as e:
+                json_ret["summary"]["statusCode"] = 400
+                json_ret["summary"]["msg"] = str(e)
         else:
             json_ret["summary"]["statusCode"] = 400
             json_ret["summary"]["msg"] = "Invalid type_to"
@@ -1540,6 +1570,69 @@ def math_expression(params, assets, context_info):
         json_ret["summary"]["statusCode"] = 500
         json_ret["summary"]["msg"] = str(e)
     return json_ret
+
+def random_sleep(params, assets, context_info):
+    """
+    随机暂停一段时间。 # 2024-08-27
+    :param params: 参数字典，包含以下参数：
+        - min_seconds: 最小暂停时间，单位秒，默认1秒
+        - max_seconds: 最大暂停时间，单位秒，默认10秒
+    """
+    json_ret = {
+        "code": 200,
+        "msg": "",
+        "data": {
+            "sleep_seconds": 1
+        },
+        "summary": {
+            "statusCode": 0,
+            "msg": ""
+        }
+    }
+    min_seconds = params.get("min_seconds", 1)
+    max_seconds = params.get("max_seconds", 10)
+    try:
+        min_seconds = int(min_seconds)
+        max_seconds = int(max_seconds)
+    except Exception as e:
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = "Invalid min_seconds or max_seconds number"
+        return json_ret
+    if min_seconds < 1 or max_seconds < 1:
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = "Invalid min_seconds or max_seconds number"
+        return json_ret
+    if min_seconds > max_seconds:
+        json_ret["summary"]["statusCode"] = 400
+        json_ret["summary"]["msg"] = "Invalid min_seconds or max_seconds number"
+        return json_ret
+    sleep_seconds = random.randint(min_seconds, max_seconds)
+    json_ret["data"]["sleep_seconds"] = sleep_seconds
+    time.sleep(sleep_seconds)
+    json_ret["summary"]["msg"] = f"Slept for {sleep_seconds} seconds"
+    return json_ret
+
+def do_nothing(params, assets, context_info):
+    """
+    什么也不做。 # 2024-08-27
+    :param params: 参数字典，包含以下参数：
+        - input: 任何输入
+    """
+    json_ret = {
+        "code": 200,
+        "msg": "",
+        "data": {
+            "output": ""
+        },
+        "summary": {
+            "statusCode": 0,
+            "msg": ""
+        }
+    }
+    input_data = params.get("input", "")
+    json_ret["data"]["output"] = input_data
+    return json_ret
+
 
 # 判断ip地址是否在某个段内
 def ip_in_range(params, assets, context_info):

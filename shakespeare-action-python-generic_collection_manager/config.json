@@ -1,0 +1,659 @@
+{
+    "name": "Generic_Collection_Manager",
+    "description": "通用集合管理",
+    "app_version": "2.0.0",
+    "logic_language": "PYTHON",
+    "min_shakespeare_version": "1.0",
+    "logo": "resources/generic_collection_logo.png",
+    "read_me": "resources/readme.md",
+    "jar": "generic_collection_manager.py",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {
+        "hg_host": {
+            "data_type": "string",
+            "description": "API 服务器器URL，例https://192.168.1.1",
+            "default_value": "",
+            "required": true,
+            "order": 0
+        },
+        "hg_token": {
+            "data_type": "password",
+            "description": "API Token，通过系统设置界面生成API Token",
+            "default_value": "",
+            "required": true,
+            "order": 1
+        },
+        "conn_time_out": {
+          "data_type": "integer",
+          "description": "请求API服务连接时间超时，单位：秒",
+          "required": true,
+          "order": 2,
+          "default_value": 10
+        }
+    },
+    "actions": [
+        {
+            "order": 0,
+            "action": "list_generic_collections",
+            "class_name": "list_generic_collections",
+            "description": "集合_返回所有通用集合名单列表",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/list_generic_collections.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "batch_size": {
+                    "data_type": "integer",
+                    "description": "API每页批次返回数量，默认：30",
+                    "default_value": 30,
+                    "required": false,
+                    "order": 0
+                },
+                "max_count": {
+                    "data_type": "integer",
+                    "description": "最大返回数量，默认：200",
+                    "default_value": 200,
+                    "required": false,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.collections",
+                    "data_type": "jsonArray",
+                    "description": "所有集合的属性及元素情况，组成的数组"
+                    
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.data.collections.*.id",
+                    "data_type": "integer",
+                    "description": "集合的ID号"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.collections.*.name",
+                    "data_type": "string",
+                    "description": "集合名称（循环使用）"
+                },
+                {
+                    "order": 3,
+                    "data_path": "action_result.data.collections.*.cnName",
+                    "data_type": "string",
+                    "description": "集合中文名（循环使用）"
+                },
+                {
+                    "order": 4,
+                    "data_path": "action_result.data.collections.*.description",
+                    "data_type": "string",
+                    "description": "集合描述（循环使用）"
+                },
+                {
+                    "order": 5,
+                    "data_path": "action_result.data.collections.*.num",
+                    "data_type": "integer",
+                    "description": "集合元素数量（循环使用）"
+                },
+                {
+                    "order": 6,
+                    "data_path": "action_result.data.collections.*.createTime",
+                    "data_type": "string",
+                    "description": "集合创建时间（循环使用）"
+                },
+                {
+                    "order": 7,
+                    "data_path": "action_result.data.count",
+                    "data_type": "integer",
+                    "description": "本次查询到的集合总数量"
+                },
+                {
+                    "order": 8,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 9,
+                    "data_path": "action_result.summary.msg",
+                    "data_type": "string",
+                    "description": "返回.错误消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 1,
+            "action": "create_generic_collection",
+            "class_name": "create_generic_collection",
+            "description": "集合_创建一个通用集合",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "collection_name": {
+                    "data_type": "string",
+                    "description": "集合的名称，仅支持：英文/数字/下划线，最长64字符",
+                    "default_value": "",
+                    "required": true,
+                    "order": 0
+                },
+                "collection_cnname": {
+                    "data_type": "string",
+                    "description": "集合的中文名称，最长64字符",
+                    "default_value": "",
+                    "required": true,
+                    "order": 1
+                },
+                "collection_description": {
+                    "data_type": "string",
+                    "description": "集合的描述信息，最长64字符",
+                    "default_value": "",
+                    "required": false,
+                    "order": 2
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.element_id",
+                    "data_type": "long",
+                    "description": "集合ID号（数字）"
+                    
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.data.duplicated",
+                    "data_type": "boolean",
+                    "description": "集合创建前是否已经存在"
+                    
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 3,
+                    "data_path": "action_result.summary.msg",
+                    "data_type": "string",
+                    "description": "返回.错误消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 2,
+            "action": "delete_generic_collection",
+            "class_name": "delete_generic_collection",
+            "description": "集合_删除一个通用集合",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "collection_id": {
+                    "data_type": "long",
+                    "description": "集合的ID号，一长串数字，如：11268278432702172",
+                    "default_value": "",
+                    "required": false,
+                    "order": 0
+                },
+                "collection_name": {
+                    "data_type": "string",
+                    "description": "集合名称（集合ID与集合名称，两者不能同时为空）",
+                    "default_value": "",
+                    "required": false,
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.summary.msg",
+                    "data_type": "string",
+                    "description": "返回.错误消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 3,
+            "action": "list_generic_collection_elements",
+            "class_name": "list_generic_collection_elements",
+            "description": "集合_返回指定集合的元素列表（耗时，不建议在剧本中直接使用，建议使用异步动作执行）",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/list_generic_collection_elements.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "collection_id": {
+                    "data_type": "long",
+                    "description": "集合ID号，一长串数字，如：1126827843270217",
+                    "default_value": "",
+                    "required": false,
+                    "order": 0
+                },
+                "collection_name": {
+                    "data_type": "string",
+                    "description": "集合名称，例：BLACKLIST，集合名称与ID不能同时为空",
+                    "default_value": "",
+                    "required": false,
+                    "order": 1
+                },
+                "batch_size": {
+                    "data_type": "integer",
+                    "description": "API每页批次返回数量，默认：30",
+                    "default_value": 30,
+                    "required": false,
+                    "order": 2
+                },
+                "max_count": {
+                    "data_type": "integer",
+                    "description": "最大返回数量，默认：200",
+                    "default_value": 200,
+                    "required": false,
+                    "order": 3
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.elements",
+                    "data_type": "jsonArray",
+                    "description": "所有元素的信息，组成的数组"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.data.elements.*.id",
+                    "data_type": "long",
+                    "description": "元素的ID号（循环使用）"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.elements.*.value",
+                    "data_type": "string",
+                    "description": "元素的值（循环使用）"
+                },
+                {
+                    "order": 3,
+                    "data_path": "action_result.data.elements.*.remark",
+                    "data_type": "string",
+                    "description": "元素的备注（循环使用）"
+                },
+                {
+                    "order": 4,
+                    "data_path": "action_result.data.elements.*.collectionId",
+                    "data_type": "long",
+                    "description": "元素所在集合的ID号（循环使用）"
+                },
+                {
+                    "order": 5,
+                    "data_path": "action_result.data.elements.*.collectionName",
+                    "data_type": "string",
+                    "description": "元素所在集合的名称（循环使用）"
+                },
+                {
+                    "order": 6,
+                    "data_path": "action_result.data.elements.*.createTime",
+                    "data_type": "string",
+                    "description": "元素创建时间（循环使用）"
+                },
+                {
+                    "order": 7,
+                    "data_path": "action_result.data.elements.*.updateTime",
+                    "data_type": "string",
+                    "description": "元素更新时间（循环使用）"
+                },
+                {
+                    "order": 7,
+                    "data_path": "action_result.data.count",
+                    "data_type": "integer",
+                    "description": "本次查询到的元素总数量"
+                },
+                {
+                    "order": 9,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 10,
+                    "data_path": "action_result.summary.msg",
+                    "data_type": "string",
+                    "description": "返回.错误消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 4,
+            "action": "get_generic_collection_element_info",
+            "class_name": "get_generic_collection_element_info",
+            "description": "元素_获取集合中指定元素的信息",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "collection_id": {
+                    "data_type": "long",
+                    "description": "集合ID号，一长串数字，如：1126827843270217",
+                    "default_value": "",
+                    "required": false,
+                    "order": 0
+                },
+                "collection_name": {
+                    "data_type": "string",
+                    "description": "集合名称，例：BLACKLIST，集合名称与ID不能同时为空",
+                    "default_value": "",
+                    "required": false,
+                    "order": 1
+                },
+                "element_value": {
+                    "data_type": "string",
+                    "description": "元素的值（精准匹配）",
+                    "default_value": "",
+                    "required": true,
+                    "order": 2
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.id",
+                    "data_type": "integer",
+                    "description": "元素的ID号"
+                },
+                {
+                    "order": 1,
+                    "data_path": "action_result.data.value",
+                    "data_type": "string",
+                    "description": "元素的值"
+                },
+                {
+                    "order": 2,
+                    "data_path": "action_result.data.remark",
+                    "data_type": "string",
+                    "description": "元素的备注"
+                },
+                {
+                    "order": 3,
+                    "data_path": "action_result.data.collectionId",
+                    "data_type": "integer",
+                    "description": "元素的所在集合ID"
+                },
+                {
+                    "order": 4,
+                    "data_path": "action_result.data.collectionName",
+                    "data_type": "string",
+                    "description": "元素的所在集合名"
+                },
+                {
+                    "order": 5,
+                    "data_path": "action_result.data.collectionName",
+                    "data_type": "string",
+                    "description": "元素的所在集合中文名"
+                },
+                {
+                    "order": 6,
+                    "data_path": "action_result.data.createTime",
+                    "data_type": "string",
+                    "description": "元素的创建时间"
+                },
+                {
+                    "order": 7,
+                    "data_path": "action_result.data.updateTime",
+                    "data_type": "string",
+                    "description": "元素的更新时间"
+                },
+                {
+                    "order": 8,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 9,
+                    "data_path": "action_result.summary.msg",
+                    "data_type": "string",
+                    "description": "返回.错误消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 5,
+            "action": "add_generic_collection_item",
+            "class_name": "add_generic_collection_item",
+            "description": "元素_向通用集合添加元素",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "collection_name": {
+                    "data_type": "string",
+                    "description": "集合名称，例：BLACKLIST",
+                    "default_value": "",
+                    "required": true,
+                    "order": 1
+                },
+                "element_value": {
+                    "data_type": "string",
+                    "description": "元素值",
+                    "default_value": "",
+                    "required": true,
+                    "order": 2
+                },
+                "element_remark": {
+                    "data_type": "string",
+                    "description": "元素备注",
+                    "default_value": "",
+                    "required": false,
+                    "order": 3
+                },
+                "update_if_exist": {
+                    "data_type": "boolean",
+                    "description": "元素已经存在时，是否强制更新备注，默认：false",
+                    "default_value": false,
+                    "required": false,
+                    "order": 2
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.duplicated",
+                    "data_type": "boolean",
+                    "description": "元素是否已经存在，默认：false"
+                },
+                {
+                    "order": 9,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 10,
+                    "data_path": "action_result.summary.msg",
+                    "data_type": "string",
+                    "description": "返回.错误消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 6,
+            "action": "update_generic_collection_element",
+            "class_name": "update_generic_collection_element",
+            "description": "元素_更新集合元素信息（备注）",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "collection_name": {
+                    "data_type": "string",
+                    "description": "集合名称，例：BLACKLIST",
+                    "default_value": "",
+                    "required": true,
+                    "order": 1
+                },
+                "element_value": {
+                    "data_type": "string",
+                    "description": "元素的值，元素ID和值不能同时为空",
+                    "default_value": "",
+                    "required": true,
+                    "order": 3
+                },
+                "element_remark": {
+                    "data_type": "string",
+                    "description": "元素备注",
+                    "default_value": "",
+                    "required": true,
+                    "order": 4
+                }
+            },
+            "output": [
+                {
+                    "order": 9,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 10,
+                    "data_path": "action_result.summary.msg",
+                    "data_type": "string",
+                    "description": "返回.错误消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 7,
+            "action": "delete_generic_collection_element",
+            "class_name": "delete_generic_collection_element",
+            "description": "元素_从集合中删除元素",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "write",
+            "parameters": {
+                "collection_name": {
+                    "data_type": "string",
+                    "description": "集合名称，例：BLACKLIST，不能为空",
+                    "default_value": "",
+                    "required": true,
+                    "order": 1
+                },
+                "element_value": {
+                    "data_type": "string",
+                    "description": "元素的值，不能为空",
+                    "default_value": "",
+                    "required": true,
+                    "order": 3
+                }
+            },
+            "output": [
+                {
+                    "order": 9,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "string",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 10,
+                    "data_path": "action_result.summary.msg",
+                    "data_type": "string",
+                    "description": "返回.错误消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 8,
+            "action": "check_generic_collection_element_exists",
+            "class_name": "check_generic_collection_element_exists",
+            "description": "元素_判断元素在集合中是否存在",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "collection_name": {
+                    "data_type": "string",
+                    "description": "集合名称，例：BLACKLIST，不能为空",
+                    "default_value": "",
+                    "required": true,
+                    "order": 1
+                },
+                "element_value": {
+                    "data_type": "string",
+                    "description": "元素的值，不能为空",
+                    "default_value": "",
+                    "required": true,
+                    "order": 3
+                }
+            },
+            "output": [
+                {
+                    "order": 0,
+                    "data_path": "action_result.data.element_exist",
+                    "data_type": "boolean",
+                    "description": "元素是否存在，默认：false"
+                },
+                {
+                    "order": 9,
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "string",
+                    "description": "返回.错误码，默认：0"
+                },
+                {
+                    "order": 10,
+                    "data_path": "action_result.summary.msg",
+                    "data_type": "string",
+                    "description": "返回.错误消息，默认：空"
+                }
+            ]
+        },
+        {
+            "order": 100,
+            "action": "health_check",
+            "class_name": "health_check",
+            "description": "健康检查",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/common.art",
+            "safe_mode": false,
+            "is_test": true,
+            "classify": "query",
+            "parameters": {
+            },
+            "output": [
+                {
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "string",
+                    "description": "返回.错误码，默认：200"
+                },
+                {
+                    "data_path": "action_result.summary.msg",
+                    "data_type": "string",
+                    "description": "返回.错误消息，默认：空"
+                }
+            ]
+        }
+    ]
+}
