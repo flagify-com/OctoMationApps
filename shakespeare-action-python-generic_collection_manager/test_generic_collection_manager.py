@@ -9,8 +9,7 @@ logging.basicConfig(level=logging.INFO)
 class TestGenericCollectionManager(unittest.TestCase):
     def setUp(self):
         self._hg_api_url = "https://hg.wuzhi-ai.com"
-        # self._hg_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.***.y7voPwo3qeuVqfLuFGIL3xmmPzkgU_Rd4fBFeX41fiE"
-        self._hg_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJiYWJhb3pob3UiLCJzdWIiOiJPcGVuQVBJIG9mIHd1emhpLWFpLmNvbSIsImFwcElkIjoxMTI0OTQ1OTk4MTkxNjI2MywiaXNzIjoid3V6aGktYWkuY29tIiwiaWF0IjoxNzIzNTE2MzU4fQ.y7voPwo3qeuVqfLuFGIL3xmmPzkgU_Rd4fBFeX41fiE"
+        self._hg_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.***.y7voPwo3qeuVqfLuFGIL3xmmPzkgU_Rd4fBFeX41fiE"
         self._timeout_seconds = 10
         self._context_info ={
             "appName": "generic_collection_manager", 
