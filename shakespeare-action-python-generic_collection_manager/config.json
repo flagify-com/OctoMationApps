@@ -1,7 +1,7 @@
 {
     "name": "Generic_Collection_Manager",
     "description": "通用集合管理",
-    "app_version": "2.0.0",
+    "app_version": "2.0.1",
     "logic_language": "PYTHON",
     "min_shakespeare_version": "1.0",
     "logo": "resources/generic_collection_logo.png",
@@ -72,7 +72,7 @@
                 {
                     "order": 1,
                     "data_path": "action_result.data.collections.*.id",
-                    "data_type": "integer",
+                    "data_type": "long",
                     "description": "集合的ID号"
                 },
                 {
@@ -374,7 +374,7 @@
                 {
                     "order": 0,
                     "data_path": "action_result.data.id",
-                    "data_type": "integer",
+                    "data_type": "long",
                     "description": "元素的ID号"
                 },
                 {
