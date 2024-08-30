@@ -1,7 +1,7 @@
 {
     "name": "variable_generator",
     "description": "变量生成器（输出一个或者更多个变量供后续节点使用，配合函数使用）",
-    "app_version": "1.0.0",
+    "app_version": "1.0.1",
     "jar": "variable_generator.py",
     "readme": "resources/readme.md",
     "logo": "resources/logo-variable.png",
@@ -170,15 +170,15 @@
                     "required": false,
                     "order": 17
                 },
-                "iv_double_01": {
-                    "data_type": "double",
-                    "description": "输入：双精度浮点型变量01，默认：0.0",
-                    "default_value": 0.0,
+                "iv_long_01": {
+                    "data_type": "long",
+                    "description": "输入：长整型变量01，默认：0",
+                    "default_value": 0,
                     "options": "",
                     "required": false,
                     "order": 18
                 },
-                "iv_double_01_lable": {
+                "iv_long_01_lable": {
                     "data_type": "string",
                     "description": "输入：双精度浮点型变量01的label，默认为空",
                     "default_value": "",
@@ -186,13 +186,45 @@
                     "required": false,
                     "order": 19
                 },
+                "iv_long_02": {
+                    "data_type": "long",
+                    "description": "输入：长整型变量01，默认：0",
+                    "default_value": 0,
+                    "options": "",
+                    "required": false,
+                    "order": 20
+                },
+                "iv_long_02_lable": {
+                    "data_type": "string",
+                    "description": "输入：双精度浮点型变量01的label，默认为空",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 21
+                },
+                "iv_double_01": {
+                    "data_type": "double",
+                    "description": "输入：双精度浮点型变量01，默认：0.0",
+                    "default_value": 0.0,
+                    "options": "",
+                    "required": false,
+                    "order": 22
+                },
+                "iv_double_01_lable": {
+                    "data_type": "string",
+                    "description": "输入：双精度浮点型变量01的label，默认为空",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 23
+                },
                 "iv_double_02": {
                     "data_type": "double",
                     "description": "输入：双精度浮点型变量02，默认：0.0",
                     "default_value": 0.0,
                     "options": "",
                     "required": false,
-                    "order": 20
+                    "order": 24
                 },
                 "iv_double_02_lable": {
                     "data_type": "string",
@@ -200,15 +232,15 @@
                     "default_value": "",
                     "options": "",
                     "required": false,
-                    "order": 21
+                    "order": 25
                 },
                 "iv_bool_01": {
                     "data_type": "boolean",
-                    "description": "输入：布尔型变量01，默认：False",
+                    "description": "输入：布尔型变量01，默认：false",
                     "default_value": false,
                     "options": "",
                     "required": false,
-                    "order": 22
+                    "order": 26
                 },
                 "iv_bool_01_label": {
                     "data_type": "string",
@@ -216,7 +248,39 @@
                     "default_value": "",
                     "options": "",
                     "required": false,
-                    "order": 23
+                    "order": 26
+                },
+                "iv_jsonarray_01": {
+                    "data_type": "jsonarray",
+                    "description": "输入：JSON数组变量01，默认：[]",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 28
+                },
+                "iv_jsonarray_01_label": {
+                    "data_type": "string",
+                    "description": "输入：JSON数组变量01的label，默认为空",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 29
+                },
+                "iv_jsonobject_01": {
+                    "data_type": "jsonobject",
+                    "description": "输入：JSON对象变量01，默认：{}",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 30
+                },
+                "iv_jsonobject_01_label": {
+                    "data_type": "string",
+                    "description": "输入：JSON对象变量01的label，默认为空",
+                    "default_value": "",
+                    "options": "",
+                    "required": false,
+                    "order": 31
                 }
             },
             "output": [
@@ -310,6 +374,30 @@
                     "data_type": "string",
                     "description": "输出：整型变量03的label"
                 },
+                
+
+                {
+                    "data_path": "action_result.data.ov_long_01",
+                    "data_type": "long",
+                    "description": "输出：长整型变量01"
+                },
+                {
+                    "data_path": "action_result.data.ov_long_01_lable",
+                    "data_type": "string",
+                    "description": "输出：长整型变量01的label"
+                },
+                {
+                    "data_path": "action_result.data.ov_long_02",
+                    "data_type": "long",
+                    "description": "输出：长整型变量02"
+                },
+                {
+                    "data_path": "action_result.data.ov_long_02_lable",
+                    "data_type": "string",
+                    "description": "输出：长整型变量02的label"
+                },
+
+
                 {
                     "data_path": "action_result.data.ov_double_01",
                     "data_type": "integer",
@@ -339,6 +427,36 @@
                     "data_path": "action_result.data.ov_bool_01_label",
                     "data_type": "string",
                     "description": "输出：布尔型变量01的label"
+                },
+                {
+                    "data_path": "action_result.data.ov_jsonarray_01",
+                    "data_type": "jsonarray",
+                    "description": "输出：JSON数组变量01"
+                },
+                {
+                    "data_path": "action_result.data.ov_jsonarray_01_label",
+                    "data_type": "string",
+                    "description": "输出：JSON数组变量01的label"
+                },
+                {
+                    "data_path": "action_result.data.ov_jsonobject_01",
+                    "data_type": "jsonobject",
+                    "description": "输出：JSON对象变量01"
+                },
+                {
+                    "data_path": "action_result.data.ov_jsonobject_01_label",
+                    "data_type": "string",
+                    "description": "输出：JSON对象变量01的label"
+                },
+                {
+                    "data_path": "action_result.summary.statusCode",
+                    "data_type": "integer",
+                    "description": "返回，错误码，默认：0"
+                },
+                {
+                    "data_path": "action_result.summary.msg",
+                    "data_type": "string",
+                    "description": "返回.消息"
                 }
             ]
         }

@@ -8,13 +8,12 @@
 
 | 内容 | 详细描述 |
 | ---- | ------ |
-| app版本      | 2.0.3 |
+| 上次版本      | 2.0.5 |
+| 当前版本      | 2.0.6 |
 | 发布时间     | 2023-10-05 21:43:53 |
-| 更新时间     | 2024-08-20 16:44:53 |
+| 更新时间     | 2024-08-27 12:02:00 |
 | 更新人员     | [wzfukui](https://github.com/wzfukui) |
-| 应用连接方式  |  |
-| 支持版本     |  |
-| 作者        |  |
+| 更新地址        | [flagify-com/OctoMationApps](https://github.com/flagify-com/OctoMationApps) |
 
 ## 二、app使用注意事项
 
@@ -301,7 +300,7 @@ pip install cryptography
 | 参数名 | 参数描述 | 参数类型 | 是否必填 | 默认值 |
 |--------|----------|----------|----------|--------|
 | input_value | 输入值，支持各种类型，默认：0 | string | 是 | 0 |
-| type_to | 要转换的目标类型，支持：integer、long、double、string、boolean | string | 否 | string |
+| type_to | 要转换的目标类型，支持：integer、long、double、string、boolean、jsonarray、jsonobject | string | 否 | string |
 
 #### 出参
 
@@ -312,6 +311,8 @@ pip install cryptography
 | action_result.data.converted_value_double | 转换后的双精度型值 | long | |
 | action_result.data.converted_value_string | 转换后的字符串型值 | string | |
 | action_result.data.converted_value_boolean | 转换后的布尔型值 | boolean | |
+| action_result.data.converted_value_jsonarray | 转换后的JSON数组型值 | jsonarrray | |
+| action_result.data.converted_value_jsonobject | 转换后的JSON对象型值 | jsonobject | |
 
 ### encode_base64encode（编码_Base64编码）
 
@@ -588,6 +589,27 @@ pip install cryptography
 | action_result.data.datetime_str | N天前.日期时间字符串 | string | |
 | action_result.data.datetime_timestamp | N天前的.日期时间timestamp（秒） | integer | |
 
+
+### random_sleep
+
+**描述**：随机Sleep，等待N秒
+
+**入参说明**
+
+| 参数 | 类型 | 数据样例 | 必须 | 默认值 | 说明 |
+|:-----|:-----|:---------|:-----|:-----|:-----|
+| min_seconds | 整数 | | 是 | 1 | 最小Sleep时间，单位：秒 |
+| max_seconds | 整数 | | 是 | 10 | 最大Sleep时间，单位：秒，
+超过300秒请选择异步动作 |
+
+**出参说明**
+
+| 参数 | 类型 | 数据样例 | 默认值 | 说明 |
+|:-----|:-----|:---------|:-----|:-----|
+| action_result.data.sleep_seconds | 整数 | | 1 | 随机休眠的时间（秒） |
+| action_result.summary.statusCode | 整数 | | 0 | 返回错误码 |
+| action_result.summary.msg | 字符串 | | | 返回消息 |
+
 ### ip_in_range（判断IP地址是否在某个段内）
 
 #### 入参
@@ -653,6 +675,26 @@ pip install cryptography
 | action_result.data.value | 值 | string | |
 | action_result.data.status | 操作是否成功 | boolean | |
 
+
+### do_nothing
+
+**描述**：啥也不干，你来定标题
+
+**入参说明**
+
+| 参数 | 类型 | 数据样例 | 必须 | 默认值 | 说明 |
+|:-----|:-----|:---------|:-----|:-----|:-----|
+| input | 字符串 | | 否 | | 任何输入 |
+
+**出参说明**
+
+| 参数 | 类型 | 数据样例 | 默认值 | 说明 |
+|:-----|:-----|:---------|:-----|:-----|
+| action_result.data.output | 字符串 | | | 输出 |
+| action_result.summary.statusCode | 整数 | | 0 | 返回错误码 |
+| action_result.summary.msg | 字符串 | | | 返回消息 |
+
+
 ### get_file_download_url（获取文件下载地址）
 
 #### 入参
@@ -671,3 +713,6 @@ pip install cryptography
 
 ## 更新说明
 - 2024-08-20 v2.0.3 优化各字符串函数，并增加AES、RSA加解密
+- 2024-08-27 v2.0.4 增加随机Sleep延迟等待动作
+- 2024-08-27 v2.0.5 增加一个啥也不干的空动作，输出输入
+- 2024-08-27 v2.0.6 类型转换输出增加：jsonarray和jsonobject
