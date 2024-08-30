@@ -31,12 +31,17 @@ class HoneyGuideAPI():
             "hg-token": self._hg_token,
             "User-Agent": self.__useragent
         }
+        self._hg_sdk.actionLog.info(f"_request_api():请求地址：{url}")
+        self._hg_sdk.actionLog.info(f"_request_api():请求参数：{json_params}")
+        self._hg_sdk.actionLog.info(f"_request_api():请求体：{json_payload}")
         while retry_times > 0:
             try:
                 if method.upper() == "GET":
                     response = requests.get(url, headers=headers, params=json_params, verify=False, timeout=self._api_timeout_seconds)
                 elif method.upper() == "POST":
                     response = requests.post(url, headers=headers, params=json_params, json=json_payload, verify=False, timeout=self._api_timeout_seconds)
+                if response and hasattr(response, "text"):
+                    self._hg_sdk.actionLog.info(f"_request_api():请求成功，返回结果：{response.text}")
                 break
             except Exception as e:
                 self._hg_sdk.actionLog.info(f"_request_api():请求失败，错误信息：{e}")
@@ -286,7 +291,7 @@ class HoneyGuideAPI():
                 break
         if len(elements) > 0:
             self.summary["statusCode"] = 0
-            self.summary["msg"] = f"获取成功，共获取到{len(elements)}个元素。"
+            self.summary["msg"] = f"执行成功，共获取到{len(elements)}个元素。"
         return elements
 
     def add_generic_collection_element(self, collection_name=None, collection_id=None, element_value=None, element_remark="", update_if_exist=False, effective_time_str=None, expire_time_str=None):
@@ -533,6 +538,7 @@ class HoneyGuideAPI():
             if self.summary["statusCode"] == 0:
                 self.summary["statusCode"] = 0
                 self.summary["msg"] = f"删除成功，元素{element_value}本来就不存在"
+                delete_element_result = True
             else:
                 self.summary["statusCode"] = 500
                 self.summary["msg"] = f"删除失败，元素{element_value}查询失败"

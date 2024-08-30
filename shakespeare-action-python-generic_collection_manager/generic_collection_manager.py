@@ -144,7 +144,7 @@ def list_generic_collection_elements(params, assets, context_info):
     if hg_api.summary["statusCode"] == 0:
         json_ret["data"]["elements"] = element_list
         json_ret["data"]["count"] = len(element_list)
-        json_ret["summary"]["msg"] = "获取成功"
+        json_ret["summary"]["msg"] = f"执行成功，共获取到{len(element_list)}个条目"
     return json_ret
 
 def add_generic_collection_item(params, assets, context_info):
