@@ -349,9 +349,23 @@ def health_check(params, assets, context_info):
             "msg": ""
         }
     }
+    if context_info is None:
+        context_info ={
+            "appName": "generic_collection_manager", 
+            "actionName": "health_check", 
+            "eventId": "1", 
+            "activieId": "1", 
+            "logMode": False
+        }
+    elif isinstance(context_info, dict):
+        context_info["eventId"] = "1"
+        context_info["activieId"] = "1"
+        context_info["logMode"] = False
+    
     hg_host = assets["hg_host"].strip().strip("/")
     hg_token = assets["hg_token"].strip()
     timeout_seconds = assets.get("timeout_seconds", 10)
+    
     hg_api = HoneyGuideAPI(hg_host, hg_token, context_info=context_info, timeout_seconds=timeout_seconds)
     health_check_result = hg_api.health_check()
     json_ret["summary"]["statusCode"] = hg_api.summary["statusCode"]
