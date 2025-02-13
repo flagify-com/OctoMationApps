@@ -1,0 +1,66 @@
+{
+    "name": "greynoise_IPLookup",
+    "description": "greynoise IP查询",
+    "app_version": "1.0",
+    "jar": "greynoise_IPLookup.py",
+    "readme": "resources/readme.md",
+    "logo": "resources/greynoise_logo.jpeg",
+    "category": "情报查询",
+    "product_name": "greynoise",
+    "app_supplier": "greynoise",
+    "logic_language": "PYTHON",
+    "min_shakespeare_version": "1.0",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {
+        "Token": {
+            "data_type": "string",
+            "description": "API Token",
+            "default_value": "",
+            "required": true,
+            "options": "",
+            "order": 0
+        }
+    },
+    "actions": [
+        {
+            "action": "IPLookup",
+            "class_name": "lookup_ip",
+            "description": "IP情报查询",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/IPLookup.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "IP": {
+                    "data_type": "string",
+                    "description": "IP查询",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.ip",
+                    "data_type": "string",
+                    "description": "IP地址"
+                },
+                {
+                    "data_path": "action_result.data.noise",
+                    "data_type": "boolean",
+                    "description": "noise记录"
+                },
+                {
+                    "data_path": "action_result.data.classification",
+                    "data_type": "string",
+                    "description": "分类"
+                }
+            ]
+        }
+    ]
+}
