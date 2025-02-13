@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greynoise IP 查询应用</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1, h2 {
+            color: #007BFF;
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: Consolas, monospace;
+        }
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffeeba;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Greynoise IP 查询应用</h1>
+
+    <h2>简介</h2>
+    <p>本应用是一个基于 Greynoise API 的工具，用于查询单个 IP 地址的相关信息（如是否为恶意 IP、分类等）。通过简单的接口调用，用户可以快速获取 IP 的上下文数据。</p>
+
+    <h2>功能</h2>
+    <ul>
+        <li>查询单个 IP 地址的 Greynoise 数据。</li>
+        <li>提供标准化的 JSON 响应格式，包含以下字段：
+            <ul>
+                <li><code>ip</code>: 查询的 IP 地址。</li>
+                <li><code>noise</code>: 是否为噪声流量（<code>true</code> 或 <code>false</code>）。</li>
+                <li><code>classification</code>: IP 的分类（如 <code>benign</code>、<code>malicious</code> 等）。</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>使用方法</h2>
+    <p>需要提供 Greynoise API Token。</p>
+    <div class="note">
+        <strong>注意</strong>：请从 <a href="https://greynoise.io/" target="_blank">Greynoise 官网</a> 获取你的 API Token。
+    </div>
+
+    <h2>注意事项</h2>
+    <ol>
+        <li>
+            <strong>API 限制</strong>:
+            <ul>
+                <li>Greynoise 社区版 API 每分钟最多允许 10 次请求。如果需要更高的速率限制，请升级到付费版本。</li>
+            </ul>
+        </li>
+        <li>
+            <strong>Greynoise 文档</strong>:
+            <ul>
+                <li>更多关于 Greynoise API 的信息，请参考官方文档：<a href="https://docs.greynoise.io/reference/noisecontextip-1" target="_blank">Greynoise API 文档</a>。</li>
+            </ul>
+        </li>
+    </ol>
+</body>
+</html>
