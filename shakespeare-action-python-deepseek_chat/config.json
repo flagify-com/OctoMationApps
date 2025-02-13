@@ -1,0 +1,82 @@
+{
+    "name": "deepseek_chat",
+    "description": "支持调用deepseek接口进行对话",
+    "app_version": "1.0",
+    "jar": "deepseek_chat.py",
+    "readme": "resources/readme.md",
+    "logo": "resources/ds.jpg",
+    "category": "LLM",
+    "product_name": "DeepSeek LLM",
+    "app_supplier": "DeepSeek",
+    "logic_language": "PYTHON",
+    "min_shakespeare_version": "1.0",
+    "logic_language_version": "3",
+    "has_test": false,
+    "test_action": "",
+    "resources": "",
+    "configuration": {
+        "token": {
+            "data_type": "string",
+            "description": "",
+            "default_value": "",
+            "required": true,
+            "options": "",
+            "order": 0
+        }
+    },
+    "actions": [
+        {
+            "action": "chat",
+            "class_name": "deepseek_chat",
+            "description": "LLM对话",
+            "result_display_tmpt_type": "js",
+            "result_display_tmpt": "shakespeare-action-template/chat.art",
+            "safe_mode": false,
+            "is_test": false,
+            "classify": "query",
+            "parameters": {
+                "message": {
+                    "data_type": "string",
+                    "description": "消息",
+                    "default_value": "",
+                    "options": "",
+                    "required": true,
+                    "order": 0
+                },
+                "model": {
+                    "data_type": "string",
+                    "description": "使用的模型",
+                    "default_value": "deepseek-chat",
+                    "options": [],
+                    "required": true,
+                    "order": 1
+                },
+                "max_tokens": {
+                    "data_type": "integer",
+                    "description": "最大 token 数",
+                    "default_value": "4096",
+                    "options": [],
+                    "required": false,
+                    "order": 2
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.id",
+                    "data_type": "string",
+                    "description": "该对话的唯一标识符"
+                },
+                {
+                    "data_path": "action_result.data.choices",
+                    "data_type": "jsonarray",
+                    "description": "模型生成的 completion 的选择列表"
+                },
+                {
+                    "data_path": "action_result.data.model",
+                    "data_type": "string",
+                    "description": "生成该输出的模型名"
+                }
+            ]
+        }
+    ]
+}
