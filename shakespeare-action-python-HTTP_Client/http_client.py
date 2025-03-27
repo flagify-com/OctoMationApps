@@ -165,7 +165,7 @@ def http_request(params, assets, context_info):
             key = headline.split(':')[0].strip()
             value = headline.split(':')[-1].strip()
             if key != "" and value != "":
-                headers[key.lower()] = value
+                headers[key] = value
     try:
         cookies_for_request = None
         # COOKIES字符串存在的情况下，优先使用COOKIES
